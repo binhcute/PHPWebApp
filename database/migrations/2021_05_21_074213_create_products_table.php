@@ -19,12 +19,13 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('img');
             $table->integer('price');
-            $table->text('detail');
-            $table->integer('quantity');
-            $table->string('keyword');
-            $table->string('properties');
-            $table->integer('status');
-            $table->integer('view');
+            $table->string('color')->nullable();
+            $table->text('detail')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->string('keyword')->nullable();
+            $table->string('properties')->nullable();
+            $table->integer('status')->default('1');
+            $table->integer('view')->nullable();
             $table->timestamps();
         });
     }

@@ -10,5 +10,18 @@ class Product extends Model
 
     protected $connection = 'mysql';
 
-    
+    protected $fillable =[
+        'name',
+        'img',
+        'price',
+        'color',
+        'detail',
+        'quantity',
+        'keyword',
+        'properties'
+    ];
+
+    public function ProductCategories(){
+        return $this->belongsTo('App\Models\ProductCategories');
+    }
 }
