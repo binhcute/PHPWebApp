@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/','ServerController');
+Route::resource('/SanPham','ProductController');
+Route::resource('/LoaiSanPham','ProductCategoriesController');
+Route::resource('/BaiViet','ArticleController');
