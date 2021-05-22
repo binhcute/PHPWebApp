@@ -14,4 +14,6 @@
 Route::resource('/','ServerController');
 Route::resource('/SanPham','ProductController');
 Route::resource('/LoaiSanPham','ProductCategoriesController');
+Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','ProductCategoriesController@disabled');
+Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','ProductCategoriesController@enabled');
 Route::resource('/BaiViet','ArticleController');

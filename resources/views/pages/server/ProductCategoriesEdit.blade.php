@@ -5,105 +5,59 @@
   <div class="card-header">
     <h5>Basic HTML input control</h5>
   </div>
-  <form class="form theme-form">
+  @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+        </div>
+        <img src="images/{{ Session::get('image') }}">
+        @endif
+  
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+  <form class="form theme-form" action="{{ route('LoaiSanPham.update',$product_categories->id)}}" method="post" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" name="_method" value="put" />
     <div class="card-body">
       <div class="row">
         <div class="col">
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Simple Input</label>
+            <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
-              <input class="form-control" type="text">
+              <div class="form-control-static">Tên admin</div>
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Placeholder</label>
+            <label class="col-sm-3 col-form-label">Tên Loại Sản Phẩm</label>
             <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Type your title in Placeholder">
+              <input class="form-control" type="text" placeholder="Nhập tên loại sản phẩm" value="{{ $product_categories->name }}" name="name">
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Password</label>
+            <label class="col-sm-3 col-form-label">Từ Khóa</label>
             <div class="col-sm-9">
-              <input class="form-control" type="password" placeholder="Password input">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Number</label>
-            <div class="col-sm-9">
-              <input class="form-control digits" type="number" placeholder="Number">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Telephone</label>
-            <div class="col-sm-9">
-              <input class="form-control m-input digits" type="tel" value="91-(999)-999-999">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">URL</label>
-            <div class="col-sm-9">
-              <input class="form-control" type="url" value="https://getbootstrap.com">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Date and time</label>
-            <div class="col-sm-9">
-              <input class="form-control digits" id="example-datetime-local-input" type="datetime-local" value="2018-01-19T18:45:00">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Date</label>
-            <div class="col-sm-9">
-              <input class="form-control digits" type="date" value="2018-01-01">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Month</label>
-            <div class="col-sm-9">
-              <input class="form-control digits" type="month" value="2018-01">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Week</label>
-            <div class="col-sm-9">
-              <input class="form-control digits" type="week" value="2018-W09">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Time</label>
-            <div class="col-sm-9">
-              <input class="form-control digits" type="time" value="21:45:00">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label pt-0">Color picker</label>
-            <div class="col-sm-9">
-              <input class="form-control form-control-color" type="color" value="#563d7c">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">
-              Maximum
-              Length
-            </label>
-            <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Content must be in 6 characters" maxlength="6">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label pt-0">Static Text</label>
-            <div class="col-sm-9">
-              <div class="form-control-static">
-                Hello !... This is
-                static text
-              </div>
+              <input class="form-control" type="text" placeholder="Tối đa 10 ký tự" maxlength="10" name="keyword" value="{{$product_categories->keyword}}">
             </div>
           </div>
           <div class="row">
-            <label class="col-sm-3 col-form-label">Textarea</label>
+            <label class="col-sm-3 col-form-label">Chi Tiết</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="5" cols="5" placeholder="Default textarea"></textarea>
+              <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail">{{$product_categories->detail}}</textarea>
             </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Chọn ảnh</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="file" name="img" data-bs-original-title="" title="" value="{{$product_categories->img}}">
           </div>
         </div>
       </div>
