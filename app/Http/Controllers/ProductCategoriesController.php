@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductCategories;
+use Illuminate\Support\Collection;
 
 class ProductCategoriesController extends Controller
 {
@@ -40,10 +41,9 @@ class ProductCategoriesController extends Controller
         $product_categories->name = $request->name;
         $product_categories->detail = $request->detail;
         $product_categories->keyword = $request->keyword;
-        $product_categories->properties = NULL;
         $files = $request->file('img');
         $request->validate([
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
             'detail' =>['required','min:20'],
             'keyword' => ['required']
@@ -57,7 +57,13 @@ class ProductCategoriesController extends Controller
            $insert['img'] = "$profileImage";
         // Save In Database
 		$product_categories->img="$profileImage";
-
+        // $properties = Collection::make([
+        //     $request->name,
+        //     $request->detail,
+        //     $request->keyword,
+        //     $request->img,
+        //     ])->all();
+        $product_categories->properties = NULL;
         $product_categories->save();
         return redirect()->route('LoaiSanPham.index');
     }
@@ -144,7 +150,7 @@ class ProductCategoriesController extends Controller
     public function enabled(Request $request, $id)
     {
         $product_categories = ProductCategories::find($id);
-        $product_categories->status = 1;
+        $product_categories->status = 1 ;
         $product_categories->save();
         return redirect()->route('LoaiSanPham.index');
     }

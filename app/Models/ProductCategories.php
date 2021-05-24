@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCategories extends Model
 {
+    protected $table = 'product_categories';
+
     protected $primaryKey = 'id';
 
-    protected $connection = 'mysql';
+    public $timestamps =true;
 
     protected $fillable = [
         'name',

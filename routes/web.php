@@ -13,6 +13,8 @@
 
 Route::resource('/','ServerController');
 Route::resource('/SanPham','ProductController');
+Route::put('/SanPham/disabled/{SanPham}','ProductController@disabled');
+Route::put('/SanPham/enabled/{SanPham}','ProductController@enabled');
 Route::resource('/LoaiSanPham','ProductCategoriesController');
 Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','ProductCategoriesController@disabled');
 Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','ProductCategoriesController@enabled');
