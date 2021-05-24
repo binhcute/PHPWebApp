@@ -27,6 +27,6 @@ class ForeignKey extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('foreign_key');
+        Schema::dropForeign('id_cate');
     }
 }
