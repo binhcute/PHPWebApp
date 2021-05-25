@@ -85,7 +85,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('pages.server.productshow')->with('product', $product);
+        $product_categories = ProductCategories::all();
+        return view('pages.server.productshow')->with('product', $product)->with('product_categories', $product_categories);
     }
 
     /**
@@ -110,8 +111,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product_categories = Product::all();
-        $product = ProductCategories::find($id);
+        $product = Product::find($id);
         $product->id_cate = $request->id_cate;
         $product->name = $request->name;
         $product->price = $request->price;
@@ -151,7 +151,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route('LoaiSanPham.index');
+        return redirect()->route('SanPham.index');
     }
 
     public function disabled(Request $request, $id)
@@ -159,13 +159,13 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->status = 0;
         $product->save();
-        return redirect()->route('LoaiSanPham.index');
+        return redirect()->route('SanPham.index');
     }
     public function enabled(Request $request, $id)
     {
         $product = Product::find($id);
         $product->status = 1 ;
         $product->save();
-        return redirect()->route('LoaiSanPham.index');
+        return redirect()->route('SanPham.index');
     }
 }

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\ProductCategories;
 
 class ServerController extends Controller
 {
     public function index(){
-        return view('pages.server.index');
+        $product = Product::all();
+        $product_categories = ProductCategories::all();
+        return view('pages.server.index')->with('product', $product)->with('product_categories', $product_categories);
     }
 }
