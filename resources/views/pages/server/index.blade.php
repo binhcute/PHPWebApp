@@ -143,7 +143,7 @@
                 </div>
                 <div class="media-body">
                 <div class="right-chart-content">
-                    <h4>1001</h4><span>Purchase </span>
+                    <h4>{{count($product)}}</h4><span>Product </span>
                 </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
                 </div>
                 <div class="media-body">
                 <div class="right-chart-content">
-                    <h4>1005</h4><span>Sales</span>
+                    <h4>{{count($product_categories)}}</h4><span>Product Category</span>
                 </div>
                 </div>
             </div>
