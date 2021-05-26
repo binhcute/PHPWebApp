@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('id_cate')->unsigned();
             $table->string('name');
             $table->string('img');
+            $table->string('slide_img');
             $table->integer('price');
             $table->string('color')->nullable();
             $table->text('detail')->nullable();

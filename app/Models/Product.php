@@ -21,6 +21,11 @@ class Product extends Model
         'properties'
     ];
 
+    // protected $array = [
+    //     'Name'=>'name', 'Id_cate'=>'id_cate', 'Gia'=>'price',
+    //                                     'Color'=>'color','Detail'=>'detail','Keyword'=>'keyword',
+    //                                     'Quantity'=>'quantity','img'=>'img'
+    // ];
     public function ProductCategories(){
         return $this->belongsTo('App\Models\ProductCategories');
     }

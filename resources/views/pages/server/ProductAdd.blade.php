@@ -90,6 +90,12 @@
             <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
           </div>
         </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Chọn slide ảnh</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="file" name="slide_img[]" multiple="" data-bs-original-title="" title="">
+          </div>
+        </div>
       </div>
     </div>
     <div class="card-footer text-end">

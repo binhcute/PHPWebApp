@@ -50,6 +50,7 @@ class ProductController extends Controller
         $product->keyword = $request->keyword;
         $files = $request->file('img');
         $request->validate([
+            'slide_img' => ['required'],
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
             'detail' =>['required','min:20'],
@@ -70,6 +71,24 @@ class ProductController extends Controller
         //     $request->keyword,
         //     $request->img,
         //     ])->all();
+        // $array[] = Product::$array  ;
+        // $product->properties = "$array";
+        // $product->properties = $request->name $request->id_cate, $request->price,
+        // $request->color,$request->detail,$request->keyword,
+        // $request->quantity,$request->img;
+        
+        //
+        foreach ($request->file('slide_img') as $file){
+       // Define upload path
+           $destinationPath = public_path('/server/assets/images/product/hover'); // upload path
+        // Upload Orginal Image           
+           $slide_profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
+           $file->move($destinationPath, $slide_profileImage);
+ 
+           $insert[] = "$slide_profileImage";
+        // Save In Database
+		$product->slide_img="$slide_profileImage";
+        }
         $product->properties = NULL;
         $product->view = NULL;
         $product->save();
