@@ -69,7 +69,7 @@
             </div>
           </form>
           <div class="header-logo-wrapper col-auto p-0">
-            <div class="logo-wrapper"><a href="{{route('index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo.png')}}" alt=""></a></div>
+            <div class="logo-wrapper"><a href="{{route('admin.index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo.png')}}" alt=""></a></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
           </div>
           <div class="left-header col horizontal-wrapper ps-0">
@@ -349,7 +349,7 @@
               <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li class="profile-nav onhover-dropdown p-0 me-0">
                 <div class="media profile-media"><img class="b-r-10" src="{{asset('server/assets/images/dashboard/profile.jpg')}}" alt="">
-                  <div class="media-body"><span>Emay Walter</span>
+                  <div class="media-body"><span>{{ Auth::user()->name }}</span>
                     <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
                   </div>
                 </div>
@@ -358,7 +358,13 @@
                   <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                   <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
                   <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-                  <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+                  <li><a href="{{ route('logout') }}" 
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><i data-feather="log-in"> </i><span>Log in</span>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>  
+                  </a></li>
                 </ul>
               </li>
             </ul>
@@ -380,16 +386,16 @@
         <!-- Page Sidebar Start-->
         <div class="sidebar-wrapper">
           <div>
-            <div class="logo-wrapper"><a href="{{route('index')}}"><img class="img-fluid for-light" src="{{asset('server/assets/images/logo/logo.png')}}" alt=""><img class="img-fluid for-dark" src="{{asset('server/assets/images/logo/logo_dark.png')}}" alt=""></a>
+            <div class="logo-wrapper"><a href="{{route('admin.index')}}"><img class="img-fluid for-light" src="{{asset('server/assets/images/logo/logo.png')}}" alt=""><img class="img-fluid for-dark" src="{{asset('server/assets/images/logo/logo_dark.png')}}" alt=""></a>
               <div class="back-btn"><i class="fa fa-angle-left"></i></div>
               <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
             </div>
-            <div class="logo-icon-wrapper"><a href="{{route('index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo-icon.png')}}" alt=""></a></div>
+            <div class="logo-icon-wrapper"><a href="{{route('admin.index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo-icon.png')}}" alt=""></a></div>
             <nav class="sidebar-main">
               <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
               <div id="sidebar-menu">
                 <ul class="sidebar-links" id="simple-bar">
-                  <li class="back-btn"><a href="{{route('index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo-icon.png')}}" alt=""></a>
+                  <li class="back-btn"><a href="{{route('admin.index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo-icon.png')}}" alt=""></a>
                     <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                   </li>
                   <li class="sidebar-main-title">
@@ -399,7 +405,7 @@
                     </div>
                   </li>
                   <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav" href="{{route('index')}}"><i data-feather="home"></i><span>Trang Chủ</span></a>
+                    <a class="sidebar-link sidebar-title link-nav" href="{{route('admin.index')}}"><i data-feather="home"></i><span>Trang Chủ</span></a>
                   </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="airplay"></i><span>Sản Phẩm</span></a>
                     <ul class="sidebar-submenu">
@@ -669,7 +675,7 @@
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="landing-page.html"><i data-feather="cast"> </i><span>Landing page</span></a></li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="sample-page.html"><i data-feather="file-text"> </i><span>Sample page</span></a></li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="internationalization.html"><i data-feather="globe"> </i><span>Internationalization</span></a></li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('index')}}" target="_blank"><i data-feather="anchor"></i><span>Starter kit</span></a></li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('admin.index')}}" target="_blank"><i data-feather="anchor"></i><span>Starter kit</span></a></li>
                   <li class="mega-menu"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layers"></i><span>Others</span></a>
                     <div class="mega-menu-container menu-content">
                       <div class="container-fluid">
