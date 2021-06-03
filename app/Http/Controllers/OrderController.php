@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article;
-class ArticleController extends Controller
+use App\Models\Order;
+
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $article = Article::paginate(10);
-        return view('pages.server.articlelist')->with('article', $article);
+        $order = Order::paginate(10);
+        return view('pages.server.orderlist')->with('order', $order);
     }
 
     /**
