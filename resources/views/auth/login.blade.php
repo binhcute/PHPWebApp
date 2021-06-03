@@ -14,7 +14,7 @@
                             <label for="email" class="col-md-4 control-label">Username</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input type="password" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -53,7 +53,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
+                                <a class="btn btn-link" href="{{ url('/register') }}">
+                                    Register
+                                </a>
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
                                 </a>

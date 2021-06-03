@@ -4,25 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategories extends Model
+class OrderDetail extends Model
 {
-    protected $table = 'product_categories';
-
     protected $primaryKey = 'id';
-
-    public $timestamps =true;
-
-    protected $perPage = 10;
+    
+    protected $connection = 'mysql';
 
     protected $fillable = [
         'name',
-        'img',
-        'detail',
-        'keyword',
-        'properties',
-        'status'
+        'quantity',
+        'price'
     ];
 
+    public function Order(){
+        return $this->belongsTo('App\Models\Order');
+    }
     public function Product(){
         return $this->HasMany('App\Models\Product');
     }

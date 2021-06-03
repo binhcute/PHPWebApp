@@ -19,6 +19,13 @@ Route::resource('/LoaiSanPham','ProductCategoriesController');
 Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','ProductCategoriesController@disabled');
 Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','ProductCategoriesController@enabled');
 Route::resource('/BaiViet','ArticleController');
+// Route::put('/BaiViet/disabled/{BaiViet}','ArticleController@disabled');
+// Route::put('/BaiViet/enabled/{BaiViet}','ArticleController@enabled');
+Route::resource('/DonHang','OrderController');
+Route::resource('/ChiTietDonHang','OrderDetailController');
+Route::resource('/NhaCungCap','PortfolioController');
+Route::resource('/BinhLuan','CommentController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
