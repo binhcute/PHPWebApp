@@ -4,7 +4,7 @@
 <div class="col-sm-12">
   <div class="card">
     <div class="card-header">
-      <h5>Danh Sách Sản Phẩm</h5>
+      <h5>Danh Sách Nhà Cung Cấp</h5>
     </div>
     @if(count($portfolio)!= 0)
     <div class="table-responsive">
@@ -34,18 +34,18 @@
             </td>
             <td>Admin</td>
             <td class="d-flex align-items-center justify-content-around">
-              <form action="{{route('SanPham.show',$item->id)}}" method="get">
+              <form action="{{route('NhaCungCap.show',$item->id)}}" method="get">
                 <button class="btn btn-sm btn-primary rounded-0">
                   Show
                 </button>
               </form>
-              <form action="{{route('SanPham.edit',$item->id)}}" method="get">
+              <form action="{{route('NhaCungCap.edit',$item->id)}}" method="get">
                 <button class="btn btn-sm btn-warning rounded-0">
                   Edit
                 </button>
               </form>
               @if($item->status == 1)
-              <form action="{{URL::to('/SanPham/disabled/'.$item->id)}}" method="post">
+              <form action="{{URL::to('/NhaCungCap/disabled/'.$item->id)}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="put" />
                 <button class="btn btn-sm btn-danger rounded-0">
@@ -53,7 +53,7 @@
                 </button>
               </form>
               @else
-              <form action="{{URL::to('/SanPham/enabled/'.$item->id)}}" method="post">
+              <form action="{{URL::to('/NhaCungCap/enabled/'.$item->id)}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="put" />
                 <button class="btn btn-sm btn-danger rounded-0">
@@ -61,7 +61,7 @@
                 </button>
               </form>
               @endif
-              <form action="{{route('SanPham.destroy',$item->id)}}" method="post">
+              <form action="{{route('NhaCungCap.destroy',$item->id)}}" method="post">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="delete">
                 <button class="btn btn-sm btn-danger rounded-0">
