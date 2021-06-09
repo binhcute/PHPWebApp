@@ -24,6 +24,8 @@ Route::resource('/BaiViet','ArticleController');
 Route::resource('/DonHang','OrderController');
 Route::resource('/ChiTietDonHang','OrderDetailController');
 Route::resource('/NhaCungCap','PortfolioController');
+Route::put('/NhaCungCap/disabled/{NhaCungCap}','PortfolioController@disabled');
+Route::put('/NhaCungCap/enabled/{NhaCungCap}','PortfolioController@enabled');
 Route::resource('/BinhLuan','CommentController');
 
 Auth::routes();

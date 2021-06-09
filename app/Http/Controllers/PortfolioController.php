@@ -37,7 +37,7 @@ class PortfolioController extends Controller
     public function store(Request $request)
     {
         $portfolio = new Portfolio();
-        $portfolio->id_user = $request->id_user;
+        // $portfolio->id_user = $request->id_user;
         $portfolio->name = $request->name;
         $portfolio->detail = $request->detail;
         $portfolio->keyword = $request->keyword;

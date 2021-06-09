@@ -31,7 +31,8 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
-              <div class="form-control-static">Tên admin</div>
+              <div class="form-control-static">Admin: {{ Auth::user()->name }}</div>
+              <input class="form-control-static" disabled="disabled" value="{{Auth::user()->id }}" hidden="true" name ="id_user">
             </div>
           </div>
           <div class="mb-3 row">
@@ -46,7 +47,7 @@
               <input class="form-control" type="text" placeholder="Tối đa 10 ký tự" maxlength="10" name="keyword">
             </div>
           </div>
-          <div class="row">
+          <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Chi Tiết</label>
             <div class="col-sm-9">
               <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail"></textarea>
