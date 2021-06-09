@@ -31,7 +31,8 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
-              <div class="form-control-static">Tên admin</div>
+              <div class="form-control-static">{{ Auth::user()->name }}</div>
+              <input class="form-control-static" disabled="disabled" value="{{Auth::user()->id }}" hidden="true" name ="id_user">
             </div>
           </div>
           <div class="mb-3 row">
@@ -48,6 +49,19 @@
                 @foreach($product_categories as $cate)
                 <div class="hidden" name = "id_cate">{{ $cate->id}}</div>
                 <option value="{{$cate->id}}">{{$cate->name}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="invalid-feedback">Example invalid select feedback</div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Nhà Cung Cấp</label>
+            <div class="col-sm-9">
+              <select class="form-select" required="" aria-label="select example" name="id_port">
+                <option value="">Open this select menu</option>
+                @foreach($portfolio as $port)
+                <div class="hidden" name = "id_port">{{ $port->id}}</div>
+                <option value="{{$port->id}}">{{$port->name}}</option>
                 @endforeach
               </select>
             </div>

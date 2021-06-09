@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategories;
+use App\Models\Portfolio;
 
 class ProductController extends Controller
 {
@@ -16,8 +17,9 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::paginate(10);
+        $portfolio = Portfolio::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productlist')->with('product', $product)->with('product_categories', $product_categories);
+        return view('pages.server.productlist')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio);
     }
 
     /**
@@ -27,9 +29,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        
+        $portfolio = Portfolio::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productadd')->with('product_categories', $product_categories);
+        return view('pages.server.productadd')->with('product_categories', $product_categories)->with('portfolio', $portfolio);
     }
 
     /**
@@ -42,6 +44,8 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->id_cate = $request->id_cate;
+        $product->id_portfolio = $request->id_port;
+        $product->id_user = $request->id_user;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->color = $request->color;

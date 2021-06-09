@@ -419,6 +419,12 @@
                       <li><a href="{{route('LoaiSanPham.create')}}">Thêm Loại Sản Phẩm</a></li>
                     </ul>
                   </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Nhà Cung Cấp</span></a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="{{route('NhaCungCap.index')}}">Danh Sách Nhà Cung Cấp</a></li>
+                      <li><a href="{{route('NhaCungCap.create')}}">Thêm Nhà Cung Cấp</a></li>
+                    </ul>
+                  </li>
                   <li class="sidebar-main-title">
                     <div>
                       <h6 class="lan-8">Applications</h6>
