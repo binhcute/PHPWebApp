@@ -59,6 +59,9 @@
           <div class="col-sm-9">
             <input class="form-control" type="file" name="img" data-bs-original-title="" title="" value="{{$product_categories->img}}">
           </div>
+          <div class="col-sm-9">
+            <img src="server/assets/images/productcategory/{{$product_categories->img}}" id="profile-img-tag" height="100" width="100">
+          </div>
         </div>
       </div>
     </div>

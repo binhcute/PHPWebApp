@@ -32,7 +32,7 @@
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
               <div class="form-control-static">Admin: {{ Auth::user()->name }}</div>
-              <div class="hidden" name = "id_user">{{ Auth::user()->id }}</div>
+              <input type="text" class="form-control" name="id_user" value="{{ Auth::user()->id}}">
             </div>
           </div>
           <div class="mb-3 row">
