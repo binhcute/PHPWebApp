@@ -18,12 +18,12 @@ class CreateProductsTable extends Migration
             $table->integer('id_cate')->unsigned();
             $table->integer('id_user')->unsigned();
             $table->integer('id_portfolio')->unsigned();
-            $table->integer('id_comment')->unsigned();
+            $table->integer('id_color')->unsigned()->nullable();
+            $table->integer('id_series')->unsigned();
             $table->string('name');
             $table->string('img');
             $table->string('slide_img')->nullable();
             $table->integer('price');
-            $table->string('color')->nullable();
             $table->text('detail')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('keyword')->nullable();

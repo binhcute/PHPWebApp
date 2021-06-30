@@ -23,21 +23,24 @@ class ForeignKey extends Migration
             $table->foreign('id_portfolio')
             ->references('id') -> on('portfolios')
             ->onDelete('cascade');
-            $table->foreign('id_comment')
-            ->references('id') -> on('comments')
+            $table->foreign('id_color')
+            ->references('id') -> on('colors')
+            ->onDelete('cascade');
+            $table->foreign('id_series')
+            ->references('id') -> on('series')
             ->onDelete('cascade');
         });
         Schema::table('articles', function (Blueprint $table) {
             $table->foreign('id_user')
             ->references('id') -> on('users')
             ->onDelete('cascade');
-            $table->foreign('id_comment')
-            ->references('id') -> on('comments')
-            ->onDelete('cascade');
         });
         Schema::table('comments', function (Blueprint $table) {
             $table->foreign('id_product')
             ->references('id') -> on('products')
+            ->onDelete('cascade');
+            $table->foreign('id_article')
+            ->references('id') -> on('articles')
             ->onDelete('cascade');
             $table->foreign('id_user')
             ->references('id') -> on('users')
@@ -46,6 +49,14 @@ class ForeignKey extends Migration
         Schema::table('order_details', function (Blueprint $table) {
             $table->foreign('id_order')
             ->references('id') -> on('orders')
+            ->onDelete('cascade');
+            $table->foreign('id_product')
+            ->references('id') -> on('products')
+            ->onDelete('cascade');
+        });
+        Schema::table('favorites', function (Blueprint $table) {
+            $table->foreign('id_user')
+            ->references('id') -> on('users')
             ->onDelete('cascade');
             $table->foreign('id_product')
             ->references('id') -> on('products')
