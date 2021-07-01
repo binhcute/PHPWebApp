@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProductCategories;
-use Illuminate\Support\Collection;
+use App\Models\Logo;
 
-class ProductCategoriesController extends Controller
+class LogoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class ProductCategoriesController extends Controller
      */
     public function index()
     {
-        $product_category = ProductCategories::paginate(10);
-        return view('pages.server.productcategorieslist')->with('product_category', $product_category);
+        $logo = Logo::paginate(10);
+        return view('pages.server.logolist')->with('logo', $logo);
     }
 
     /**
@@ -26,7 +25,7 @@ class ProductCategoriesController extends Controller
      */
     public function create()
     {
-        return view('pages.server.productcategoriesadd');
+        return view('pages.server.logoadd');
     }
 
     /**
@@ -37,36 +36,48 @@ class ProductCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $product_categories = new ProductCategories();
-        $product_categories->id_user = $request->id_user;
-        $product_categories->name = $request->name;
-        $product_categories->detail = $request->detail;
-        $product_categories->keyword = $request->keyword;
+        $logo = new Logo();
         $files = $request->file('img');
         $request->validate([
+            'slide_img' => ['required'],
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
             'detail' =>['required','min:20'],
             'keyword' => ['required']
        ]);
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
+           $destinationPath = public_path('/server/assets/images/logo'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$product_categories->img="$profileImage";
+		$logo->img="$profileImage";
         // $properties = Collection::make([
         //     $request->name,
         //     $request->detail,
         //     $request->keyword,
         //     $request->img,
         //     ])->all();
-        $product_categories->properties = NULL;
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+        // $array[] = logo::$array  ;
+        // $logo->properties = "$array";
+        // $logo->properties = $request->name $request->id_cate, $request->price,
+        // $request->color,$request->detail,$request->keyword,
+        // $request->quantity,$request->img;//
+        foreach ($request->file('slide_img') as $file){
+       // Define upload path
+           $destinationPath = public_path('/server/assets/images/logo/hover'); // upload path
+        // Upload Orginal Image           
+           $slide_profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
+           $file->move($destinationPath, $slide_profileImage);
+ 
+           $insert[] = "$slide_profileImage";
+        // Save In Database
+		$logo->slide_img="$slide_profileImage";
+        }
+        $logo->save();
+        return redirect()->route('Logo.index');
     }
 
     /**
@@ -77,8 +88,7 @@ class ProductCategoriesController extends Controller
      */
     public function show($id)
     {
-        $product_categories = ProductCategories::find($id);
-        return view('pages.server.productcategoriesshow')->with('product_categories', $product_categories);
+        $logo = Logo::find($id);return view('pages.server.logoshow')->with('logo', $logo);
     }
 
     /**
@@ -89,8 +99,8 @@ class ProductCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $product_categories = ProductCategories::find($id);
-        return view('pages.server.productcategoriesedit')->with('product_categories', $product_categories);
+        $logo = Logo::find($id);
+        return view('pages.server.logoedit')->with('logo', $logo);
     }
 
     /**
@@ -102,12 +112,7 @@ class ProductCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->id_user = $request->id_user;
-        $product_categories->name = $request->name;
-        $product_categories->detail = $request->detail;
-        $product_categories->keyword = $request->keyword;
-        $product_categories->properties = NULL;
+        $logo = logo::find($id);
         $files = $request->file('img');
         $request->validate([
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -116,17 +121,16 @@ class ProductCategoriesController extends Controller
             'keyword' => ['required']
        ]);
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
+           $destinationPath = public_path('/server/assets/images/logo'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$product_categories->img="$profileImage";
-
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+		$logo->img="$profileImage";
+        $logo->save();
+        return redirect()->route('Logo.index');
     }
 
     /**
@@ -137,23 +141,23 @@ class ProductCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->delete();
-        return redirect()->route('LoaiSanPham.index');
+        $logo = Logo::find($id);
+        $logo->delete();
+        return redirect()->route('Logo.index');
     }
 
     public function disabled(Request $request, $id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->status = 0;
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+        $logo = Logo::find($id);
+        $logo->status = 0;
+        $logo->save();
+        return redirect()->route('Logo.index');
     }
     public function enabled(Request $request, $id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->status = 1 ;
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+        $logo = Logo::find($id);
+        $logo->status = 1 ;
+        $logo->save();
+        return redirect()->route('Logo.index');
     }
 }

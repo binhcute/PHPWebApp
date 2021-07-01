@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductCategories;
 use App\Models\Portfolio;
+use App\Models\Color;
+use App\Models\Series;
 
 class ProductController extends Controller
 {
@@ -18,8 +20,11 @@ class ProductController extends Controller
     {
         $product = Product::paginate(10);
         $portfolio = Portfolio::all();
+        $color = Color::all();
+        $series = Series::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productlist')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio);
+        return view('pages.server.productlist')
+        ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
     }
 
     /**
@@ -30,8 +35,10 @@ class ProductController extends Controller
     public function create()
     {
         $portfolio = Portfolio::all();
+        $color = Color::all();
+        $series = Series::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productadd')->with('product_categories', $product_categories)->with('portfolio', $portfolio);
+        return view('pages.server.productadd')->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
     }
 
     /**
@@ -45,10 +52,11 @@ class ProductController extends Controller
         $product = new Product();
         $product->id_cate = $request->id_cate;
         $product->id_portfolio = $request->id_port;
+        $product->id_color = $request->id_color;
+        $product->id_series = $request->id_series;
         $product->id_user = $request->id_user;
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->color = $request->color;
         $product->detail = $request->detail;
         $product->quantity = $request->quantity;
         $product->keyword = $request->keyword;
@@ -108,8 +116,11 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+        $color = Color::all();
+        $series = Series::all();
+        $portfolio = Portfolio::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productshow')->with('product', $product)->with('product_categories', $product_categories);
+        return view('pages.server.productshow')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
     }
 
     /**
@@ -121,8 +132,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product_categories = ProductCategories::all();
+        $color = Color::all();
+        $series = Series::all();
+        $portfolio = Portfolio::all();
         $product = Product::find($id);
-        return view('pages.server.productedit')->with('product', $product)->with('product_categories', $product_categories);
+        return view('pages.server.productedit')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
     }
 
     /**
@@ -136,6 +150,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->id_cate = $request->id_cate;
+        $product->id_user = $request->id_user;
+        $product->portfolio = $request->portfolio;
+        $product->color = $request->color;
+        $product->series = $request->series;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->color = $request->color;
