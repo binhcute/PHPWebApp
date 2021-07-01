@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProductCategories;
-use Illuminate\Support\Collection;
+use App\Models\Series;
 
-class ProductCategoriesController extends Controller
+class SeriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class ProductCategoriesController extends Controller
      */
     public function index()
     {
-        $product_category = ProductCategories::paginate(10);
-        return view('pages.server.productcategorieslist')->with('product_category', $product_category);
+        $series = Series::paginate(10);
+        return view('pages.server.serieslist')->with('series', $series);
     }
 
     /**
@@ -26,7 +25,7 @@ class ProductCategoriesController extends Controller
      */
     public function create()
     {
-        return view('pages.server.productcategoriesadd');
+        return view('pages.server.seriesadd');
     }
 
     /**
@@ -37,11 +36,10 @@ class ProductCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $product_categories = new ProductCategories();
-        $product_categories->id_user = $request->id_user;
-        $product_categories->name = $request->name;
-        $product_categories->detail = $request->detail;
-        $product_categories->keyword = $request->keyword;
+        $series = new series();
+        // $series->id_user = $request->id_user;
+        $series->name = $request->name;
+        // $series->detail = $request->detail;
         $files = $request->file('img');
         $request->validate([
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -50,23 +48,18 @@ class ProductCategoriesController extends Controller
             'keyword' => ['required']
        ]);
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
+           $destinationPath = public_path('/server/assets/images/series'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$product_categories->img="$profileImage";
-        // $properties = Collection::make([
-        //     $request->name,
-        //     $request->detail,
-        //     $request->keyword,
-        //     $request->img,
-        //     ])->all();
-        $product_categories->properties = NULL;
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+		$series->img="$profileImage";
+
+        $series->properties = NULL;
+        $series->save();
+        return redirect()->route('PhienBan.index');
     }
 
     /**
@@ -77,8 +70,9 @@ class ProductCategoriesController extends Controller
      */
     public function show($id)
     {
-        $product_categories = ProductCategories::find($id);
-        return view('pages.server.productcategoriesshow')->with('product_categories', $product_categories);
+        $series = Series::find($id);
+        return view('pages.server.seriesshow')->with('series', $series);
+
     }
 
     /**
@@ -89,8 +83,8 @@ class ProductCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $product_categories = ProductCategories::find($id);
-        return view('pages.server.productcategoriesedit')->with('product_categories', $product_categories);
+        $series = Series::find($id);
+        return view('pages.server.seriesedit')->with('series', $series);
     }
 
     /**
@@ -102,12 +96,9 @@ class ProductCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->id_user = $request->id_user;
-        $product_categories->name = $request->name;
-        $product_categories->detail = $request->detail;
-        $product_categories->keyword = $request->keyword;
-        $product_categories->properties = NULL;
+        $series = Series::find($id);
+        $series->name = $request->name;
+        // $series->detail = $request->detail;
         $files = $request->file('img');
         $request->validate([
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -116,17 +107,17 @@ class ProductCategoriesController extends Controller
             'keyword' => ['required']
        ]);
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
+           $destinationPath = public_path('/server/assets/images/series'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$product_categories->img="$profileImage";
-
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+		$series->img="$profileImage";
+        $series->properties = NULL;
+        $series->save();
+        return redirect()->route('PhienBan.index');
     }
 
     /**
@@ -137,23 +128,23 @@ class ProductCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->delete();
-        return redirect()->route('LoaiSanPham.index');
+        $series = series::find($id);
+        $series->delete();
+        return redirect()->route('PhienBan.index');
     }
 
     public function disabled(Request $request, $id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->status = 0;
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+        $series = series::find($id);
+        $series->status = 0;
+        $series->save();
+        return redirect()->route('PhienBan.index');
     }
     public function enabled(Request $request, $id)
     {
-        $product_categories = ProductCategories::find($id);
-        $product_categories->status = 1 ;
-        $product_categories->save();
-        return redirect()->route('LoaiSanPham.index');
+        $series = series::find($id);
+        $series->status = 1 ;
+        $series->save();
+        return redirect()->route('PhienBan.index');
     }
 }

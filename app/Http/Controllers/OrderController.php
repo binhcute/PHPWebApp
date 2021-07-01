@@ -25,7 +25,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.server.orderadd');
     }
 
     /**
@@ -36,7 +36,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = new Order();
+        $order->name = $request->name;
+        $order->email = $request->email;
+        $order->fullname = $request->fullname;
+        $order->address = $request->address;
+        $order->tel = $request->tel;
+        $order->gender = $request->gender;
+        $order->properties = NULL;
+        $order->note = $request->note;
+        $order->save();
+        return redirect()->route('order.index');
     }
 
     /**
@@ -47,7 +57,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);return view('pages.server.ordershow')->with('order', $order);
     }
 
     /**
@@ -58,7 +68,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        return view('pages.server.orderedit')->with('order', $order);
     }
 
     /**
@@ -70,7 +81,17 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+        $order->name = $request->name;
+        $order->email = $request->email;
+        $order->fullname = $request->fullname;
+        $order->address = $request->address;
+        $order->tel = $request->tel;
+        $order->gender = $request->gender;
+        $order->properties = NULL;
+        $order->note = $request->note;
+        $order->save();
+        return redirect()->route('order.index');
     }
 
     /**
@@ -81,6 +102,23 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $order->delete();
+        return redirect()->route('order.index');
+    }
+
+    public function disabled(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->status = 0;
+        $order->save();
+        return redirect()->route('order.index');
+    }
+    public function enabled(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->status = 1 ;
+        $order->save();
+        return redirect()->route('order.index');
     }
 }

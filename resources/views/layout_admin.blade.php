@@ -145,12 +145,12 @@
                           </li>
                           <li>
                             <div class="row">
-                              <div class="col-4 text-center"><i data-feather="file-text"></i></div>
-                              <div class="col-4 text-center"><i data-feather="activity"></i></div>
-                              <div class="col-4 text-center"><i data-feather="users"></i></div>
-                              <div class="col-4 text-center"><i data-feather="clipboard"></i></div>
-                              <div class="col-4 text-center"><i data-feather="anchor"></i></div>
-                              <div class="col-4 text-center"><i data-feather="settings"></i></div>
+                              <div class="col-4 text-center"><a href="{{route('DonHang.index')}}"><i data-feather="file-text"></i></a><i data-feather="file-text"></i></div>
+                              <div class="col-4 text-center"><a href="{{route('Logo.index')}}"><i data-feather="activity"></i></a><i data-feather="activity"></i></div>
+                              <div class="col-4 text-center"><a href="#"><i data-feather="users"></i></a></div>
+                              <div class="col-4 text-center"><a href="#"><i data-feather="clipboard"></i></a></div>
+                              <div class="col-4 text-center"><a href="#"><i data-feather="anchor"></i></a></div>
+                              <div class="col-4 text-center"><a href="#"><i data-feather="settings"></i></a></div>
                             </div>
                           </li>
                           <li class="text-center">
@@ -220,7 +220,7 @@
                       <h6 class="mb-2 mt-0 text-muted">Order Total : <span class="f-right f-20">$598.00</span></h6>
                     </div>
                   </li>
-                  <li><a class="btn btn-block w-100 mb-2 btn-primary view-cart" href="cart.html">Go to shoping bag</a><a class="btn btn-block w-100 btn-secondary view-cart" href="checkout.html">Checkout</a></li>
+                  <li><a class="btn btn-block w-100 mb-2 btn-primary view-cart" href="cart.html">Go to shoping bag</a><a class="btn btn-block w-100 btn-secondary view-cart" href="#">Checkout</a></li>
                 </ul>
               </li>
               <li class="onhover-dropdown"><i data-feather="message-square"></i>
@@ -255,7 +255,7 @@
                       <p class="f-12 font-danger">32 mins ago</p>
                     </div>
                   </li>
-                  <li class="text-center"> <a class="btn btn-primary" href="#">View All     </a></li>
+                  <li class="text-center"> <a class="btn btn-primary" href="{{route('BinhLuan.index')}}">View All     </a></li>
                 </ul>
               </li>
               <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
@@ -325,23 +325,29 @@
                       <li><a href="{{route('LoaiSanPham.create')}}">Thêm Loại Sản Phẩm</a></li>
                     </ul>
                   </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Màu Sắc</span></a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="{{route('MauSac.index')}}">Danh Sách Màu Sắc</a></li>
+                      <li><a href="{{route('MauSac.create')}}">Thêm Màu Sắc</a></li>
+                    </ul>
+                  </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Phiên Bản</span></a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="{{route('PhienBan.index')}}">Danh Sách Phiên Bản</a></li>
+                      <li><a href="{{route('PhienBan.create')}}">Thêm Phiên Bản</a></li>
+                    </ul>
+                  </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Nhà Cung Cấp</span></a>
                     <ul class="sidebar-submenu">
                       <li><a href="{{route('NhaCungCap.index')}}">Danh Sách Nhà Cung Cấp</a></li>
                       <li><a href="{{route('NhaCungCap.create')}}">Thêm Nhà Cung Cấp</a></li>
                     </ul>
                   </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('DonHang.index')}}"><i data-feather="layout"></i><span>Đơn hàng</span></a>
-                  </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Bài Viết</span></a>
                     <ul class="sidebar-submenu">
                       <li><a href="{{route('BaiViet.index')}}">Danh Sách Bài Viết</a></li>
                       <li><a href="{{route('BaiViet.create')}}">Thêm Bài Viết</a></li>
                     </ul>
-                  </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="layout"></i><span>Tài Khoản</span></a>
-                  </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('BinhLuan.index')}}"><i data-feather="layout"></i><span>Danh Sách Bình Luận</span></a>
                   </li>
                 </ul>
               </div>
