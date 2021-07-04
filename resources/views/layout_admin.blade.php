@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/responsive.css')}}">
   </head>
   <body onload="startTime()">
+
     <div class="loader-wrapper">
       <div class="loader-index"><span></span></div>
       <svg>
@@ -98,16 +99,11 @@
               <li class="language-nav">
                 <div class="translate_wrapper">
                   <div class="current_lang">
-                    <div class="lang"><i class="flag-icon flag-icon-us"></i><span class="lang-txt">EN                               </span></div>
+                    <div class="lang"><i class="flag-icon flag-icon-vn"></i><span class="lang-txt">VN                               </span></div>
                   </div>
                   <div class="more_lang">
                     <div class="lang selected" data-value="en"><i class="flag-icon flag-icon-us"></i><span class="lang-txt">English<span> (US)</span></span></div>
-                    <div class="lang" data-value="de"><i class="flag-icon flag-icon-de"></i><span class="lang-txt">Deutsch</span></div>
-                    <div class="lang" data-value="es"><i class="flag-icon flag-icon-es"></i><span class="lang-txt">Español</span></div>
-                    <div class="lang" data-value="fr"><i class="flag-icon flag-icon-fr"></i><span class="lang-txt">Français</span></div>
-                    <div class="lang" data-value="pt"><i class="flag-icon flag-icon-pt"></i><span class="lang-txt">Português<span> (BR)</span></span></div>
-                    <div class="lang" data-value="cn"><i class="flag-icon flag-icon-cn"></i><span class="lang-txt">简体中文</span></div>
-                    <div class="lang" data-value="ae"><i class="flag-icon flag-icon-ae"></i><span class="lang-txt">لعربية <span> (ae)</span></span></div>
+                    
                   </div>
                 </div>
               </li>
@@ -116,7 +112,7 @@
                 <div class="notification-box"><i data-feather="bell"> </i><span class="badge rounded-pill badge-secondary">4                                </span></div>
                 <ul class="notification-dropdown onhover-show-div">
                   <li><i data-feather="bell"></i>
-                    <h6 class="f-18 mb-0">Notitications</h6>
+                    <h6 class="f-18 mb-0">Thông Báp</h6>
                   </li>
                   <li>
                     <p><i class="fa fa-circle-o me-3 font-primary"> </i>Delivery processing <span class="pull-right">10 min.</span></p>
@@ -141,20 +137,14 @@
                       <div class="front">
                         <ul class="droplet-dropdown bookmark-dropdown">
                           <li class="gradient-primary"><i data-feather="star"></i>
-                            <h6 class="f-18 mb-0">Bookmark</h6>
+                            <h6 class="f-18 mb-0">Công cụ</h6>
                           </li>
                           <li>
                             <div class="row">
-                              <div class="col-4 text-center"><a href="{{route('DonHang.index')}}"><i data-feather="file-text"></i></a><i data-feather="file-text"></i></div>
-                              <div class="col-4 text-center"><a href="{{route('Logo.index')}}"><i data-feather="activity"></i></a><i data-feather="activity"></i></div>
+                              <div class="col-4 text-center"><a href="{{route('DonHang.index')}}"><i data-feather="file-text"></i></a></div>
+                              <div class="col-4 text-center"><a href="{{route('Logo.index')}}"><i data-feather="activity"></i></a></div>
                               <div class="col-4 text-center"><a href="#"><i data-feather="users"></i></a></div>
-                              <div class="col-4 text-center"><a href="#"><i data-feather="clipboard"></i></a></div>
-                              <div class="col-4 text-center"><a href="#"><i data-feather="anchor"></i></a></div>
-                              <div class="col-4 text-center"><a href="#"><i data-feather="settings"></i></a></div>
                             </div>
-                          </li>
-                          <li class="text-center">
-                            <button class="flip-btn" id="flip-btn">Add New Bookmark</button>
                           </li>
                         </ul>
                       </div>
@@ -177,87 +167,6 @@
               <li>
                 <div class="mode"><i class="fa fa-moon-o"></i></div>
               </li>
-              <li class="cart-nav onhover-dropdown">
-                <div class="cart-box"><i data-feather="shopping-cart"></i><span class="badge rounded-pill badge-primary">2</span></div>
-                <ul class="cart-dropdown onhover-show-div">
-                  <li>
-                    <h6 class="mb-0 f-20">Shoping Bag</h6><i data-feather="shopping-cart"></i>
-                  </li>
-                  <li class="mt-0">
-                    <div class="media"><img class="img-fluid rounded-circle me-3 img-60" src="{{asset('server/assets/images/ecommerce/01.jpg')}}" alt="">
-                      <div class="media-body"><span>V-Neck Shawl Collar Woman's Solid T-Shirt</span>
-                        <p>Yellow(#fcb102)</p>
-                        <div class="qty-box">
-                          <div class="input-group"><span class="input-group-prepend">
-                              <button class="btn quantity-left-minus" type="button" data-type="minus" data-field=""><i data-feather="minus"></i></button></span>
-                            <input class="form-control input-number" type="text" name="quantity" value="1"><span class="input-group-prepend">
-                              <button class="btn quantity-right-plus" type="button" data-type="plus" data-field=""><i data-feather="plus"></i></button></span>
-                          </div>
-                        </div>
-                        <h6 class="text-end text-muted">$299.00</h6>
-                      </div>
-                      <div class="close-circle"><a href="#"><i data-feather="x"></i></a></div>
-                    </div>
-                  </li>
-                  <li class="mt-0">
-                    <div class="media"><img class="img-fluid rounded-circle me-3 img-60" src="{{asset('server/assets/images/ecommerce/03.jpg')}}" alt="">
-                      <div class="media-body"><span>V-Neck Shawl Collar Woman's Solid T-Shirt</span>
-                        <p>Yellow(#fcb102)</p>
-                        <div class="qty-box">
-                          <div class="input-group"><span class="input-group-prepend">
-                              <button class="btn quantity-left-minus" type="button" data-type="minus" data-field=""><i data-feather="minus"></i></button></span>
-                            <input class="form-control input-number" type="text" name="quantity" value="1"><span class="input-group-prepend">
-                              <button class="btn quantity-right-plus" type="button" data-type="plus" data-field=""><i data-feather="plus"></i></button></span>
-                          </div>
-                        </div>
-                        <h6 class="text-end text-muted">$299.00</h6>
-                      </div>
-                      <div class="close-circle"><a href="#"><i data-feather="x"></i></a></div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="total">
-                      <h6 class="mb-2 mt-0 text-muted">Order Total : <span class="f-right f-20">$598.00</span></h6>
-                    </div>
-                  </li>
-                  <li><a class="btn btn-block w-100 mb-2 btn-primary view-cart" href="cart.html">Go to shoping bag</a><a class="btn btn-block w-100 btn-secondary view-cart" href="#">Checkout</a></li>
-                </ul>
-              </li>
-              <li class="onhover-dropdown"><i data-feather="message-square"></i>
-                <ul class="chat-dropdown onhover-show-div">
-                  <li><i data-feather="message-square"></i>
-                    <h6 class="f-18 mb-0">Message Box                                    </h6>
-                  </li>
-                  <li>
-                    <div class="media"><img class="img-fluid rounded-circle me-3" src="{{asset('server/assets/images/user/1.jpg')}}" alt="">
-                      <div class="status-circle online"></div>
-                      <div class="media-body"><span>Erica Hughes</span>
-                        <p>Lorem Ipsum is simply dummy...</p>
-                      </div>
-                      <p class="f-12 font-success">58 mins ago</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media"><img class="img-fluid rounded-circle me-3" src="{{asset('server/assets/images/user/2.jpg')}}" alt="">
-                      <div class="status-circle online"></div>
-                      <div class="media-body"><span>Kori Thomas</span>
-                        <p>Lorem Ipsum is simply dummy...</p>
-                      </div>
-                      <p class="f-12 font-success">1 hr ago</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="media"><img class="img-fluid rounded-circle me-3" src="{{asset('server/assets/images/user/4.jpg')}}" alt="">
-                      <div class="status-circle offline"></div>
-                      <div class="media-body"><span>Ain Chavez</span>
-                        <p>Lorem Ipsum is simply dummy...</p>
-                      </div>
-                      <p class="f-12 font-danger">32 mins ago</p>
-                    </div>
-                  </li>
-                  <li class="text-center"> <a class="btn btn-primary" href="{{route('BinhLuan.index')}}">View All     </a></li>
-                </ul>
-              </li>
               <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li class="profile-nav onhover-dropdown p-0 me-0">
                 <div class="media profile-media"><img class="b-r-10" src="{{asset('server/assets/images/dashboard/profile.jpg')}}" alt="">
@@ -266,13 +175,11 @@
                   </div>
                 </div>
                 <ul class="profile-dropdown onhover-show-div">
-                  <li><a href="#"><i data-feather="user"></i><span>Account </span></a></li>
-                  <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
-                  <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
-                  <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
+                  <li><a href="#"><i data-feather="user"></i><span>Tài khoản </span></a></li>
+                  <li><a href="#"><i data-feather="settings"></i><span>Cài đặt</span></a></li>
                   <li><a href="{{ route('logout') }}" 
                     onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();"><i data-feather="log-in"> </i><span>Log in</span>
+                    document.getElementById('logout-form').submit();"><i data-feather="log-in"> </i><span>Đăng xuất</span>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>  
@@ -298,10 +205,9 @@
         <!-- Page Sidebar Start-->
         <div class="sidebar-wrapper">
           <div>
-            <div class="logo-wrapper"><a href="{{route('admin.index')}}"><img class="img-fluid for-light" src="{{asset('server/assets/images/logo/logo.png')}}" alt=""><img class="img-fluid for-dark" src="{{asset('server/assets/images/logo/logo_dark.png')}}" alt=""></a>
+            <div class="logo-wrapper"><a href="{{route('admin.index')}}"><img width="50" height="50" src="{{asset('client/images/logo/genz.gif')}}" alt="Learts Logo"><img style="padding-left: 15px" width="150" height="30" src="{{asset('client/images/logo/logo-2.png')}}"></a>
               <div class="back-btn"><i class="fa fa-angle-left"></i></div>
-              <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
-            </div>
+              </div>
             <div class="logo-icon-wrapper"><a href="{{route('admin.index')}}"><img class="img-fluid" src="{{asset('server/assets/images/logo/logo-icon.png')}}" alt=""></a></div>
             <nav class="sidebar-main">
               <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
@@ -331,12 +237,6 @@
                       <li><a href="{{route('MauSac.create')}}">Thêm Màu Sắc</a></li>
                     </ul>
                   </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Phiên Bản</span></a>
-                    <ul class="sidebar-submenu">
-                      <li><a href="{{route('PhienBan.index')}}">Danh Sách Phiên Bản</a></li>
-                      <li><a href="{{route('PhienBan.create')}}">Thêm Phiên Bản</a></li>
-                    </ul>
-                  </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Nhà Cung Cấp</span></a>
                     <ul class="sidebar-submenu">
                       <li><a href="{{route('NhaCungCap.index')}}">Danh Sách Nhà Cung Cấp</a></li>
@@ -364,13 +264,15 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12 footer-copyright text-center">
-                <p class="mb-0">Copyright 2021 © Cuba theme by pixelstrap  </p>
+                <p class="mb-0">&copy; 2021 | <a href="https://caothang.edu.vn/"><strong> Cao đẳng kỹ thuật Cao Thắng.</strong></a></p>
+                </p>
               </div>
             </div>
           </div>
         </footer>
       </div>
     </div>
+
     <!-- latest jquery-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="{{asset('server/assets/js/jquery-3.5.1.min.js')}}"></script>

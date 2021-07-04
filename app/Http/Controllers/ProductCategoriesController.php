@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductCategories;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class ProductCategoriesController extends Controller
 {
@@ -38,7 +39,7 @@ class ProductCategoriesController extends Controller
     public function store(Request $request)
     {
         $product_categories = new ProductCategories();
-        $product_categories->id_user = $request->id_user;
+        $product_categories->id_user = Auth::user()->id;
         $product_categories->name = $request->name;
         $product_categories->detail = $request->detail;
         $product_categories->keyword = $request->keyword;

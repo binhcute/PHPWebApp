@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h5>Basic HTML input control</h5>
+    <h5>Chỉnh Sửa Loại Sản Phẩm</h5>
   </div>
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
