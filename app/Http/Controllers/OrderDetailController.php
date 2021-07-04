@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class OrderDetailController extends Controller
 {

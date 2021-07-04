@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h5>Basic HTML input control</h5>
+    <h5>Chỉnh Sửa Logo</h5>
   </div>
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
@@ -45,7 +45,7 @@
             <label class="col-sm-3 col-form-label">Loại Bài Viết</label>
             <div class="col-sm-9">
               <select class="form-select" required="" aria-label="select example" name="id_cate">
-                <option value="">Open this select menu</option>
+                <option value="">---Chọn---</option>
                 @foreach($article_categories as $cate)
                 <div class="hidden" name = "id_cate">{{ $cate->id}}</div>
                 <option value="{{$cate->id}}">{{$cate->name}}</option>

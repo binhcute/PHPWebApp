@@ -23,7 +23,7 @@
                 </ul>
             </div>
         @endif
-  <form class="form theme-form" action="{{ route('BaiViet.store')}}" method="post" enctype="multipart/form-data">
+  <form class="form theme-form" action="{{ route('MauSac.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="card-body">
       <div class="row">
@@ -32,34 +32,14 @@
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
               <div class="form-control-static">Admin: {{ Auth::user()->name }}</div>
-              <input type="text" class="form-control" name="id_user" value="{{ Auth::user()->id}}">
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Tên Bài Viết</label>
+            <label class="col-sm-3 col-form-label">Tên Màu</label>
             <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Nhập tên loại Bài Viết" name="name">
+              <input class="form-control" type="text" placeholder="Nhập tên màu" name="name">
             </div>
           </div>
-          <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Từ Khóa</label>
-            <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Tối đa 10 ký tự" maxlength="10" name="keyword">
-            </div>
-          </div>
-          <div class="row">
-            <label class="col-sm-3 col-form-label">Chi Tiết</label>
-            <div class="col-sm-9">
-              <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Chọn ảnh</label>
-          <div class="col-sm-9">
-            <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
-          </div>
-        </div>
       </div>
     </div>
     <div class="card-footer text-end">

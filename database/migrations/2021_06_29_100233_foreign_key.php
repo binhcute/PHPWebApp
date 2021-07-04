@@ -26,9 +26,6 @@ class ForeignKey extends Migration
             $table->foreign('id_color')
             ->references('id') -> on('colors')
             ->onDelete('cascade');
-            $table->foreign('id_series')
-            ->references('id') -> on('series')
-            ->onDelete('cascade');
         });
         Schema::table('articles', function (Blueprint $table) {
             $table->foreign('id_user')

@@ -27,6 +27,9 @@ class CheckLoginController extends Controller
         } elseif(Auth::attempt($user)) {
             return redirect('/');
         }
+        else{
+            return redirect('/login');
+        }   
         
     }
     // public function __construct()

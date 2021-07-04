@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {

@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h5>Basic HTML input control</h5>
+    <h5>Thêm Sản Phẩm</h5>
   </div>
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
@@ -32,7 +32,6 @@
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">            
               <div class="form-control-static">Admin: {{ Auth::user()->name }}</div>
-              <input type="text" class="form-control" name="id_user" value="{{ Auth::user()->id}}">
             </div>
           </div>
           <div class="mb-3 row">
@@ -45,7 +44,7 @@
             <label class="col-sm-3 col-form-label">Loại Sản Phẩm</label>
             <div class="col-sm-9">
               <select class="form-select" required="" aria-label="select example" name="id_cate">
-                <option value="">Open this select menu</option>
+                <option value="">---Chọn---</option>
                 @foreach($product_categories as $cate)
                 <div class="hidden" name = "id_cate">{{ $cate->id}}</div>
                 <option value="{{$cate->id}}">{{$cate->name}}</option>
@@ -58,10 +57,23 @@
             <label class="col-sm-3 col-form-label">Nhà Cung Cấp</label>
             <div class="col-sm-9">
               <select class="form-select" required="" aria-label="select example" name="id_port">
-                <option value="">Open this select menu</option>
+                <option value="">---Chọn---</option>
                 @foreach($portfolio as $port)
                 <div class="hidden" name = "id_port">{{ $port->id}}</div>
                 <option value="{{$port->id}}">{{$port->name}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="invalid-feedback">Example invalid select feedback</div>
+          </div>
+          <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Màu Sắc Gồm</label>
+            <div class="col-sm-9">
+              <select class="form-select" required="" aria-label="select example" name="id_port">
+                <option value="">---Chọn---</option>
+                @foreach($color as $color)
+                <div class="hidden" name = "id_port">{{ $color->id}}</div>
+                <option value="{{$color->id}}">{{$color->name}}</option>
                 @endforeach
               </select>
             </div>
@@ -76,13 +88,13 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Gia</label>
             <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Price" name="price">
+              <input class="form-control" type="number" placeholder="Price" name="price">
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label pt-0">Color picker</label>
+            <label class="col-sm-3 col-form-label pt-0">Số Hiệu</label>
             <div class="col-sm-9">
-              <input class="form-control form-control-color" name="color" type="color" value="#563d7c" data-bs-original-title="" title="">
+              <input class="form-control" type="text" name="series"  placeholder="Series">
             </div>
           </div>
           <div class="mb-3 row">

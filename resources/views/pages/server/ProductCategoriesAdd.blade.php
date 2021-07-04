@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-    <h5>Basic HTML input control</h5>
+    <h5>Thêm Loại Sản Phẩm</h5>
   </div>
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
@@ -32,7 +32,6 @@
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
               <div class="form-control-static">Admin: {{ Auth::user()->name }}</div>
-              <input class="form-control-static" disabled="disabled" value="{{Auth::user()->id }}" hidden="true" name ="id_user">
             </div>
           </div>
           <div class="mb-3 row">

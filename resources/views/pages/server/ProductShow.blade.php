@@ -9,9 +9,9 @@
                 </div>
                 <div class="col-6">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">                                       <i data-feather="home"></i></a></li>
-                    <li class="breadcrumb-item">ECommerce</li>
-                    <li class="breadcrumb-item active">Product Page</li>
+                    <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
+                    <li class="breadcrumb-item">Admin</li>
+                    <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
                   </ol>
                 </div>
               </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                       <div class="product-slider owl-carousel owl-theme">
                         
-                        <div class="item"><img src="../server/assets/images/product/{{$product->img}}" alt=""></div>
+                        <div class="item text-center"><img src="../server/assets/images/product/{{$product->img}}" alt=""></div>
                       </div>
 
                     </div>
@@ -131,47 +131,6 @@
                         </ul>
                       </div>
                     </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="collection-filter-block">
-                        <ul class="pro-services">
-                          <li>
-                            <div class="media"><i data-feather="truck"></i>
-                              <div class="media-body">
-                                <h5>Free Shipping                                    </h5>
-                                <p>Free Shipping World Wide</p>
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="media"><i data-feather="clock"></i>
-                              <div class="media-body">
-                                <h5>24 X 7 Service                                    </h5>
-                                <p>Online Service For New Customer</p>
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="media"><i data-feather="gift"></i>
-                              <div class="media-body">
-                                <h5>Festival Offer                                 </h5>
-                                <p>New Online Special Festival</p>
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="media"><i data-feather="credit-card"></i>
-                              <div class="media-body">
-                                <h5>Online Payment                                  </h5>
-                                <p>Contrary To Popular Belief.                                   </p>
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <!-- silde-bar colleps block end here-->
                   </div>
                 </div>
               </div>

@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ProductCategories;
 use App\Models\Portfolio;
 use App\Models\Color;
-use App\Models\Series;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -21,10 +21,9 @@ class ProductController extends Controller
         $product = Product::paginate(10);
         $portfolio = Portfolio::all();
         $color = Color::all();
-        $series = Series::all();
         $product_categories = ProductCategories::all();
         return view('pages.server.productlist')
-        ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
+        ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color);
     }
 
     /**
@@ -36,9 +35,8 @@ class ProductController extends Controller
     {
         $portfolio = Portfolio::all();
         $color = Color::all();
-        $series = Series::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productadd')->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
+        return view('pages.server.productadd')->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color);
     }
 
     /**
@@ -53,16 +51,15 @@ class ProductController extends Controller
         $product->id_cate = $request->id_cate;
         $product->id_portfolio = $request->id_port;
         $product->id_color = $request->id_color;
-        $product->id_series = $request->id_series;
-        $product->id_user = $request->id_user;
+        $product->id_user = Auth::user()->id;
         $product->name = $request->name;
         $product->price = $request->price;
+        $product->series = $request->series;
         $product->detail = $request->detail;
         $product->quantity = $request->quantity;
         $product->keyword = $request->keyword;
         $files = $request->file('img');
         $request->validate([
-            'slide_img' => ['required'],
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
             'detail' =>['required','min:20'],
@@ -90,17 +87,24 @@ class ProductController extends Controller
         // $request->quantity,$request->img;
         
         //
+        
         foreach ($request->file('slide_img') as $file){
-       // Define upload path
+            
+            // Define upload path
            $destinationPath = public_path('/server/assets/images/product/hover'); // upload path
         // Upload Orginal Image           
            $slide_profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
+//            echo "<pre>";
+//     print_r($slide_profileImage);
+// echo "</pre>";
+// exit();
            $file->move($destinationPath, $slide_profileImage);
  
-           $insert[] = "$slide_profileImage";
-        // Save In Database
-		$product->slide_img="$slide_profileImage";
+           $inserts[] = "$slide_profileImage";
+        // // Save In Database
+		// $product->slide_img="$slide_profileImage";
         }
+        $product->slide_img = $inserts;
         $product->properties = NULL;
         $product->view = NULL;
         $product->save();
@@ -117,10 +121,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $color = Color::all();
-        $series = Series::all();
         $portfolio = Portfolio::all();
         $product_categories = ProductCategories::all();
-        return view('pages.server.productshow')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
+        return view('pages.server.productshow')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color);
     }
 
     /**
@@ -133,10 +136,15 @@ class ProductController extends Controller
     {
         $product_categories = ProductCategories::all();
         $color = Color::all();
-        $series = Series::all();
         $portfolio = Portfolio::all();
         $product = Product::find($id);
-        return view('pages.server.productedit')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)->with('series', $series);
+        $cate = ProductCategories::find($id);
+        $cate->Product;
+        $port = Portfolio::find($id);
+        $port->Product;
+        return view('pages.server.productedit')
+        ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)
+        ->with('cate', $cate)->with('port',$port);
     }
 
     /**
@@ -150,32 +158,30 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->id_cate = $request->id_cate;
-        $product->id_user = $request->id_user;
-        $product->portfolio = $request->portfolio;
-        $product->color = $request->color;
+        $product->id_portfolio = $request->id_portfolio;
+        $product->id_color = $request->id_color;
+        $product->id_user = Auth::user()->id;
+        $product->id_portfolio = $request->id_portfolio;
         $product->series = $request->series;
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->color = $request->color;
+        $product->series = $request->series;
         $product->detail = $request->detail;
         $product->quantity = $request->quantity;
         $product->keyword = $request->keyword;
         $files = $request->file('img');
-        $request->validate([
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255'],
-            'detail' =>['required','min:20'],
-            'keyword' => ['required']
-       ]);
-       // Define upload path
+        if($files!=NULL){
+            // Define upload path
            $destinationPath = public_path('/server/assets/images/product'); // upload path
-        // Upload Orginal Image           
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
- 
-           $insert['img'] = "$profileImage";
-        // Save In Database
-		$product->img="$profileImage";
+           // Upload Orginal Image           
+              $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+              $files->move($destinationPath, $profileImage);
+    
+              $insert['img'] = "$profileImage";
+           // Save In Database
+           $product->img="$profileImage";
+          
+        }
         $product->properties = NULL;
         $product->view = NULL;
         $product->save();

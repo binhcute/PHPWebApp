@@ -24,6 +24,6 @@ class ProductCategories extends Model
     ];
 
     public function Product(){
-        return $this->HasMany('App\Models\Product');
+        return $this->HasMany('App\Models\Product','foreign_key','local_key');
     }
 }
