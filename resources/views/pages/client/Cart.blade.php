@@ -3,7 +3,7 @@
 @section('title','Giỏ Hàng')
 
     <!-- Page Title/Header Start -->
-    <div class="page-title-section section" data-bg-image="assets/images/bg/page-title-1.jpg">
+    <div class="page-title-section section" data-bg-image="{{asset('client/images/bg/page-title-1.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -11,7 +11,7 @@
                     <div class="page-title">
                         <h1 class="title">Cart</h1>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
                             <li class="breadcrumb-item active">Cart</li>
                         </ul>
                     </div>
@@ -25,62 +25,143 @@
     <!-- Shopping Cart Section Start -->
     <div class="section section-padding">
         <div class="container">
-            <form class="cart-form" action="#">
+            <form class="cart-form" method="post" name="formType" id="formType">
                 <table class="cart-wishlist-table table">
                     <thead>
                         <tr>
-                            <th class="name" colspan="2">Sản Phẩm</th>
+                            <th class="avatar">Hình Ảnh</th>
+                            <th class="name">Tên Sản Phẩm</th>
                             <th class="price">Giá</th>
                             <th class="quantity">Số Lượng</th>
                             <th class="subtotal">Tổng Tiền</th>
                             <th class="remove">&nbsp;</th>
                         </tr>
                     </thead>
+                    <tbody id="mang">
+                    </tbody>
+                </table>
+            <div class="cart-totals mt-5">
+                <h2 class="title">Phiếu Hóa Đơn</h2>
+                <hr>
+                <table>
                     <tbody>
-                        <tr>
-                            <td class="thumbnail"><a href="product-details.html"><img src="assets/images/product/cart-product-1.jpg"></a></td>
-                            <td class="name"> <a href="product-details.html">Walnut Cutting Board</a></td>
-                            <td class="price"><span>£100.00</span></td>
-                            <td class="quantity">
-                                <div class="product-quantity">
-                                    <span class="qty-btn minus"><i class="ti-minus"></i></span>
-                                    <input type="text" class="input-qty" value="1">
-                                    <span class="qty-btn plus"><i class="ti-plus"></i></span>
-                                </div>
-                            </td>
-                            <td class="subtotal"><span>£100.00</span></td>
-                            <td class="remove"><a href="#" class="btn">×</a></td>
+                        <tr class="subtotal">
+                            <th>Tổng Số Lượng: </th>
+                            <td><span id="tongsoluong"></span><span> Sản Phẩm</span></td>
+                        </tr>
+                        <tr class="total">
+                            <th>Thành Tiền:</th>
+                            <td><strong><span class="amount" id="tongtien"></span> VNĐ</strong></td>
                         </tr>
                     </tbody>
                 </table>
+                </div>                          
                 <div class="row justify-content-between mb-n3">
                     <div class="col-auto mb-3">
                     </div>
                     <div class="col-auto">
-                        <a class="btn btn-light btn-hover-dark mr-3 mb-3" href="shop.html">Continue Shopping</a>
-                        <button class="btn btn-dark btn-outline-hover-dark mb-3" onclick="updateProduct()">Update Cart</button>
+                        <a data-toggle="modal" data-target="#myModal" class="btn btn-light btn-hover-dark mr-3 mb-3" href="#">Đặt Hàng Ngay</a>
                     </div>
                 </div>
+            
             </form>
-            <div class="cart-totals mt-5">
-                <h2 class="title">Cart totals</h2>
-                <table>
-                    <tbody>
-                        <tr class="subtotal">
-                            <th>Subtotal</th>
-                            <td><span class="amount">£242.00</span></td>
-                        </tr>
-                        <tr class="total">
-                            <th>Total</th>
-                            <td><strong><span class="amount">£242.00</span></strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="checkout.html" class="btn btn-dark btn-outline-hover-dark">Proceed to checkout</a>
-            </div>
         </div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        @if(Auth::check()){
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin khách hàng</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+            </div>
+            
+            <form action="{{ route('DonHang.store')}}" method="post" name="formAdd" id="formAdd" enctype="multipart/form-data" >
+            @csrf
+            <div class="modal-body">
+                <fieldset>
+                <div class="form-group">
+                    <label for="myName">Họ và tên</label>
+                    <input type="name" class="form-control"
+                        name="name" placeholder="Họ và Tên" required value="{{ Auth::user()->fullname }}">
+                </div>
+                <div class="form-group">
+                <label for="myEmail">Email</label>
+                <input type="email" class="form-control"
+                    name="email" placeholder="Email" required value="{{ Auth::user()->email }}">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Địa chỉ</label>
+                    <input type="text" class="form-control"
+                        name="address" required value="{{ Auth::user()->address }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone">Số điện thoại</label>
+                        <input type="text" name="tel" class="form-control" required value="{{ Auth::user()->tel }}">
+                        </div>
+                <div class="form-group">
+                    <label for="inputNote">Ghi chú:</label>
+                    <input type="textarea" class="form-control"
+                        name="note">
+                    </div>
+            
+        </div>
+        <div class="modal-footer">
+            <a type="submit" class="btn btn-info" onclick="onClear()">Đặt hàng <i class="fas fa-angle-double-right"></i> </a>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        </div></form>
+        </div>
+        }
+        @else{
+            <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin khách hàng</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+            </div>
+            
+            <form action="{{ route('DonHang.store')}}" method="post" name="formAdd" id="formAdd" enctype="multipart/form-data" >
+            @csrf
+            <div class="modal-body">
+                <fieldset>
+                <div class="form-group">
+                    <label for="myName">Họ và tên</label>
+                    <input type="name" class="form-control"
+                        name="fullname" placeholder="Họ và Tên" required>
+                </div>
+                <div class="form-group">
+                <label for="myEmail">Email</label>
+                <input type="email" class="form-control"
+                    name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Địa chỉ</label>
+                    <input type="text" class="form-control"
+                        name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone">Số điện thoại</label>
+                        <input type="text" name="tel" class="form-control" required>
+                        </div>
+                <div class="form-group">
+                    <label for="inputNote">Ghi chú:</label>
+                    <input type="textarea" class="form-control"
+                        name="note">
+                    </div>
+            
+            <button class="btn btn-primary" onclick="onClear()" type="submit">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        </div>
+        </form>
+        </div>
+        }
+        @endif
+    </div>
     </div>
     <!-- Shopping Cart Section End -->
 
+    </div>
     @endsection

@@ -26,7 +26,7 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::put('/BaiViet/disabled/{BaiViet}','ArticleController@disabled');
     Route::put('/BaiViet/enabled/{BaiViet}','ArticleController@enabled');
     //Order
-    Route::resource('/DonHang','OrderController');
+    // Route::resource('/DonHang','OrderController');
     Route::put('/DonHang/disabled/{DonHang}','OrderController@disabled');
     Route::put('/DonHang/enabled/{DonHang}','OrderController@enabled');
     //OrderDetail
@@ -64,6 +64,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('LoginCheck','CheckLoginController@check');
 
+Route::resource('/DonHang','OrderController');
 //Client
 Route::resource('/','ClientController');
 Route::get('/about_us','ClientController@about_us');
@@ -77,4 +78,4 @@ Route::get('/account','ClientController@my_account');
 Route::get('/brand','ClientController@portfolio');
 Route::get('/ChiTietNCC','ClientController@portfolio_detail');
 Route::get('/product','ClientController@product');
-Route::get('/ChiTietSanPham','ClientController@product_detail');
+Route::get('/product/{product}','ClientController@product_detail');

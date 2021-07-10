@@ -49,7 +49,7 @@ class ProductController extends Controller
     {
         $product = new Product();
         $product->id_cate = $request->id_cate;
-        $product->id_portfolio = $request->id_port;
+        $product->id_portfolio = $request->id_portfolio;
         $product->id_color = $request->id_color;
         $product->id_user = Auth::user()->id;
         $product->name = $request->name;
@@ -74,37 +74,46 @@ class ProductController extends Controller
            $insert['img'] = "$profileImage";
         // Save In Database
 		$product->img="$profileImage";
-        // $properties = Collection::make([
-        //     $request->name,
-        //     $request->detail,
-        //     $request->keyword,
-        //     $request->img,
-        //     ])->all();
-        // $array[] = Product::$array  ;
-        // $product->properties = "$array";
-        // $product->properties = $request->name $request->id_cate, $request->price,
-        // $request->color,$request->detail,$request->keyword,
-        // $request->quantity,$request->img;
         
-        //
-        
-        foreach ($request->file('slide_img') as $file){
-            
+        $files = $request->file('img_hover');
+       // Define upload path
+       $destinationPath = public_path('/server/assets/images/product/hover'); // upload path
+       // Upload Orginal Image           
+          $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+          $files->move($destinationPath, $profileImage);
+
+          $insert['img_hover'] = "$profileImage";
+       // Save In Database
+       $product->img_hover="$profileImage";
+
+       
+        $inserts = [];
+        foreach ($request->file('slide_img') as $key=>$file){
             // Define upload path
-           $destinationPath = public_path('/server/assets/images/product/hover'); // upload path
+           $destinationPath = public_path('/server/assets/images/product/slide'); // upload path
         // Upload Orginal Image           
-           $slide_profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
-//            echo "<pre>";
-//     print_r($slide_profileImage);
-// echo "</pre>";
-// exit();
+           $slide_profileImage = date('YmdHis'). "_" . $key . "." . $file->getClientOriginalExtension();
+
            $file->move($destinationPath, $slide_profileImage);
- 
-           $inserts[] = "$slide_profileImage";
+
+           
+           array_push($inserts,$slide_profileImage);
+           //mảng 1 chiều
+        //    $array = [
+        //        'key' => $value,
+        //    ];
+           
+        //    //mảng 2 chiều rồi khác gì cái trên
+           
+        //    $array = [
+        //     'key' => [
+        //         'key'=> $value,
+        //     ],
+        // ];
         // // Save In Database
 		// $product->slide_img="$slide_profileImage";
-        }
-        $product->slide_img = $inserts;
+        }   
+        $product->slide_img = json_encode($insert);// xài json_decode
         $product->properties = NULL;
         $product->view = NULL;
         $product->save();

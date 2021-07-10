@@ -37,17 +37,18 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $order = new Order();
-        $order->name = $request->name;
+        $order->name = "Đơn Hàng";
         $order->email = $request->email;
         $order->fullname = $request->fullname;
         $order->address = $request->address;
         $order->tel = $request->tel;
-        $order->gender = $request->gender;
+        $order->gender = NULL;
         $order->properties = NULL;
         $order->note = $request->note;
         $order->save();
-        return redirect()->route('order.index');
+        return redirect()->route('index');
     }
 
     /**

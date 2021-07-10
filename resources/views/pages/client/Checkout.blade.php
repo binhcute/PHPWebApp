@@ -11,7 +11,7 @@
                     <div class="page-title">
                         <h1 class="title">Checkout</h1>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
                             <li class="breadcrumb-item active">Checkout</li>
                         </ul>
                     </div>
