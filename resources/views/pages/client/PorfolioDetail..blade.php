@@ -11,7 +11,7 @@
                     <div class="page-title">
                         <h1 class="title">Wooden Cutting Board</h1>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
                             <li class="breadcrumb-item active">Wooden Cutting Board</li>
                         </ul>
                     </div>

@@ -3,7 +3,7 @@
 @section('title','Chi Tiết Sản Phẩm')
 
     <!-- Page Title/Header Start -->
-    <div class="page-title-section section" data-bg-image="assets/images/bg/page-title-1.jpg">
+    <div class="page-title-section section" data-bg-image="{{ URL::to('/') }}/client/images/bg/page-title-1.jpg">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -11,9 +11,9 @@
                     <div class="page-title">
                         <h1 class="title">Shop</h1>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="shop.html">Products</a></li>
-                            <li class="breadcrumb-item active">Cleaning Dustpan & Brush</li>
+                            <li class="breadcrumb-item"><a href="{{route('index')}}">Trang Chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{URL::to('/product')}}">Sản Phẩm</a></li>
+                            <li class="breadcrumb-item active">{{$product->name}}</li>
                         </ul>
                     </div>
 
@@ -32,38 +32,38 @@
                 <div class="col-lg-6 col-12 learts-mb-40">
                     <div class="product-images">
                         <button class="product-gallery-popup hintT-left" data-hint="Click to enlarge" data-images='[
-                            {"src": "assets/images/product/single/1/product-zoom-1.jpg", "w": 700, "h": 1100},
-                            {"src": "assets/images/product/single/1/product-zoom-2.jpg", "w": 700, "h": 1100},
-                            {"src": "assets/images/product/single/1/product-zoom-3.jpg", "w": 700, "h": 1100},
-                            {"src": "assets/images/product/single/1/product-zoom-4.jpg", "w": 700, "h": 1100}
+                            {"src": "client/images/product/single/1/product-zoom-1.jpg", "w": 700, "h": 1100},
+                            {"src": "client/images/product/single/1/product-zoom-2.jpg", "w": 700, "h": 1100},
+                            {"src": "client/images/product/single/1/product-zoom-3.jpg", "w": 700, "h": 1100},
+                            {"src": "client/images/product/single/1/product-zoom-4.jpg", "w": 700, "h": 1100}
                         ]'><i class="far fa-expand"></i></button>
                         <a href="https://www.youtube.com/watch?v=1jSsy7DtYgc" class="product-video-popup video-popup hintT-left" data-hint="Click to see video"><i class="fal fa-play"></i></a>
                         <div class="product-gallery-slider">
-                            <div class="product-zoom" data-image="assets/images/product/single/1/product-zoom-1.jpg">
-                                <img src="assets/images/product/single/1/product-1.jpg" alt="">
+                            <div class="product-zoom" data-image="{{ URL::to('/') }}/server/assets/images/product/{{ $product->img }}">
+                                <img src="{{ URL::to('/') }}/server/assets/images/product/{{ $product->img }}" alt="">
                             </div>
-                            <div class="product-zoom" data-image="assets/images/product/single/1/product-zoom-2.jpg">
-                                <img src="assets/images/product/single/1/product-2.jpg" alt="">
+                            <div class="product-zoom" data-image="client/images/product/single/1/product-zoom-2.jpg">
+                                <img src="client/images/product/single/1/product-2.jpg" alt="">
                             </div>
-                            <div class="product-zoom" data-image="assets/images/product/single/1/product-zoom-3.jpg">
-                                <img src="assets/images/product/single/1/product-3.jpg" alt="">
+                            <div class="product-zoom" data-image="client/images/product/single/1/product-zoom-3.jpg">
+                                <img src="client/images/product/single/1/product-3.jpg" alt="">
                             </div>
-                            <div class="product-zoom" data-image="assets/images/product/single/1/product-zoom-4.jpg">
-                                <img src="assets/images/product/single/1/product-4.jpg" alt="">
+                            <div class="product-zoom" data-image="client/images/product/single/1/product-zoom-4.jpg">
+                                <img src="client/images/product/single/1/product-4.jpg" alt="">
                             </div>
                         </div>
                         <div class="product-thumb-slider">
                             <div class="item">
-                                <img src="assets/images/product/single/1/product-thumb-1.jpg" alt="">
+                                <img src="{{ URL::to('/') }}/server/assets/images/product/{{ $product->img }}" alt="">
                             </div>
                             <div class="item">
-                                <img src="assets/images/product/single/1/product-thumb-2.jpg" alt="">
+                                <img src="client/images/product/single/1/product-thumb-2.jpg" alt="">
                             </div>
                             <div class="item">
-                                <img src="assets/images/product/single/1/product-thumb-3.jpg" alt="">
+                                <img src="client/images/product/single/1/product-thumb-3.jpg" alt="">
                             </div>
                             <div class="item">
-                                <img src="assets/images/product/single/1/product-thumb-4.jpg" alt="">
+                                <img src="client/images/product/single/1/product-thumb-4.jpg" alt="">
                             </div>
                         </div>
                     </div>
@@ -83,10 +83,10 @@
                             </span>
                             <a href="#reviews" class="review-link">(<span class="count">3</span> customer reviews)</a>
                         </div>
-                        <h3 class="product-title">Cleaning Dustpan & Brush</h3>
-                        <div class="product-price">£38.00 – £50.00</div>
+                        <h3 class="product-title">{{$product->name}}</h3>
+                        <div class="product-price">{{$product->price}}</div>
                         <div class="product-description">
-                            <p>Easy clip-on handle – Hold the brush and dustpan together for storage; the dustpan edge is serrated to allow easy scraping off the hair without entanglement. High-quality bristles – no burr damage, no scratches, thick and durable, comfortable to remove dust and smaller particles.</p>
+                            <p>{{$product->detail}}</p>
                         </div>
                         <div class="product-variations">
                             <table>
@@ -125,22 +125,22 @@
                         </div>
                         <div class="product-buttons">
                             <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist"><i class="fal fa-heart"></i></a>
-                            <a href="#" class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> Add to Cart</a>
-                            <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
+                            <button onclick="addProduct('{{$product->id}}','{{$product->name}}','{{$product->price}}',`{{ URL::to('/') }}/server/assets/images/product/{{ $product->img }}`,this)" class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> Add to Cart</button>
+                            <a onclick="updateProduct()" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
                         </div>
                         <div class="product-brands">
                             <span class="title">Brands</span>
                             <div class="brands">
-                                <a href="#"><img src="assets/images/brands/brand-3.png" alt=""></a>
-                                <a href="#"><img src="assets/images/brands/brand-8.png" alt=""></a>
+                                <a href="#"><img src="client/images/brands/brand-3.png" alt=""></a>
+                                <a href="#"><img src="client/images/brands/brand-8.png" alt=""></a>
                             </div>
                         </div>
                         <div class="product-meta">
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class="label"><span>SKU</span></td>
-                                        <td class="value">0404019</td>
+                                        <td class="label"><span>Series</span></td>
+                                        <td class="value">{{$product->series}}</td>
                                     </tr>
                                     <tr>
                                         <td class="label"><span>Category</span></td>
@@ -154,11 +154,7 @@
                                         <td class="label"><span>Tags</span></td>
                                         <td class="value">
                                             <ul class="product-tags">
-                                                <li><a href="#">handmade</a></li>
-                                                <li><a href="#">learts</a></li>
-                                                <li><a href="#">mug</a></li>
-                                                <li><a href="#">product</a></li>
-                                                <li><a href="#">learts</a></li>
+                                                <li><a href="#">{{$product->keyword}}</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -209,7 +205,7 @@
                     <div class="row learts-mb-n30">
                         <div class="col-12 learts-mb-30">
                             <div class="row learts-mb-n10">
-                                <div class="col-lg-2 col-md-3 col-12 learts-mb-10"><img src="assets/images/brands/brand-3.png" alt=""></div>
+                                <div class="col-lg-2 col-md-3 col-12 learts-mb-10"><img src="client/images/brands/brand-3.png" alt=""></div>
                                 <div class="col learts-mb-10">
                                     <p>We’ve worked with numerous industries and famous fashion brands around the world. We have also created tremendous impacts on fashion manufacturing and online sales. When we partner with an eCommerce agency, we connect every activity to set the trend and win customers’ trust. We make sure our customers are always happy with our products.</p>
                                 </div>
@@ -217,7 +213,7 @@
                         </div>
                         <div class="col-12 learts-mb-30">
                             <div class="row learts-mb-n10">
-                                <div class="col-lg-2 col-md-3 col-12 learts-mb-10"><img src="assets/images/brands/brand-8.png" alt=""></div>
+                                <div class="col-lg-2 col-md-3 col-12 learts-mb-10"><img src="client/images/brands/brand-8.png" alt=""></div>
                                 <div class="col learts-mb-10">
                                     <p>Prior to Houdini, there have been many clothing brands that achieved such a roaring success. However, there’s no other brand that can obtain such a precious position like us. We have successfully built our site to make more people know about our products as well as our motto. We’ve been the inspiration for many other small and medium-sized businesses.</p>
                                 </div>
@@ -251,7 +247,7 @@
                         <ul class="product-review-list">
                             <li>
                                 <div class="product-review">
-                                    <div class="thumb"><img src="assets/images/review/review-1.jpg" alt=""></div>
+                                    <div class="thumb"><img src="client/images/review/review-1.jpg" alt=""></div>
                                     <div class="content">
                                         <div class="ratings">
                                             <span class="star-rating">
@@ -268,7 +264,7 @@
                             </li>
                             <li>
                                 <div class="product-review">
-                                    <div class="thumb"><img src="assets/images/review/review-2.jpg" alt=""></div>
+                                    <div class="thumb"><img src="client/images/review/review-2.jpg" alt=""></div>
                                     <div class="content">
                                         <div class="ratings">
                                             <span class="star-rating">
@@ -285,7 +281,7 @@
                             </li>
                             <li>
                                 <div class="product-review">
-                                    <div class="thumb"><img src="assets/images/review/review-3.jpg" alt=""></div>
+                                    <div class="thumb"><img src="client/images/review/review-3.jpg" alt=""></div>
                                     <div class="content">
                                         <div class="ratings">
                                             <span class="star-rating">
@@ -333,30 +329,29 @@
 
             <!-- Section Title Start -->
             <div class="section-title2 text-center">
-                <h2 class="title">You Might Also Like</h2>
+                <h2 class="title">Có Thể Bạn Cũng Thích</h2>
             </div>
             <!-- Section Title End -->
 
             <!-- Products Start -->
             <div class="product-carousel">
-
+                @foreach($list as $item)
                 <div class="col">
                     <div class="product">
                         <div class="product-thumb">
                             <a href="product-details.html" class="image">
-                                <span class="product-badges">
+                                <!-- <span class="product-badges">
                                     <span class="onsale">-13%</span>
-                                </span>
-                                <img src="assets/images/product/s270/product-1.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-1-hover.jpg" alt="Product Image">
+                                </span> -->
+                                <img src="{{ URL::to('/') }}/server/assets/images/product/{{ $item->img }}" alt="Product Image">
+                                <img class="image-hover " src="{{ URL::to('/') }}/server/assets/images/product/{{ $item->img_hover }}" alt="Product Image">
                             </a>
                             <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Boho Beard Mug</a></h6>
+                            <h6 class="title"><a href="product-details.html">{{$item->name}}</a></h6>
                             <span class="price">
-                                <span class="old">$45.00</span>
-                            <span class="new">$39.00</span>
+                            <span class="new">{{$item->price}}</span>
                             </span>
                             <div class="product-buttons">
                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
@@ -366,204 +361,8 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
 
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="assets/images/product/s270/product-2.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-2-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Motorized Tricycle</a></h6>
-                            <span class="price">
-                                $35.00
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <span class="product-badges">
-                                <span class="hot">hot</span>
-                            </span>
-                            <a href="product-details.html" class="image">
-                                <img src="assets/images/product/s270/product-3.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-3-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Walnut Cutting Board</a></h6>
-                            <span class="price">
-                                $100.00
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <span class="product-badges">
-                                    <span class="onsale">-27%</span>
-                                </span>
-                                <img src="assets/images/product/s270/product-4.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-4-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Pizza Plate Tray</a></h6>
-                            <span class="price">
-                                <span class="old">$30.00</span>
-                            <span class="new">$22.00</span>
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="assets/images/product/s270/product-5.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-5-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                            <div class="product-options">
-                                <ul class="colors">
-                                    <li style="background-color: #c2c2c2;">color one</li>
-                                    <li style="background-color: #374140;">color two</li>
-                                    <li style="background-color: #8ea1b2;">color three</li>
-                                </ul>
-                                <ul class="sizes">
-                                    <li>Large</li>
-                                    <li>Medium</li>
-                                    <li>Small</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Minimalist Ceramic Pot</a></h6>
-                            <span class="price">
-                                $120.00
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <img src="assets/images/product/s270/product-6.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-6-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Clear Silicate Teapot</a></h6>
-                            <span class="price">
-                                $140.00
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <span class="product-badges">
-                                    <span class="hot">hot</span>
-                                </span>
-                                <img src="assets/images/product/s270/product-7.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-7-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Lucky Wooden Elephant</a></h6>
-                            <span class="price">
-                                $35.00
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="product">
-                        <div class="product-thumb">
-                            <a href="product-details.html" class="image">
-                                <span class="product-badges">
-                                    <span class="outofstock"><i class="fal fa-frown"></i></span>
-                                <span class="hot">hot</span>
-                                </span>
-                                <img src="assets/images/product/s270/product-8.jpg" alt="Product Image">
-                                <img class="image-hover " src="assets/images/product/s270/product-8-hover.jpg" alt="Product Image">
-                            </a>
-                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                            <div class="product-options">
-                                <ul class="colors">
-                                    <li style="background-color: #000000;">color one</li>
-                                    <li style="background-color: #b2483c;">color two</li>
-                                </ul>
-                                <ul class="sizes">
-                                    <li>Large</li>
-                                    <li>Medium</li>
-                                    <li>Small</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h6 class="title"><a href="product-details.html">Decorative Christmas Fox</a></h6>
-                            <span class="price">
-                                $50.00
-                            </span>
-                            <div class="product-buttons">
-                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
             <!-- Products End -->

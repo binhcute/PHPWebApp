@@ -2,10 +2,21 @@
 @section('title','Danh Sách Sản Phẩm')
 @section('content')
 <div class="col-sm-12">
-  <div class="card">
-    <div class="card-header">
-      <h5>Danh Sách Sản Phẩm</h5>
+  <div class="page-title">
+    <div class="row">
+    <div class="col-6">
+        <h3>Danh Sách Sản Phẩm</h3>
     </div>
+    <div class="col-6">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('admin.index')}}">                                       <i data-feather="home"></i></a></li>
+        <li class="breadcrumb-item">Sản Phẩm</li>
+        <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
+        </ol>
+    </div>
+    </div>
+  </div>
+  <div class="card">
     @if(count($product)!= 0)
     <div class="table-responsive">
       <table class="table table-hover">
@@ -24,7 +35,7 @@
           <tr>
             <th scope="row">{{ $item->series }}</th>
             <td>{{ $item->name}}</td>
-            <td><img class="img-fluid"  width="200" height="200" src="server/assets/images/product/{{$item->img}}"></td>
+            <td><img class="img-thumbnail"  width="150" src="server/assets/images/product/{{$item->img}}"></td>
             <td>
               @if($item->status==1)
                 <span><strong>Active</strong></span>
@@ -78,5 +89,6 @@
     <strong>Danh Sách Rỗng <a href="{{route('SanPham.create')}}">Thêm Mới?</a></strong>
     @endif
   </div>
+  
 </div>
 @endsection

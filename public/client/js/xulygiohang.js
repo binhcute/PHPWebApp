@@ -1,15 +1,16 @@
 let arrProduct = JSON.parse(localStorage.getItem("cat"));
 let auProduct = arrProduct ? arrProduct : [];
-function addProduct(id,Name,Price,ob){
+function addProduct(id,Name,Price,img,ob){
     let index = auProduct.findIndex((item) => {
         if(item.id === id)
             return item;
     });
     if(index === -1){
         console.log(ob);
-        let avatar = $(ob).find("#avatar").attr( "data-cus" );
-        const a = {'id':id,'name':Name,'price':Price,'quantity':1,'avatar':avatar};
+        // let img = $(ob).find("#img").attr( "data-cus" );
+        const a = {'id':id,'name':Name,'price':Price,'quantity':1,'img':img};
         auProduct.push(a);
+        console.log(a)
     }
     else{
         auProduct[index].quantity+=1;
@@ -110,11 +111,11 @@ function sumMoney(){
 
 function onSubmit(ob){
     let dataCart = [];
-    var firstname = $(ob).parents('#formAdd').find('#firstname').val();
-    var lastname = $(ob).parents('#formAdd').find('#lastname').val();
-    var email = $(ob).parents('#formAdd').find('#myEmail').val();
-    var address = $(ob).parents('#formAdd').find('#myAddress').val();
+    var name = $(ob).parents('#formAdd').find('#name').val();
+    var email = $(ob).parents('#formAdd').find('#email').val();
+    var address = $(ob).parents('#formAdd').find('#address').val();
     var phone = $(ob).parents('#formAdd').find('#phone').val();
+    var note = $(ob).parents('#formAdd').find('#note').val();
 
     $('input.id-product').each(function(){
         var idproduct = $(this).val();
@@ -127,12 +128,12 @@ function onSubmit(ob){
     let op="donhang";
     $.ajax({
             type: 'POST',
-            url: '/ajax.php',
+            url: '/DonHang',
             dataType: 'json',
-            data: {op,dataCart, firstname,lastname,email,address,phone},
+            data: {op,dataCart, name,email,address,phone,note},
             success: function(data){
                 console.log(data);
-                    // window.location.href=data['link'];
+                    window.location.href=data['link'];
                 }
         })
 
@@ -159,26 +160,16 @@ function handleListCart(){
                 let sum = +danhsach[i].price*danhsach[i].quantity
                 // console.log(danhsach[i].id);
                 phantu += `<tr>
-                    <td><img src="${danhsach[i].avatar}" class="img-thumbnail"></td>
+                    <td><img src="${danhsach[i].img}" class="img-thumbnail"></td>
                     <td class="name">${danhsach[i].name}</td>
                     <td class="price" >${danhsach[i].price}</td>
                     <td class="quantity">
-                        <div class="product-quantity">
-                        <span class="qty-btn minus"><i class="ti-minus"></i></span>
-                        <div class="cart-item__cell-quantity">
-                            <div class="_16mL_A input-quantity">
-                                <a type="button" onclick="minusProduct('${danhsach[i].id}')" class="btn btn-outline-success">
-                                   -
-                                </a>
-                                <input type="text" class="quantity-input" onchange="changeQuantity('${danhsach[i].id}',this)" value="${danhsach[i].quantity}">
-                                <input type="hidden" class="id-product" value="${danhsach[i].id}" />
-                                <a type="button" class="btn btn-outline-success" onclick="plusProduct('${danhsach[i].id}')">
-                                   +
-                                </a>
-                            </div>
-                        </div>
-                        <span class="qty-btn plus"><i class="ti-plus"></i></span>
-                         </div>
+                    <div class="product-quantity">
+                        <span class="qty-btn minus" onclick="minusProduct('${danhsach[i].id}')"><i class="ti-minus"></i></span>
+                        <input type="text" class="quantity-input text-center" onchange="changeQuantity('${danhsach[i].id}',this)" value="${danhsach[i].quantity}">
+                        <input type="hidden" class="id-product" value="${danhsach[i].id}" />
+                        <span class="qty-btn plus" onclick="plusProduct('${danhsach[i].id}')"><i class="ti-plus"></i></span>
+                    </div>  
                     </td>
                     <td class="subtotal"><span id ="sum-${danhsach[i].id}">${sum}</span> </td>
                     <td><a class="btn btn-light" onclick="removeProduct('${danhsach[i].id}')"><i class="fas fa-trash-alt"></i></a></td>

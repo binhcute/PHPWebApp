@@ -2,10 +2,20 @@
 @section('title','Danh Sách Sản Phẩm')
 @section('content')
 <div class="col-sm-12">
-  <div class="card">
-    <div class="card-header">
-      <h5>Danh Sách Sản Phẩm</h5>
+  <div class="page-title">
+    <div class="row">
+    <div class="col-6">
+        <h3>Trang chủ</h3>
     </div>
+    <div class="col-6">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('admin.index')}}">                                       <i data-feather="home"></i></a></li>
+        <li class="breadcrumb-item">Admin</li>
+        <li class="breadcrumb-item active">Trang chủ</li>
+        </ol>
+    </div>
+    </div>
+</div><div class="card">
     @if(count($order)!= 0)
     <div class="table-responsive">
       <table class="table table-hover">

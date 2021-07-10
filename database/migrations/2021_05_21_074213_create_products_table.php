@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('id_color')->unsigned()->nullable();
             $table->string('name');
             $table->string('img');
+            $table->string('img_hover');
             $table->string('slide_img')->nullable();
             $table->integer('price');
             $table->string('series')->unique();

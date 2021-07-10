@@ -56,10 +56,10 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Nhà Cung Cấp</label>
             <div class="col-sm-9">
-              <select class="form-select" required="" aria-label="select example" name="id_port">
+              <select class="form-select" required="" aria-label="select example" name="id_portfolio">
                 <option value="">---Chọn---</option>
                 @foreach($portfolio as $port)
-                <div class="hidden" name = "id_port">{{ $port->id}}</div>
+                <div class="hidden" name = "id_portfolio">{{ $port->id}}</div>
                 <option value="{{$port->id}}">{{$port->name}}</option>
                 @endforeach
               </select>
@@ -69,7 +69,7 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Màu Sắc Gồm</label>
             <div class="col-sm-9">
-              <select class="form-select" required="" aria-label="select example" name="id_port">
+              <select class="form-select" required="" aria-label="select example" name="id_color">
                 <option value="">---Chọn---</option>
                 @foreach($color as $color)
                 <div class="hidden" name = "id_port">{{ $color->id}}</div>
@@ -114,6 +114,12 @@
           <label class="col-sm-3 col-form-label">Chọn ảnh</label>
           <div class="col-sm-9">
             <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Chọn ảnh chuyển</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="file" name="img_hover" data-bs-original-title="" title="">
           </div>
         </div>
         <div class="mb-3 row">

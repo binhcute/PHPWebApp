@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="vn">
 
 
-<!-- Mirrored from htmldemo.hasthemes.com/learts/learts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 04:13:06 GMT -->
+<!-- Mirrored from htmldemo.hasthemes.com/learts/learts/{{route('index')}} by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 04:13:06 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8">
@@ -72,7 +72,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo justify-content-center">
-                        <a href="index.html"><img src="{{asset('client/images/logo/logo.png')}}" alt="Learts Logo"></a>
+                        <a href="{{route('index')}}"><img src="{{asset('client/images/logo/logo.png')}}" alt="Learts Logo"></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -186,7 +186,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><img src="{{asset('client/images/logo/logo-2.png')}}" alt="Learts Logo"></a>
+                        <a href="{{route('index')}}"><img src="{{asset('client/images/logo/logo-2.png')}}" alt="Learts Logo"></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -232,7 +232,7 @@
                 <!-- Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><img width="50" height="50" src="{{asset('client/images/logo/genz.gif')}}" alt="Learts Logo"><img style="padding-left: 15px;" width="180" height="40" src="{{asset('client/images/logo/logo-2.png')}}"></a>
+                        <a href="{{route('index')}}"><img width="50" height="50" src="{{asset('client/images/logo/genz.gif')}}" alt="Learts Logo"><img style="padding-left: 15px;" width="180" height="40" src="{{asset('client/images/logo/logo-2.png')}}"></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -302,7 +302,7 @@
     <div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
         <div class="inner">
             <div class="head">
-                <span class="title">Wishlist</span>
+                <span class="title">Yêu Thích</span>
                 <button class="offcanvas-close">×</button>
             </div>
             <div class="body customScroll">
@@ -335,7 +335,7 @@
             </div>
             <div class="foot">
                 <div class="buttons">
-                    <a href="{{URL::to('/favorite')}}" class="btn btn-dark btn-hover-primary">view wishlist</a>
+                    <a href="{{URL::to('/favorite')}}" class="btn btn-dark btn-hover-primary">Xem Danh Sách</a>
                 </div>
             </div>
         </div>
@@ -346,7 +346,7 @@
     <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
         <div class="inner">
             <div class="head">
-                <span class="title">Cart</span>
+                <span class="title">Giỏ Hàng</span>
                 <button class="offcanvas-close">×</button>
             </div>
             <div class="body customScroll">
@@ -379,14 +379,13 @@
             </div>
             <div class="foot">
                 <div class="sub-total">
-                    <strong>Subtotal :</strong>
+                    <strong>Tổng Cộng :</strong>
                     <span class="amount">$144.00</span>
                 </div>
                 <div class="buttons">
-                    <a href="{{URL::to('/cart')}}" class="btn btn-dark btn-hover-primary">view cart</a>
-                    <a href="{{URL::to('/checkout')}}" class="btn btn-outline-dark">checkout</a>
+                    <a href="{{URL::to('/cart')}}" class="btn btn-dark btn-hover-primary">Xem Giỏ Hàng</a>
+                    <a href="{{URL::to('/checkout')}}" class="btn btn-outline-dark">Thanh Toán Nhanh</a>
                 </div>
-                <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
             </div>
         </div>
     </div>
@@ -650,9 +649,9 @@
 
     <!-- Main Activation JS -->
     <script src="{{asset('client/js/main.js')}}"></script>
-    <scriptcsrc src="{{asset('client/js/xulygiohang.js')}}"></script>
+    <script src="{{asset('client/js/xulygiohang.js')}}"></script>
 </body>
 
 
-<!-- Mirrored from htmldemo.hasthemes.com/learts/learts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 04:14:01 GMT -->
+<!-- Mirrored from htmldemo.hasthemes.com/learts/learts/{{route('index')}} by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 04:14:01 GMT -->
 </html>
