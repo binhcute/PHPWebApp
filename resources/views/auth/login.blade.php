@@ -44,10 +44,21 @@
             <div>
               <div><a class="logo text-start" href="{{route('index')}}"><img class="img-fluid for-light" src="{{asset('client/images/logo/logo-2.png')}}" alt="Learts Logo"><img class="img-fluid for-dark"src="{{asset('server/assets/images/logo/logo_dark.png')}}" alt="looginpage"></a></div>
               <div class="login-main"> 
+              
                 <form class="theme-form" method="POST" action="{{ url('/LoginCheck') }}">
                   {{ csrf_field() }}
 				  <h4>Đăng nhập</h4>
-                  <p>Nhập tài khoản & mật khẩu để đăng nhập</p>
+          <?php
+                $message = Session::get('message');
+                if($message){
+                  echo '<p style="color:red">'.$message.'</p>';
+                  Session::put('message',null);
+                }
+                else{
+                    echo '<p>
+                  Nhập tài khoản & mật khẩu để đăng nhập</p>';
+                }
+              ?>
                   <div class="form-group {{ $errors->has('username') ? ' has-error' : '' }}">
                     <label class="col-form-label">Tài khoản</label>
 					<input type="text" class="form-control" name="username" required="" placeholder="Username" value="{{ old('username') }}" required autofocus>

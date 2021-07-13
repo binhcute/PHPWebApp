@@ -6,23 +6,23 @@
     <h5>Thêm Loại Sản Phẩm</h5>
   </div>
   @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ $message }}</strong>
-        </div>
-        <img src="images/{{ Session::get('image') }}">
-        @endif
-  
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+  <div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>{{ $message }}</strong>
+  </div>
+  <img src="images/{{ Session::get('image') }}">
+  @endif
+
+  @if (count($errors) > 0)
+  <div class="alert alert-danger">
+    <strong>Whoops!</strong> There were some problems with your input.
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
   <form class="form theme-form" action="{{ route('LoaiSanPham.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="card-body">
@@ -52,12 +52,25 @@
               <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail"></textarea>
             </div>
           </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Chọn ảnh</label>
-          <div class="col-sm-9">
-            <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
+
+          <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Trạng Thái</label>
+            <div class="col-sm-9">
+            <select class="form-select" name="status" required="" aria-label="select example">
+              <option value="">Open this select menu</option>
+              <option value="1">Hiển Thị</option>
+              <option value="0">Ẩn</option>
+            </select>
+            <div class="invalid-feedback">Example invalid select feedback</div>
+            </div>
           </div>
+          <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Chọn ảnh</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

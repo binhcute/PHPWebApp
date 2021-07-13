@@ -8,6 +8,8 @@ use App\Models\ProductCategories;
 use App\Models\Portfolio;
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Session;
 
 class ProductController extends Controller
 {
@@ -60,8 +62,14 @@ class ProductController extends Controller
         $product->keyword = $request->keyword;
         $files = $request->file('img');
         $request->validate([
+            'id_cate' => ['required'],
+            'id_portfolio' => ['required'],
+            'id_color' => ['required'],
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img_hover' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
+            'price' => ['required'],
+            'series' => ['required'],
             'detail' =>['required','min:20'],
             'keyword' => ['required']
        ]);
@@ -117,6 +125,12 @@ class ProductController extends Controller
         $product->properties = NULL;
         $product->view = NULL;
         $product->save();
+        if($product){
+            Session::flash('success', 'Create Product Successfully');
+        }
+        else{
+            Session::flash('error', 'Dont Create Product Successfully');
+        }
         return redirect()->route('SanPham.index');
     }
 
@@ -128,7 +142,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::find($id);  
         $color = Color::all();
         $portfolio = Portfolio::all();
         $product_categories = ProductCategories::all();
@@ -147,10 +161,10 @@ class ProductController extends Controller
         $color = Color::all();
         $portfolio = Portfolio::all();
         $product = Product::find($id);
-        $cate = ProductCategories::find($id);
-        $cate->Product;
-        $port = Portfolio::find($id);
-        $port->Product;
+        
+        $cate = Product::find($id)->categories->name;
+
+        $port = Product::find($id)->portfolio->name;
         return view('pages.server.productedit')
         ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)
         ->with('cate', $cate)->with('port',$port);
@@ -186,6 +200,7 @@ class ProductController extends Controller
               $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
               $files->move($destinationPath, $profileImage);
     
+              
               $insert['img'] = "$profileImage";
            // Save In Database
            $product->img="$profileImage";

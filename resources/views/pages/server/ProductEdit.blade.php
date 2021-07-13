@@ -45,7 +45,7 @@
             <label class="col-sm-3 col-form-label">Loại Sản Phẩm</label>
             <div class="col-sm-9">
               <select class="form-select" aria-label="select example" name="id_cate">
-                <option value="">0.{{$cate->name}}</option>
+                <option value="">0.{{$cate}}</option>
                 @foreach($product_categories as $cate)
                 {{$i=0}}
                 <div class="hidden" name = "id_cate">{{ $cate->id}}</div>
@@ -59,7 +59,7 @@
             <label class="col-sm-3 col-form-label">Nhà Cung Cấp</label>
             <div class="col-sm-9">
               <select class="form-select" aria-label="select example" name="id_cate">
-                <option value="">0.{{$port->name}}</option>
+                <option value="">0.{{$port}}</option>
                 @foreach($portfolio as $port)
                 {{$i=0}}
                 <div class="hidden" name = "id_portfolio">{{ $port->id}}</div>
@@ -103,9 +103,10 @@
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Chọn ảnh</label>
           <div class="col-sm-9">
+            <label for="img">{{$product->img}}</label>
             <input class="form-control" value="{{$product->img}}" type="file" name="img" data-bs-original-title="" title="">
           </div>
-          <img src="server/assets/images/product/{{$product->img}}">
+          <img src="{{ URL::to('/') }}/server/assets/images/product/{{ $product->img }}">
         </div>
       </div>
     </div>

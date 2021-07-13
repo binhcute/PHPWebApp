@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model
 {
+    protected $table = 'portfolios';
+    
     protected $primaryKey = 'id';
     
     protected $connection = 'mysql';
@@ -22,6 +24,7 @@ class Portfolio extends Model
     ];
 
     public function Product(){
-        return $this->HasMany('App\Models\Product','foreign_key','local_key');
+        
+        return $this->HasMany('App\Models\Product','id','id');
     }
 }

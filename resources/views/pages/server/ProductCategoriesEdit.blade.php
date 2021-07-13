@@ -50,6 +50,10 @@
           <div class="row">
             <label class="col-sm-3 col-form-label">Chi Tiết</label>
             <div class="col-sm-9">
+              <!-- <textarea id="ckeditor"></textarea>
+              <script>
+                var editor = CKEDITOR.replace('ckeditor');
+              </script> -->
               <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail">{{$product_categories->detail}}</textarea>
             </div>
           </div>
@@ -57,10 +61,10 @@
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Chọn ảnh</label>
           <div class="col-sm-9">
-            <input class="form-control" type="file" name="img" data-bs-original-title="" title="" value="{{$product_categories->img}}">
+            <input class="form-control" type="file" name="img" data-bs-original-title="" title="" value="{{ URL::to('/') }}/server/assets/images/productcategory/{{ $product_categories->img }}">
           </div>
           <div class="col-sm-9">
-            <img src="server/assets/images/productcategory/{{$product_categories->img}}" id="profile-img-tag" height="100" width="100">
+            <img src="{{ URL::to('/') }}/server/assets/images/productcategory/{{ $product_categories->img }}" name="img">
           </div>
         </div>
       </div>

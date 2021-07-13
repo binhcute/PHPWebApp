@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategories;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class ProductCategoriesController extends Controller
 {
@@ -66,7 +67,9 @@ class ProductCategoriesController extends Controller
         //     $request->img,
         //     ])->all();
         $product_categories->properties = NULL;
+        $product_categories->status = $request->status;
         $product_categories->save();
+        Session::put('message','Thêm Loại Sản Phẩm Thành Công');
         return redirect()->route('LoaiSanPham.index');
     }
 
