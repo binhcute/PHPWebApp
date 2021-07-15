@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
+use Session;
+session_start();
 
 class PortfolioController extends Controller
 {
@@ -38,16 +40,14 @@ class PortfolioController extends Controller
     public function store(Request $request)
     {
         $portfolio = new Portfolio();
-        // $portfolio->id_user = $request->id_user;
+        $portfolio->id_user = Auth::user()->id;
         $portfolio->name = $request->name;
         $portfolio->detail = $request->detail;
-        $portfolio->keyword = $request->keyword;
         $files = $request->file('img');
         $request->validate([
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
-            'detail' =>['required','min:20'],
-            'keyword' => ['required']
+            'detail' =>['required','min:20']
        ]);
        // Define upload path
            $destinationPath = public_path('/server/assets/images/portfolio'); // upload path
@@ -58,9 +58,9 @@ class PortfolioController extends Controller
            $insert['img'] = "$profileImage";
         // Save In Database
 		$portfolio->img="$profileImage";
-
-        $portfolio->properties = NULL;
+        $portfolio->status = $request->status;
         $portfolio->save();
+        Session::put('message','Thêm Nhà Cung Cấp Thành Công');
         return redirect()->route('NhaCungCap.index');
     }
 
@@ -73,8 +73,10 @@ class PortfolioController extends Controller
     public function show($id)
     {
         $portfolio = Portfolio::find($id);
-        return view('pages.server.portfolioshow')->with('portfolio', $portfolio);
-
+        $user = Portfolio::find($id)->User->name;
+        return view('pages.server.portfolioshow')
+        ->with('portfolio', $portfolio)
+        ->with('user', $user);
     }
 
     /**
@@ -99,16 +101,11 @@ class PortfolioController extends Controller
     public function update(Request $request, $id)
     {
         $portfolio = Portfolio::find($id);
+        $portfolio->id_user = Auth::user()->id;
         $portfolio->name = $request->name;
         $portfolio->detail = $request->detail;
-        $portfolio->keyword = $request->keyword;
         $files = $request->file('img');
-        $request->validate([
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255'],
-            'detail' =>['required','min:20'],
-            'keyword' => ['required']
-       ]);
+        if($files!=NULL){
        // Define upload path
            $destinationPath = public_path('/server/assets/images/portfolio'); // upload path
         // Upload Orginal Image           
@@ -118,8 +115,10 @@ class PortfolioController extends Controller
            $insert['img'] = "$profileImage";
         // Save In Database
 		$portfolio->img="$profileImage";
-        $portfolio->properties = NULL;
+        $portfolio->status = $request->status;
+        }
         $portfolio->save();
+        Session::put('message', 'Cập Nhật Nhà Cung Cấp Thành Công');
         return redirect()->route('NhaCungCap.index');
     }
 
@@ -133,6 +132,7 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolio::find($id);
         $portfolio->delete();
+        Session::put('destroy','Đã Xóa Nhà Cung Cấp');
         return redirect()->route('NhaCungCap.index');
     }
 
@@ -141,6 +141,7 @@ class PortfolioController extends Controller
         $portfolio = Portfolio::find($id);
         $portfolio->status = 0;
         $portfolio->save();
+        Session::put('info','Đã Ẩn Nhà Cung Cấp');
         return redirect()->route('NhaCungCap.index');
     }
     public function enabled(Request $request, $id)
@@ -148,6 +149,7 @@ class PortfolioController extends Controller
         $portfolio = Portfolio::find($id);
         $portfolio->status = 1 ;
         $portfolio->save();
+        Session::put('info','Đã Hiển Thị Nhà Cung Cấp');
         return redirect()->route('NhaCungCap.index');
     }
 }

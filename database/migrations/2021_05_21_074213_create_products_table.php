@@ -28,8 +28,7 @@ class CreateProductsTable extends Migration
             $table->text('detail')->nullable();
             $table->integer('quantity')->nullable();
             $table->string('keyword')->nullable();
-            $table->string('properties')->nullable();
-            $table->integer('status')->default('1');
+            $table->integer('status');
             $table->integer('view')->nullable();
             $table->timestamps();
         });

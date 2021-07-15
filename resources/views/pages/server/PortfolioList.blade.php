@@ -2,81 +2,116 @@
 @section('title','Danh Sách Sản Phẩm')
 @section('content')
 <div class="col-sm-12">
-  <div class="card">
-    <div class="card-header">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-6">
       <h5>Danh Sách Nhà Cung Cấp</h5>
+      </div>
+      <div class="col-6">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{route('admin.index')}}"> <i data-feather="home"></i></a></li>
+          <li class="breadcrumb-item">Danh Mục</li>
+          <li class="breadcrumb-item active">Danh Sách Danh Mục</li>
+        </ol>
+      </div>
     </div>
-    @if(count($portfolio)!= 0)
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Mã Số</th>
-            <th scope="col">Tên</th>
-            <th scope="col">Hình Ảnh</th>
-            <th scope="col">Trạng Thái</th>
-            <th scope="col">Người Đăng</th>
-            <th scope="col">Tác Vụ</th>
-          </tr>
-        </thead>
-        <tbody>
-        @foreach($portfolio as $item)
-          <tr>
-            <th scope="row">{{ $item->id }}</th>
-            <td>{{ $item->name}}</td>
-            <td><img src="server/assets/images/portfolio/{{$item->img}}"></td>
-            <td>
-              @if($item->status==1)
-                <span><strong>Active</strong></span>
-              @else
-                <span><strong>Disable</strong></span>
-              @endif
-            </td>
-            <td>Admin</td>
-            <td class="flex-column align-items-center justify-content-around">
-              <form action="{{route('NhaCungCap.show',$item->id)}}" method="get">
-                <button class="btn btn-pill btn-outline-info-2x btn-air-info" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Chi Tiết
-                </button>
-              </form>
-              <form action="{{route('NhaCungCap.edit',$item->id)}}" method="get">
-                <button class="btn btn-pill btn-outline-primary-2x btn-air-primary" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Chỉnh Sửa
-                </button>
-              </form>
-              @if($item->status == 1)
-              <form action="{{URL::to('/NhaCungCap/disabled/'.$item->id)}}" method="post">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="put" />
-                <button class="btn btn-pill btn-outline-warning-2x btn-air-warning" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Vô Hiệu
-                </button>
-              </form>
-              @else
-              <form action="{{URL::to('/NhaCungCap/enabled/'.$item->id)}}" method="post">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="put" />
-                <button class="btn btn-pill btn-outline-success-2x btn-air-success" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Kích Hoạt
-                </button>
-              </form>
-              @endif
-              <form action="{{route('NhaCungCap.destroy',$item->id)}}" method="post">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="delete">
-                <button class="btn btn-pill btn-outline-danger-2x btn-air-danger" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Xóa
-                </button>
-              </form>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
-    @else
-    <strong>Danh Sách Rỗng <a href="{{route('NhaCungCap.create')}}">Thêm Mới?</a></strong>
-    @endif
   </div>
+  @if ($message = Session::get('message'))
+  <div class="alert alert-success alert-block">
+    <strong>{{ $message }}</strong>
+    <?php
+    Session::put('message', null);
+    ?>
+  </div>
+  @endif
+  @if ($destroy = Session::get('destroy'))
+  <div class="alert alert-danger alert-block">
+    <strong>{{ $destroy }}</strong>
+    <?php
+    Session::put('destroy', null);
+    ?>
+  </div>
+  @endif
+  @if ($info = Session::get('info'))
+  <div class="alert alert-primary alert-block">
+    <strong>{{ $info }}</strong>
+    <?php
+    Session::put('info', null);
+    ?>
+  </div>
+  @endif
+  <div class="card">
+    @if(count($portfolio)!= 0)
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="display" id="basic-1">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tên</th>
+              <th scope="col">Hình Ảnh</th>
+              <th scope="col">Trạng Thái</th>
+              <th scope="col">Tác Vụ</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($portfolio as $item)
+            <tr>
+              <th scope="row">{{ $item->id }}</th>
+              <td>{{ $item->name}}</td>
+              <td><img class="img-thumbnail" width="100" height="100" src="{{ URL::to('/') }}/server/assets/images/portfolio/{{$item->img}}"></td>
+              <td>
+                @if($item->status==1)
+
+                <form action="{{URL::to('/NhaCungCap/disabled/'.$item->id)}}" method="post">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <input type="hidden" name="_method" value="put" />
+                  <button class="btn btn-outline-light" type="submit"><i class="icofont icofont-ui-check" style="font-size:20px;color:blue"></i></button> </button>
+                  <p>Đang hiển thị</p>
+                </form>
+                @else
+                <form action="{{URL::to('/NhaCungCap/enabled/'.$item->id)}}" method="post">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <input type="hidden" name="_method" value="put" />
+                  <button class="btn btn-outline-light" type="submit"><i class="icofont icofont-ui-close" style="font-size:20px;color:red"></i></button>
+                  <p>Đang ẩn</p>
+                </form>
+                @endif
+              </td>
+              <td class="flex-column align-items-center justify-content-around">
+                <a href="{{route('NhaCungCap.show',$item->id)}}" method="get">
+
+                  <i class="icofont icofont-paper" style="font-size:20px;color:green"></i>
+                </a>
+                <a href="{{route('NhaCungCap.edit',$item->id)}}">
+
+                  <i class="icofont icofont-pencil-alt-5" style="font-size:20px;color:blue"></i>
+                </a>
+                <a href="{{URL::to('/XoaNhaCungCap',$item->id)}}" onclick="return confirm('Bạn muốn xóa nhà cung cấp này ?')">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <input type="hidden" name="_method" value="delete">
+                  <i class="icofont icofont-trash" style="font-size:20px;color:red"></i>
+                </a>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tên</th>
+              <th scope="col">Hình Ảnh</th>
+              <th scope="col">Trạng Thái</th>
+              <th scope="col">Tác Vụ</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  @else
+  <strong class="text-center">Danh Sách Trống</strong>
+  @endif
+</div>
 </div>
 @endsection

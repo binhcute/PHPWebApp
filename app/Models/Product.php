@@ -39,10 +39,13 @@ class Product extends Model
         return $this->belongsTo(ProductCategories::class, 'id_cate', 'id');
     }
     public function User(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'id_user','id');
     }
     public function portfolio(){
         return $this->belongsTo(Portfolio::class, 'id_portfolio','id');
+    }
+    public function color(){
+        return $this->belongsTo(Color::class, 'id_color','id');
     }
     public function OrderDetail(){
         return $this->HasMany('App\Models\OrderDetail','foreign_key','local_key');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
+use Session;
+// session_start();
 
 class ColorController extends Controller
 {
@@ -38,11 +40,13 @@ class ColorController extends Controller
     public function store(Request $request)
     {
         $color = new Color();
+        $color->id_user = Auth::user()->id;
         $color->name = $request->name;
         $color->primary_color = $request->primary_color;
         $color->primary_color_opacity = $request->primary_color_opacity;
-        $color->properties = NULL;
+        $color->status = $request->status;
         $color->save();
+        Session::put('message', 'Thêm Màu Thành Công');
         return redirect()->route('MauSac.index');
     }
 
@@ -55,7 +59,10 @@ class ColorController extends Controller
     public function show($id)
     {
         $color = Color::find($id);
-        return view('pages.server.colorshow')->with('color', $color);
+        $user = Color::find($id)->User->name;
+        return view('pages.server.colorshow')
+        ->with('color', $color)
+        ->with('user', $user);
 
     }
 
@@ -84,8 +91,8 @@ class ColorController extends Controller
         $color->name = $request->name;
         $color->primary_color = $request->primary_color;
         $color->primary_color_opacity = $request->primary_color_opacity;
-        $color->properties = NULL;
         $color->save();
+        Session::put('message', 'Cập Nhật Màu Thành Công');
         return redirect()->route('MauSac.index');
     }
 
@@ -99,6 +106,7 @@ class ColorController extends Controller
     {
         $color = Color::find($id);
         $color->delete();
+        Session::put('detroy', 'Đã Xóa Màu');
         return redirect()->route('MauSac.index');
     }
 
@@ -107,6 +115,7 @@ class ColorController extends Controller
         $color = Color::find($id);
         $color->status = 0;
         $color->save();
+        Session::put('info', 'Đã Ẩn Màu');
         return redirect()->route('MauSac.index');
     }
     public function enabled(Request $request, $id)
@@ -114,6 +123,7 @@ class ColorController extends Controller
         $color = Color::find($id);
         $color->status = 1 ;
         $color->save();
+        Session::put('info', 'Đã Hiển Thị Màu');
         return redirect()->route('MauSac.index');
     }
 }

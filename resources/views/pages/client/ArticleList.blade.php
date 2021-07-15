@@ -3,16 +3,16 @@
 @section('title','Bài Viết')
 
     <!-- Page Title/Header Start -->
-    <div class="page-title-section section" data-bg-image="assets/images/bg/page-title-1.jpg">
+    <div class="page-title-section section" data-bg-image="{{asset('client/images/bg/page-title-1.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col">
 
                     <div class="page-title">
-                        <h1 class="title">Blog</h1>
+                        <h1 class="title">Bài Viết</h1>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Blog</li>
+                            <li class="breadcrumb-item active">Bài Viết</li>
                         </ul>
                     </div>
 
@@ -29,24 +29,24 @@
 
                 <div class="col-xl-9 col-lg-8 col-12 learts-mb-50">
                     <div class="row no-gutters learts-mb-n40">
-
+                        @foreach ($article as $item)
                         <div class="col-12 border-bottom learts-pb-40 learts-mb-40">
                             <div class="blog">
                                 <div class="row learts-mb-n30">
                                     <div class="col-md-5 col-12 learts-mb-30">
                                         <div class="image mb-0">
-                                            <a href="blog-details-right-sidebar.html"><img src="assets/images/blog/s345/blog-1.jpg" alt="Blog Image"></a>
+                                            <a href="blog-details-right-sidebar.html"><img src="{{ URL::to('/') }}/server/assets/images/article/{{$item->img}}" alt="Blog Image"></a>
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-12 align-self-center learts-mb-30">
                                         <div class="content">
                                             <ul class="meta">
-                                                <li><i class="far fa-calendar"></i><a href="#">January 22, 2020</a></li>
-                                                <li><i class="far fa-eye"></i> 201 views</li>
+                                                <li><i class="far fa-calendar"></i><a href="#">{{$item->created_at}}</a></li>
+                                                <li><i class="far fa-eye"></i> {{$item->view}} views</li>
                                             </ul>
-                                            <h5 class="title"><a href="blog-details-right-sidebar.html">Start a Kickass Online Blog</a></h5>
+                                            <h5 class="title"><a href="blog-details-right-sidebar.html">{{$item->name}}</a></h5>
                                             <div class="desc">
-                                                <p>Working on writing our first book has been one of the most amazing projects. It seems like it will be forever until I get to show you what we’ve been…</p>
+                                                <p>{{$item->detail}}</p>
                                             </div>
                                             <a href="blog-details-right-sidebar.html" class="link">Read More</a>
                                         </div>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        @endforeach
                     </div>
 
                 </div>
@@ -73,7 +73,8 @@
 
                     <!-- Blog Post Widget Start -->
                     <div class="single-widget learts-mb-40">
-                        <h3 class="widget-title product-filter-widget-title">Recent Post</h3>
+                    
+                        <h3 class="widget-title product-filter-widget-title">Bài Viết Xem Nhiều</h3>
                         <ul class="widget-blogs">
                             <li class="widget-blog">
                                 <div class="thumbnail">

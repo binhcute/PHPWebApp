@@ -4,91 +4,116 @@
 <div class="col-sm-12">
   <div class="page-title">
     <div class="row">
-    <div class="col-6">
+      <div class="col-6">
         <h3>Danh Sách Sản Phẩm</h3>
-    </div>
-    <div class="col-6">
+      </div>
+      <div class="col-6">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('admin.index')}}">                                       <i data-feather="home"></i></a></li>
-        <li class="breadcrumb-item">Sản Phẩm</li>
-        <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
+          <li class="breadcrumb-item"><a href="{{route('admin.index')}}"> <i data-feather="home"></i></a></li>
+          <li class="breadcrumb-item">Sản Phẩm</li>
+          <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
         </ol>
-    </div>
+      </div>
     </div>
   </div>
+  @if ($message = Session::get('message'))
+  <div class="alert alert-success alert-block">
+    <strong>{{ $message }}</strong>
+    <?php
+    Session::put('message', null);
+    ?>
+  </div>
+  @endif
+  @if ($destroy = Session::get('destroy'))
+  <div class="alert alert-danger alert-block">
+    <strong>{{ $destroy }}</strong>
+    <?php
+    Session::put('destroy', null);
+    ?>
+  </div>
+  @endif
+  @if ($info = Session::get('info'))
+  <div class="alert alert-primary alert-block">
+    <strong>{{ $info }}</strong>
+    <?php
+    Session::put('info', null);
+    ?>
+  </div>
+  @endif
+
   <div class="card">
     @if(count($product)!= 0)
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Mã Số</th>
-            <th scope="col">Tên</th>
-            <th scope="col">Hình Ảnh</th>
-            <th scope="col">Trạng Thái</th>
-            <th scope="col">Người Đăng</th>
-            <th scope="col">Tác Vụ</th>
-          </tr>
-        </thead>
-        <tbody>
-        @foreach($product as $item)
-          <tr>
-            <th scope="row">{{ $item->series }}</th>
-            <td>{{ $item->name}}</td>
-            <td><img class="img-thumbnail"  width="150" src="server/assets/images/product/{{$item->img}}"></td>
-            <td>
-              @if($item->status==1)
-                <span><strong>Active</strong></span>
-              @else
-                <span><strong>Disable</strong></span>
-              @endif
-            </td>
-            <td>Admin</td>
-            <td class="flex-column align-items-center justify-content-around">
-              <form action="{{route('SanPham.show',$item->id)}}" method="get">
-                <button class="btn btn-pill btn-outline-info-2x btn-air-info" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Chi Tiết
-                </button>
-              </form>
-              <form action="{{route('SanPham.edit',$item->id)}}" method="get">
-                <button class="btn btn-pill btn-outline-primary-2x btn-air-primary" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Chỉnh Sửa
-                </button>
-              </form>
-              @if($item->status == 1)
-              <form action="{{URL::to('/SanPham/disabled/'.$item->id)}}" method="post">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="put" />
-                <button class="btn btn-pill btn-outline-warning-2x btn-air-warning" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Vô Hiệu
-                </button>
-              </form>
-              @else
-              <form action="{{URL::to('/SanPham/enabled/'.$item->id)}}" method="post">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="put" />
-                <button class="btn btn-pill btn-outline-success-2x btn-air-success" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Kích Hoạt
-                </button>
-              </form>
-              @endif
-              <form action="{{route('SanPham.destroy',$item->id)}}" method="post">
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <input type="hidden" name="_method" value="delete">
-                <button class="btn btn-pill btn-outline-danger-2x btn-air-danger" style="font-weight: bold; width: 135px; height: auto; margin-bottom: 10px"	>
-                  Xóa
-                </button>
-              </form>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="display" id="basic-1">
+          <thead>
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Tên</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Hình Ảnh</th>
+              <th scope="col">Trạng Thái</th>
+              <th scope="col">Tác Vụ</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($product as $item)
+            <tr>
+              <th scope="row">{{ $item->id }}</th>
+              <td>{{ $item->name}}</td>
+              <td>{{ $item->price }}</td>
+              <td><img class="img-thumbnail" width="100" height="100" width="100" height="100" src="{{ URL::to('/') }}/server/assets/images/product/{{$item->img}}"></td>
+              <td>
+                @if($item->status==1)
+
+                <form action="{{URL::to('/SanPham/disabled/'.$item->id)}}" method="post">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <input type="hidden" name="_method" value="put" />
+                  <button class="btn btn-outline-light" type="submit"><i class="icofont icofont-ui-check" style="font-size:20px;color:blue"></i></button> </button>
+                  <p>Đang hiển thị</p>
+                </form>
+                @else
+                <form action="{{URL::to('/SanPham/enabled/'.$item->id)}}" method="post">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <input type="hidden" name="_method" value="put" />
+                  <button class="btn btn-outline-light" type="submit"><i class="icofont icofont-ui-close" style="font-size:20px;color:red"></i></button>
+                  <p>Đang ẩn</p>
+                </form>
+                @endif
+              </td>
+              <td class="flex-column align-items-center justify-content-around">
+                <a href="{{route('SanPham.show',$item->id)}}" method="get">
+                  <i class="icofont icofont-paper" style="font-size:20px;color:green"></i>
+                </a>
+                <a href="{{route('SanPham.edit',$item->id)}}">
+                  <i class="icofont icofont-pencil-alt-5" style="font-size:20px;color:blue"></i>
+                </a>
+                <a href="{{URL::to('/XoaSanPham',$item->id)}}" onclick="return confirm('Bạn muốn xóa danh mục này ?')">
+                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <input type="hidden" name="_method" value="delete">
+                  <i class="icofont icofont-trash" style="font-size:20px;color:red"></i>
+                </a>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Tên</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Hình Ảnh</th>
+              <th scope="col">Trạng Thái</th>
+              <th scope="col">Tác Vụ</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
-    @else
-    <strong>Danh Sách Rỗng <a href="{{route('SanPham.create')}}">Thêm Mới?</a></strong>
-    @endif
   </div>
-  
+  @else
+  <strong class="text-center">Danh Sách Trống</strong>
+  @endif
+</div>
 </div>
 @endsection

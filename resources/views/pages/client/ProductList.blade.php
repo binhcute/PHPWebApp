@@ -33,7 +33,7 @@
                     <!-- Isotop Filter Start -->
                     <div class="col-md col-12 align-self-center learts-mb-20">
                         <div class="isotope-filter shop-product-filter" data-target="#shop-products">
-                            <button class="active" data-filter="*">all</button>
+                            <button class="active" data-filter=".all">all</button>
                             <button data-filter=".featured">Hot Products</button>
                             <button data-filter=".new">New Products</button>
                             <button data-filter=".sales">Sales Products</button>
@@ -71,6 +71,54 @@
 
                             <div class="grid-sizer col-1"></div>
                             @foreach($product as $item)
+                            <div class="grid-item col all">
+                                <div class="product">
+                                    <div class="product-thumb">
+                                        <a href="{{URL::to('product',$item->id)}}" class="image">
+                                            <img src="{{ URL::to('/') }}/server/assets/images/product/{{ $item->img }}" alt="Product Image">
+                                            <img class="image-hover " src="{{ URL::to('/') }}/server/assets/images/product/hover/{{ $item->img_hover }}" alt="Product Image">
+                                        </a>
+                                        <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
+                                        <span class="price">
+                                            {{$item->price}}
+                                        </span>
+                                        <div class="product-buttons">
+                                            <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
+                                            <a onclick="addProduct('{{$item->id}}','{{$item->name}}','{{$item->price}}',this)" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                                            <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @foreach($product_hot as $item)
+                            <div class="grid-item col new">
+                                <div class="product">
+                                    <div class="product-thumb">
+                                        <a href="{{URL::to('product',$item->id)}}" class="image">
+                                            <img src="{{ URL::to('/') }}/server/assets/images/product/{{ $item->img }}" alt="Product Image">
+                                            <img class="image-hover " src="{{ URL::to('/') }}/server/assets/images/product/hover/{{ $item->img_hover }}" alt="Product Image">
+                                        </a>
+                                        <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
+                                        <span class="price">
+                                            {{$item->price}}
+                                        </span>
+                                        <div class="product-buttons">
+                                            <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
+                                            <a onclick="addProduct('{{$item->id}}','{{$item->name}}','{{$item->price}}',this)" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                                            <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @foreach($product_new as $item)
                             <div class="grid-item col featured">
                                 <div class="product">
                                     <div class="product-thumb">
@@ -114,7 +162,7 @@
 
                         <!-- Categories Start -->
                         <div class="single-widget learts-mb-40">
-                            <h3 class="widget-title product-filter-widget-title">Product categories</h3>
+                            <h3 class="widget-title product-filter-widget-title">Danh Mục Sản Phẩm</h3>
                             <ul class="widget-list">
                             @foreach ($product_cate as $item)
                                 <li><a href="#">{{ $item->name}}</a></li>
@@ -122,10 +170,20 @@
                             </ul>
                         </div>
                         <!-- Categories End -->
-
+                        <!-- Portfolio Start -->
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">Nhà Cung Cấp</h3>
+                            <ul class="widget-list">
+                            @foreach ($portfolio as $item)
+                                <li><a href="#">{{ $item->name}}</a></li>
+                            @endforeach
+                            </ul>
+                        </div>
+                        <!-- Portfolio End -->
 
                        
                     </div>
+                    
 
                 </div>
             </div>

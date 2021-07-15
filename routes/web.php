@@ -15,14 +15,17 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::resource('/admin','ServerController');
     //Product
     Route::resource('/SanPham','ProductController');
+    Route::get('/XoaSanPham/{SanPham}','ProductController@destroy');
     Route::put('/SanPham/disabled/{SanPham}','ProductController@disabled');
     Route::put('/SanPham/enabled/{SanPham}','ProductController@enabled');
     //Cate
     Route::resource('/LoaiSanPham','ProductCategoriesController');
+    Route::get('/XoaLoaiSanPham/{LoaiSanPham}','ProductCategoriesController@destroy');
     Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','ProductCategoriesController@disabled');
     Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','ProductCategoriesController@enabled');
     //Article
     Route::resource('/BaiViet','ArticleController');
+    Route::get('/XoaBaiViet/{LoaiBaiViet}','ArticleController@destroy');
     Route::put('/BaiViet/disabled/{BaiViet}','ArticleController@disabled');
     Route::put('/BaiViet/enabled/{BaiViet}','ArticleController@enabled');
     //Order
@@ -35,6 +38,7 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::put('/ChiTietDonHang/enabled/{ChiTietDonHang}','OrderDetailController@enabled');
     //Portfolio
     Route::resource('/NhaCungCap','PortfolioController');
+    Route::get('/XoaNhaCungCap/{NhaCungCap}','PortfolioController@destroy');
     Route::put('/NhaCungCap/disabled/{NhaCungCap}','PortfolioController@disabled');
     Route::put('/NhaCungCap/enabled/{NhaCungCap}','PortfolioController@enabled');
     //CMT
@@ -47,6 +51,7 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::put('/YeuThich/enabled/{YeuThich}','FavoriteController@enabled');
     //Color
     Route::resource('/MauSac','ColorController');
+    Route::get('/XoaMau/{MauSac}','ColorController@destroy');
     Route::put('/MauSac/disabled/{MauSac}','ColorController@disabled');
     Route::put('/MauSac/enabled/{MauSac}','ColorController@enabled');
 

@@ -21,7 +21,6 @@ class CreateCommentsTable extends Migration
             $table->text('detail');
             $table->integer('role');//1 la sp 2 la bai viet
             $table->timestamps();
-            $table->string('properties')->nullable();
             $table->integer('status')->default('1');
         });
     }

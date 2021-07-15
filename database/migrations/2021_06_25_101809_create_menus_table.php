@@ -18,7 +18,6 @@ class CreateMenusTable extends Migration
             $table->string('name');
             $table->string('url')->nullable();
             $table->timestamps();
-            $table->string('properties')->nullable();
             $table->integer('status')->default('1');
         });
     }

@@ -27,7 +27,21 @@ class ForeignKey extends Migration
             ->references('id') -> on('colors')
             ->onDelete('cascade');
         });
+        Schema::table('product_categories', function (Blueprint $table) {
+            $table->foreign('id_user')
+            ->references('id') -> on('users')
+            ->onDelete('cascade');
+        });Schema::table('portfolios', function (Blueprint $table) {
+            $table->foreign('id_user')
+            ->references('id') -> on('users')
+            ->onDelete('cascade');
+        });
         Schema::table('articles', function (Blueprint $table) {
+            $table->foreign('id_user')
+            ->references('id') -> on('users')
+            ->onDelete('cascade');
+        });
+        Schema::table('colors', function (Blueprint $table) {
             $table->foreign('id_user')
             ->references('id') -> on('users')
             ->onDelete('cascade');

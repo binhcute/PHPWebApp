@@ -27,4 +27,7 @@ class Portfolio extends Model
         
         return $this->HasMany('App\Models\Product','id','id');
     }
+    public function User(){
+        return $this->belongsTo('App\User', 'id_user','id');
+    }
 }

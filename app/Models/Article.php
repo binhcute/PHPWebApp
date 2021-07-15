@@ -24,7 +24,7 @@ class Article extends Model
         'view'
     ];
     public function User(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','id_user','id');
     }
     public function Comment(){
         return $this->hasMany('App\Models\Comment');

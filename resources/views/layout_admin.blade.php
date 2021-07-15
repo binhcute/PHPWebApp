@@ -312,6 +312,7 @@
     <script src="{{asset('server/assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('server/assets/js/datatable/datatables/datatable.custom.js')}}"></script>
     <script src="{{asset('server/assets/js/tooltip-init.js')}}"></script>
+
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{asset('server/assets/js/script.js')}}"></script>

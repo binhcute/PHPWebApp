@@ -22,7 +22,6 @@ class CreateOrdersTable extends Migration
             $table->string('tel');
             $table->integer('gender')->nullable();
             $table->timestamps();
-            $table->string('properties')->nullable();
             $table->integer('status')->default('1');
             $table->text('note')->nullable();
         });

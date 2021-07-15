@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+// session_start();
 
 class CheckLoginController extends Controller
 {
