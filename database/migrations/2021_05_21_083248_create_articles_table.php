@@ -21,8 +21,7 @@ class CreateArticlesTable extends Migration
             $table->text('detail');
             $table->string('keyword')->nullable();
             $table->timestamps();
-            $table->string('properties')->nullable();
-            $table->integer('status')->default('1');
+            $table->integer('status');
             $table->integer('view')->nullable();
         });
     }

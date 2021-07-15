@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/vendors/animate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/vendors/chartist.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/vendors/date-picker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/vendors/scrollbar.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/vendors/datatables.css')}}">
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{asset('server/assets/css/vendors/bootstrap.css')}}">
@@ -276,6 +278,8 @@
     <!-- latest jquery-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="{{asset('server/assets/js/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('ckeditor/ckfinder/ckfinder.js')}}"></script>
     <!-- Bootstrap js-->
     <script src="{{asset('server/assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
     <!-- feather icon js-->
@@ -305,6 +309,10 @@
     <script src="{{asset('server/assets/js/typeahead/typeahead.custom.js')}}"></script>
     <script src="{{asset('server/assets/js/typeahead-search/handlebars.js')}}"></script>
     <script src="{{asset('server/assets/js/typeahead-search/typeahead-custom.js')}}"></script>
+    <script src="{{asset('server/assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('server/assets/js/datatable/datatables/datatable.custom.js')}}"></script>
+    <script src="{{asset('server/assets/js/tooltip-init.js')}}"></script>
+
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{asset('server/assets/js/script.js')}}"></script>

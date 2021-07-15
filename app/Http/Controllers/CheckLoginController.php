@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
+use Illuminate\Support\Facades\Redirect;
+// session_start();
+
 class CheckLoginController extends Controller
 {
 
@@ -23,11 +27,16 @@ class CheckLoginController extends Controller
         ];
 
         if (Auth::attempt($admin)) {
-            return redirect()->route('admin.index');
+            Session::put('username',$request->username);
+            Session::put('id',$request->id);
+            return Redirect::to('/admin');
+            // return redirect()->route('admin.index');
         } elseif(Auth::attempt($user)) {
+
             return redirect('/');
         }
         else{
+            Session::put('message','Đăng nhập thất bại vui lòng đăng nhập lại');
             return redirect('/login');
         }   
         

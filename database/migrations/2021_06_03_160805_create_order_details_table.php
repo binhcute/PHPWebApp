@@ -20,7 +20,6 @@ class CreateOrderDetailsTable extends Migration
             $table->string('name');
             $table->integer('quantity');
             $table->integer('price');
-            $table->string('properties')->nullable();
             $table->integer('status')->default('1');
         });
     }

@@ -19,7 +19,6 @@ class CreateSlidersTable extends Migration
             $table->string('img_description');
             $table->string('img_small_slider');
             $table->timestamps();
-            $table->string('properties')->nullable();
             $table->integer('status')->default('1');
         });
     }

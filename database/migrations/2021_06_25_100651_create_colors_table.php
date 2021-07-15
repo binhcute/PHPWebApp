@@ -15,12 +15,12 @@ class CreateColorsTable extends Migration
     {
         Schema::create('colors', function (Blueprint $table) {
             $table->Increments('id');
+            $table->integer('id_user')->unsigned();
             $table->string('name');
             $table->string('primary_color')->nullable();
             $table->string('primary_color_opacity')->nullable();
             $table->timestamps();
-            $table->string('properties')->nullable();
-            $table->integer('status')->default('1');
+            $table->integer('status');
         });
     }
 

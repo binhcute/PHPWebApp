@@ -8,6 +8,9 @@ use App\Models\ProductCategories;
 use App\Models\Portfolio;
 use App\Models\Color;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Session;
+// session_start();
 
 class ProductController extends Controller
 {
@@ -23,7 +26,10 @@ class ProductController extends Controller
         $color = Color::all();
         $product_categories = ProductCategories::all();
         return view('pages.server.productlist')
-        ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color);
+            ->with('product', $product)
+            ->with('product_categories', $product_categories)
+            ->with('portfolio', $portfolio)
+            ->with('color', $color);
     }
 
     /**
@@ -60,8 +66,14 @@ class ProductController extends Controller
         $product->keyword = $request->keyword;
         $files = $request->file('img');
         $request->validate([
+            'id_cate' => ['required'],
+            'id_portfolio' => ['required'],
+            'id_color' => ['required'],
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img_hover' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
+            'price' => ['required'],
+            'series' => ['required'],
             'detail' =>['required','min:20'],
             'keyword' => ['required']
        ]);
@@ -113,10 +125,11 @@ class ProductController extends Controller
         // // Save In Database
 		// $product->slide_img="$slide_profileImage";
         }   
-        $product->slide_img = json_encode($insert);// xài json_decode
-        $product->properties = NULL;
+        $product->slide_img = json_encode($inserts);// xài json_decode
+        $product->status = $request->status;
         $product->view = NULL;
         $product->save();
+        Session::put('message', 'Thêm Sản Phẩm Thành Công');
         return redirect()->route('SanPham.index');
     }
 
@@ -129,10 +142,16 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $color = Color::all();
-        $portfolio = Portfolio::all();
-        $product_categories = ProductCategories::all();
-        return view('pages.server.productshow')->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color);
+        $portfolio = Product::find($id)->portfolio->name;
+        $user = Product::find($id)->User->name;
+        $color = Product::find($id)->color->name;
+        $product_categories = Product::find($id)->categories->name;
+        return view('pages.server.productshow')
+        ->with('product', $product)
+        ->with('product_categories', $product_categories)
+        ->with('portfolio', $portfolio)
+        ->with('color', $color)
+        ->with('user', $user);
     }
 
     /**
@@ -143,17 +162,17 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product_categories = ProductCategories::all();
-        $color = Color::all();
-        $portfolio = Portfolio::all();
+
         $product = Product::find($id);
-        $cate = ProductCategories::find($id);
-        $cate->Product;
-        $port = Portfolio::find($id);
-        $port->Product;
+        $product_categories = DB::table('product_categories')->orderBy('id','desc')->get();
+        $color = DB::table('colors')->orderBy('id','desc')->get();
+        $portfolio = DB::table('portfolios')->orderBy('id','desc')->get();
+        
         return view('pages.server.productedit')
-        ->with('product', $product)->with('product_categories', $product_categories)->with('portfolio', $portfolio)->with('color', $color)
-        ->with('cate', $cate)->with('port',$port);
+        ->with('product', $product)
+        ->with('product_categories', $product_categories)
+        ->with('portfolio', $portfolio)
+        ->with('color', $color);
     }
 
     /**
@@ -167,11 +186,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->id_cate = $request->id_cate;
-        $product->id_portfolio = $request->id_portfolio;
+        $product->id_portfolio = $request->id_port;
         $product->id_color = $request->id_color;
         $product->id_user = Auth::user()->id;
-        $product->id_portfolio = $request->id_portfolio;
-        $product->series = $request->series;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->series = $request->series;
@@ -186,14 +203,15 @@ class ProductController extends Controller
               $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
               $files->move($destinationPath, $profileImage);
     
+              
               $insert['img'] = "$profileImage";
            // Save In Database
            $product->img="$profileImage";
           
         }
-        $product->properties = NULL;
         $product->view = NULL;
         $product->save();
+        Session::put('message', 'Cập Nhật Sản Phẩm Thành Công');
         return redirect()->route('SanPham.index');
     }
 
@@ -207,6 +225,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
+        Session::put('detroy', 'Đã Xóa Sản Phẩm');
         return redirect()->route('SanPham.index');
     }
 
@@ -215,6 +234,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->status = 0;
         $product->save();
+        Session::put('info', 'Đã Ẩn Sản Phẩm');
         return redirect()->route('SanPham.index');
     }
     public function enabled(Request $request, $id)
@@ -222,6 +242,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->status = 1 ;
         $product->save();
+        Session::put('info', 'Đã Hiển Thị Sản Phẩm');
         return redirect()->route('SanPham.index');
     }
 }

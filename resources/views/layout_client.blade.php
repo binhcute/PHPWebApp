@@ -108,7 +108,6 @@
                     <ul>
                         <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
                         <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
-                        <li><a href="{{URL::to('/brand')}}"><span class="menu-text">Local Brands</span></a></li>
                         <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
                     </ul>
                 </nav>
@@ -138,7 +137,6 @@
                         <ul>
                             <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
                             <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
-                            <li><a href="{{URL::to('/brand')}}"><span class="menu-text">Local Brands</span></a></li>
                             <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
                         </ul>
                     </nav>
@@ -404,7 +402,6 @@
                     <ul>
                         <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
                         <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
-                        <li><a href="{{URL::to('/brand')}}"><span class="menu-text">Local Brands</span></a></li>
                         <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
                     </ul>
             </div>

@@ -15,13 +15,12 @@ class CreatePortfoliosTable extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->Increments('id');
+            $table->integer('id_user')->unsigned();
             $table->string('name');
             $table->string('img');
             $table->text('detail')->nullable();
-            $table->string('keyword')->nullable();
             $table->timestamps();
-            $table->string('properties')->nullable();
-            $table->integer('status')->default('1');
+            $table->integer('status');
         });
     }
 

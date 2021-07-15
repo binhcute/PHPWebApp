@@ -1,28 +1,43 @@
 @extends('layout_admin')
 @section('title','Thêm Loại Sản Phẩm')
 @section('content')
+<div class="col-sm-12">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-6">
+        <a class="btn btn-primary" href="{{route('LoaiSanPham.index')}}"><i class="fa fa-angle-double-left"></i>  Quay Lại</a>
+      </div>
+      <div class="col-6">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{route('admin.index')}}"> <i data-feather="home"></i></a></li>
+          <li class="breadcrumb-item">Loại Sản Phẩm</li>
+          <li class="breadcrumb-item active">Thêm Loại Sản Phẩm</li>
+        </ol>
+      </div>
+    </div>
+  </div>
 <div class="card">
   <div class="card-header">
     <h5>Thêm Loại Sản Phẩm</h5>
   </div>
   @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ $message }}</strong>
-        </div>
-        <img src="images/{{ Session::get('image') }}">
-        @endif
-  
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+  <div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>{{ $message }}</strong>
+  </div>
+  <img src="images/{{ Session::get('image') }}">
+  @endif
+
+  @if (count($errors) > 0)
+  <div class="alert alert-danger">
+    <strong>Whoops!</strong> Có một vài lỗi trong quá trình nhập liệu.
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
   <form class="form theme-form" action="{{ route('LoaiSanPham.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="card-body">
@@ -31,7 +46,7 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
             <div class="col-sm-9">
-              <div class="form-control-static">Admin: {{ Auth::user()->name }}</div>
+              <div class="form-control-static">{{ Auth::user()->name }}</div>
             </div>
           </div>
           <div class="mb-3 row">
@@ -41,23 +56,29 @@
             </div>
           </div>
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label">Từ Khóa</label>
-            <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Tối đa 10 ký tự" maxlength="10" name="keyword">
-            </div>
-          </div>
-          <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Chi Tiết</label>
             <div class="col-sm-9">
               <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail"></textarea>
             </div>
           </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Chọn ảnh</label>
-          <div class="col-sm-9">
-            <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
+
+          <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Trạng Thái</label>
+            <div class="col-sm-9">
+            <select class="form-select" name="status" required="" aria-label="select example">
+              <option value="">Open this select menu</option>
+              <option value="1">Hiển Thị</option>
+              <option value="0">Ẩn</option>
+            </select>
+            </div>  
           </div>
+          <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Chọn ảnh</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="file" name="img" data-bs-original-title="" title="">
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -68,5 +89,6 @@
       </div>
     </div>
   </form>
+</div>
 </div>
 @endsection

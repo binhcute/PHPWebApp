@@ -15,14 +15,12 @@ class CreateProductCategoriesTable extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('id_user');
+            $table->integer('id_user')->unsigned();
             $table->string('name');
             $table->string('img')->nullable();
             $table->text('detail')->nullable();
-            $table->string('keyword')->nullable();
             $table->timestamps();
-            $table->string('properties')->nullable();
-            $table->integer('status')->default(1);
+            $table->integer('status');
             $table->integer('view')->nullable();
         });
     }

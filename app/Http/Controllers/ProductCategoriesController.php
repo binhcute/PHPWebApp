@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductCategories;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Session;
+// session_start();
 
 class ProductCategoriesController extends Controller
 {
@@ -42,31 +43,24 @@ class ProductCategoriesController extends Controller
         $product_categories->id_user = Auth::user()->id;
         $product_categories->name = $request->name;
         $product_categories->detail = $request->detail;
-        $product_categories->keyword = $request->keyword;
         $files = $request->file('img');
         $request->validate([
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255'],
-            'detail' =>['required','min:20'],
-            'keyword' => ['required']
-       ]);
-       // Define upload path
-           $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
+            'name' => ['required', 'max:255'],
+            'detail' => ['required', 'min:20']
+        ]);
+        // Define upload path
+        $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
         // Upload Orginal Image           
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
- 
-           $insert['img'] = "$profileImage";
+        $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+        $files->move($destinationPath, $profileImage);
+
+        $insert['img'] = "$profileImage";
         // Save In Database
-		$product_categories->img="$profileImage";
-        // $properties = Collection::make([
-        //     $request->name,
-        //     $request->detail,
-        //     $request->keyword,
-        //     $request->img,
-        //     ])->all();
-        $product_categories->properties = NULL;
+        $product_categories->img = "$profileImage";
+        $product_categories->status = $request->status;
         $product_categories->save();
+        Session::put('message', 'Thêm Loại Sản Phẩm Thành Công');
         return redirect()->route('LoaiSanPham.index');
     }
 
@@ -79,7 +73,10 @@ class ProductCategoriesController extends Controller
     public function show($id)
     {
         $product_categories = ProductCategories::find($id);
-        return view('pages.server.productcategoriesshow')->with('product_categories', $product_categories);
+        $user = ProductCategories::find($id)->User->name;
+        return view('pages.server.productcategoriesshow')
+        ->with('product_categories', $product_categories)
+        ->with('user', $user);
     }
 
     /**
@@ -104,29 +101,23 @@ class ProductCategoriesController extends Controller
     public function update(Request $request, $id)
     {
         $product_categories = ProductCategories::find($id);
-        $product_categories->id_user = $request->id_user;
+        $product_categories->id_user = Auth::user()->id;
         $product_categories->name = $request->name;
         $product_categories->detail = $request->detail;
-        $product_categories->keyword = $request->keyword;
-        $product_categories->properties = NULL;
         $files = $request->file('img');
-        $request->validate([
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255'],
-            'detail' =>['required','min:20'],
-            'keyword' => ['required']
-       ]);
-       // Define upload path
-           $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
-        // Upload Orginal Image           
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
- 
-           $insert['img'] = "$profileImage";
-        // Save In Database
-		$product_categories->img="$profileImage";
+        if ($files != NULL) {
+            // Define upload path
+            $destinationPath = public_path('/server/assets/images/productcategory'); // upload path
+            // Upload Orginal Image           
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
 
+            $insert['img'] = "$profileImage";
+            // Save In Database
+            $product_categories->img = "$profileImage";
+        }
         $product_categories->save();
+        Session::put('message', 'Cập Nhật Loại Sản Phẩm Thành Công');
         return redirect()->route('LoaiSanPham.index');
     }
 
@@ -140,6 +131,7 @@ class ProductCategoriesController extends Controller
     {
         $product_categories = ProductCategories::find($id);
         $product_categories->delete();
+        Session::put('detroy', 'Đã Xóa Loại Sản Phẩm');
         return redirect()->route('LoaiSanPham.index');
     }
 
@@ -148,13 +140,16 @@ class ProductCategoriesController extends Controller
         $product_categories = ProductCategories::find($id);
         $product_categories->status = 0;
         $product_categories->save();
+        Session::put('info', 'Đã Ẩn Loại Sản Phẩm');
         return redirect()->route('LoaiSanPham.index');
     }
     public function enabled(Request $request, $id)
     {
         $product_categories = ProductCategories::find($id);
-        $product_categories->status = 1 ;
+        $product_categories->status = 1;
         $product_categories->save();
+        Session::put('info', 'Đã Hiển Thị Loại Sản Phẩm');
         return redirect()->route('LoaiSanPham.index');
     }
 }
+

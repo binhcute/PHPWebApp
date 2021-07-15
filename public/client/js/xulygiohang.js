@@ -160,7 +160,7 @@ function handleListCart(){
                 let sum = +danhsach[i].price*danhsach[i].quantity
                 // console.log(danhsach[i].id);
                 phantu += `<tr>
-                    <td><img src="${danhsach[i].img}" class="img-thumbnail"></td>
+                    <td><img src="${danhsach[i].img}" class="img-thumbnail" width="100" height="100"></td>
                     <td class="name">${danhsach[i].name}</td>
                     <td class="price" >${danhsach[i].price}</td>
                     <td class="quantity">
