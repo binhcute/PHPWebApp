@@ -86,7 +86,7 @@
                       <input id="checkbox1" type="checkbox" name="remember"{{ old('remember') ? 'checked' : ''}}>
                       <label class="text-muted" for="checkbox1">Ghi nhớ mật khẩu</label>
                     </div>
-                    <button class="btn btn-primary btn-block w-100" type="submit">Đăng nhập</button>
+                    <button class="btn btn-info btn-block w-100" type="submit">Đăng nhập</button>
                   </div>
                   <h6 class="text-muted mt-4 or">Hoặc đăng nhập với</h6>
                   <div class="social mt-4">

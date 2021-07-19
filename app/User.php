@@ -45,12 +45,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function Product(){
-        return $this->HasMany('App\Models\Product');
+        return $this->HasMany('App\Models\Product','id_user','id');
     }
     public function Article(){
-        return $this->HasMany('App\Models\Article');
+        return $this->HasMany('App\Models\Article','id_user','id');
     }
     public function Comment(){
-        return $this->HasMany('App\Models\Comment');
+        return $this->HasMany('App\Models\Comment','id_user','id');
     }
 }

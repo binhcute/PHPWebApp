@@ -9,10 +9,10 @@
                 <div class="col">
 
                     <div class="page-title">
-                        <h1 class="title">Shop</h1>
+                        <h1 class="title">Sản Phẩm</h1>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Products</li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Sản Phẩm</li>
                         </ul>
                     </div>
 
@@ -33,10 +33,10 @@
                     <!-- Isotop Filter Start -->
                     <div class="col-md col-12 align-self-center learts-mb-20">
                         <div class="isotope-filter shop-product-filter" data-target="#shop-products">
-                            <button class="active" data-filter=".all">all</button>
-                            <button data-filter=".featured">Hot Products</button>
-                            <button data-filter=".new">New Products</button>
-                            <button data-filter=".sales">Sales Products</button>
+                            <button class="active" data-filter=".all">Sản Phẩm</button>
+                            <button data-filter=".featured">Sản Phẩm Hot</button>
+                            <button data-filter=".new">Sản Phẩm Mới</button>
+                            <button data-filter=".sales">Sản Phẩm Khuyến Mãi</button>
                         </div>
                     </div>
                     <!-- Isotop Filter End -->
@@ -83,7 +83,8 @@
                                     <div class="product-info">
                                         <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
                                         <span class="price">
-                                            {{$item->price}}
+                                            
+                                        <span class="new">{{number_format($item->price).' '.'VND'}}</span>
                                         </span>
                                         <div class="product-buttons">
                                             <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
@@ -107,7 +108,7 @@
                                     <div class="product-info">
                                         <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
                                         <span class="price">
-                                            {{$item->price}}
+                                            <span class="new">{{number_format($item->price).' '.'VND'}}</span>
                                         </span>
                                         <div class="product-buttons">
                                             <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
@@ -131,7 +132,7 @@
                                     <div class="product-info">
                                         <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
                                         <span class="price">
-                                            {{$item->price}}
+                                            <span class="new">{{number_format($item->price).' '.'VND'}}</span>
                                         </span>
                                         <div class="product-buttons">
                                             <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
@@ -165,7 +166,7 @@
                             <h3 class="widget-title product-filter-widget-title">Danh Mục Sản Phẩm</h3>
                             <ul class="widget-list">
                             @foreach ($product_cate as $item)
-                                <li><a href="#">{{ $item->name}}</a></li>
+                                <li><a href="{{URL::to('/product_categories',$item->id)}}">{{ $item->name}}</a></li>
                             @endforeach
                             </ul>
                         </div>
@@ -175,7 +176,7 @@
                             <h3 class="widget-title product-filter-widget-title">Nhà Cung Cấp</h3>
                             <ul class="widget-list">
                             @foreach ($portfolio as $item)
-                                <li><a href="#">{{ $item->name}}</a></li>
+                                <li><a href="{{URL::to('/brand',$item->id)}}">{{ $item->name}}</a></li>
                             @endforeach
                             </ul>
                         </div>

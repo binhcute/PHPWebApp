@@ -11,7 +11,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{asset('server/assets/images/favicon.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('server/assets/images/favicon.png')}}" type="image/x-icon">
-    <title>Cuba | @yield('title')</title>
+    <title>Admin | @yield('title')</title>
     <!-- Google font-->
     <link href="../../../fonts.googleapis.com/css31d8.css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
     <link href="../../../fonts.googleapis.com/css8807.css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
@@ -231,12 +231,6 @@
                     <ul class="sidebar-submenu">
                       <li><a href="{{route('LoaiSanPham.index')}}">Danh Sách Loại Sản Phẩm</a></li>
                       <li><a href="{{route('LoaiSanPham.create')}}">Thêm Loại Sản Phẩm</a></li>
-                    </ul>
-                  </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Màu Sắc</span></a>
-                    <ul class="sidebar-submenu">
-                      <li><a href="{{route('MauSac.index')}}">Danh Sách Màu Sắc</a></li>
-                      <li><a href="{{route('MauSac.create')}}">Thêm Màu Sắc</a></li>
                     </ul>
                   </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Nhà Cung Cấp</span></a>

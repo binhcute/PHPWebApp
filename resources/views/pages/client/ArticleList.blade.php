@@ -35,7 +35,7 @@
                                 <div class="row learts-mb-n30">
                                     <div class="col-md-5 col-12 learts-mb-30">
                                         <div class="image mb-0">
-                                            <a href="blog-details-right-sidebar.html"><img src="{{ URL::to('/') }}/server/assets/images/article/{{$item->img}}" alt="Blog Image"></a>
+                                            <a href="{{URL::to('article',$item->id)}}"><img src="{{ URL::to('/') }}/server/assets/images/article/{{$item->img}}" alt="Blog Image"></a>
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-12 align-self-center learts-mb-30">
@@ -44,11 +44,11 @@
                                                 <li><i class="far fa-calendar"></i><a href="#">{{$item->created_at}}</a></li>
                                                 <li><i class="far fa-eye"></i> {{$item->view}} views</li>
                                             </ul>
-                                            <h5 class="title"><a href="blog-details-right-sidebar.html">{{$item->name}}</a></h5>
+                                            <h5 class="title"><a href="{{URL::to('article',$item->id)}}">{{$item->name}}</a></h5>
                                             <div class="desc">
-                                                <p>{{$item->detail}}</p>
+                                                <p>{!!$item->detail!!}</p>
                                             </div>
-                                            <a href="blog-details-right-sidebar.html" class="link">Read More</a>
+                                            <a href="{{URL::to('article',$item->id)}}" class="link">Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -99,9 +99,11 @@
 
                     <!-- Categories Start -->
                     <div class="single-widget learts-mb-40">
-                        <h3 class="widget-title product-filter-widget-title">Categories</h3>
-                        <ul class="widget-list">
-                            <li><a href="#">Gift ideas</a></li>
+                        <h3 class="widget-title product-filter-widget-title">Danh Mục Sản Phẩm</h3>
+                        <ul class="widget-list"> 
+                            @foreach ($product_cate as $item)
+                                <li><a href="{{URL::to('/product_categories',$item->id)}}">{{ $item->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                     <!-- Categories End -->

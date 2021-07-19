@@ -67,10 +67,10 @@
                 <div class="col">
                     <div class="category-banner1">
                         <div class="inner">
-                            <a href="shop.html" class="image"><img src="{{ URL::to('/') }}/server/assets/images/productcategory/{{ $item->img }}" alt=""></a>
+                            <a href="{{URL::to('/product_categories',$item->id)}}" class="image"><img src="{{ URL::to('/') }}/server/assets/images/productcategory/{{ $item->img }}" alt=""></a>
                             <div class="content">
                                 <h3 class="title">
-                                    <a href="shop.html">{{$item->name}}</a>
+                                    <a href="{{URL::to('/product_categories',$item->id)}}">{{$item->name}}</a>
                                     <span class="number">16</span>
                                 </h3>
                             </div>
@@ -93,7 +93,6 @@
                 <div class="col-12">
                     <ul class="product-tab-list tab-hover2 nav">
                         <li><a class="active" data-toggle="tab" href="#tab-new-sale">Sản Phẩm Mới</a></li>
-                        <li><a data-toggle="tab" href="#tab-sale-items">Sản Phẩm Khuyến Mãi</a></li>
                         <li><a data-toggle="tab" href="#tab-best-sellers">Sản Phẩm Hot</a></li>
                     </ul>
                     <div class="prodyct-tab-content1 tab-content">
@@ -114,7 +113,7 @@
                                         <div class="product-info">
                                             <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
                                             <span class="price">
-                                            <span class="new">{{$item->price}} vnd</span>
+                                            <span class="new">{{number_format($item->price).' '.'VND'}}</span>
                                             </span>
                                             <div class="product-buttons">
                                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
@@ -130,40 +129,6 @@
                             </div>
                             <!-- Products End -->
 
-                        </div>
-                        <div class="tab-pane fade" id="tab-sale-items">
-                            <!-- Products Start -->
-                            <div class="products row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-
-                                <div class="col">
-                                    <div class="product">
-                                        <div class="product-thumb">
-                                            <a href="product-details.html" class="image">
-                                                <span class="product-badges">
-                                                    <span class="onsale">-27%</span>
-                                                </span>
-                                                <img src="assets/images/product/s270/product-4.jpg" alt="Product Image">
-                                                <img class="image-hover " src="assets/images/product/s270/product-4-hover.jpg" alt="Product Image">
-                                            </a>
-                                            <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="title"><a href="product-details.html">Pizza Plate Tray</a></h6>
-                                            <span class="price">
-                                                <span class="old">$30.00</span>
-                                            <span class="new">$22.00</span>
-                                            </span>
-                                            <div class="product-buttons">
-                                                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                                                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                                                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- Products End -->
                         </div>
                         <div class="tab-pane fade" id="tab-best-sellers">
 
@@ -182,7 +147,7 @@
                                         <div class="product-info">
                                             <h6 class="title"><a href="{{URL::to('product',$item->id)}}">{{$item->name}}</a></h6>
                                             <span class="price">
-                                {{$item->price}} vnd
+                                            <span class="new">{{number_format($item->price).' '.'VND'}}</span>
                                             </span>
                                             <div class="product-buttons">
                                                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>

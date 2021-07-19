@@ -49,7 +49,7 @@
             </tr>
             <tr>
               <td> <b>Giá Sản Phẩm &nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;</b></td>
-              <td>{{$product->price}} đồng</td>
+              <td>{{number_format($product->price)}}</td>
             </tr>
             <tr>
             <td> <b>Nhà Cung Cấp &nbsp;&nbsp;&nbsp;:</b></td>

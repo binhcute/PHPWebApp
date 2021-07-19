@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 session_start();
 
 class PortfolioController extends Controller
@@ -17,7 +18,7 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolio = Portfolio::paginate(10);
+        $portfolio =DB::table('portfolios')->get();
         return view('pages.server.portfoliolist')->with('portfolio', $portfolio);
     }
 
@@ -39,27 +40,26 @@ class PortfolioController extends Controller
      */
     public function store(Request $request)
     {
-        $portfolio = new Portfolio();
-        $portfolio->id_user = Auth::user()->id;
-        $portfolio->name = $request->name;
-        $portfolio->detail = $request->detail;
+        $data = array();
+        $data['id_user'] = Auth::user()->id;
+        $data['name'] = $request->name;
+        $data['detail'] = $request->detail;
         $files = $request->file('img');
         $request->validate([
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255'],
-            'detail' =>['required','min:20']
+            'name' => ['required','max:255']
        ]);
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/portfolio'); // upload path
+           $destinationPath = public_path('/server/assets/image/portfolio'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$portfolio->img="$profileImage";
-        $portfolio->status = $request->status;
-        $portfolio->save();
+		$data['img']="$profileImage";
+        $data['status'] = $request->status;
+        DB::table('portfolios')->insert($data);
         Session::put('message','Thêm Nhà Cung Cấp Thành Công');
         return redirect()->route('NhaCungCap.index');
     }

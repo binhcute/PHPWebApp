@@ -49,13 +49,13 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::resource('/YeuThich','FavoriteController');
     Route::put('/YeuThich/disabled/{YeuThich}','FavoriteController@disabled');
     Route::put('/YeuThich/enabled/{YeuThich}','FavoriteController@enabled');
-    //Color
-    Route::resource('/MauSac','ColorController');
-    Route::get('/XoaMau/{MauSac}','ColorController@destroy');
-    Route::put('/MauSac/disabled/{MauSac}','ColorController@disabled');
-    Route::put('/MauSac/enabled/{MauSac}','ColorController@enabled');
 
     //Slider
+    
+    // Route::resource('/Slider','SliderController');
+    // Route::get('/XoaSlider/{Slider}','SliderController@destroy');
+    // Route::put('/Slider/disabled/{Slider}','SliderController@disabled');
+    // Route::put('/Slider/enabled/{Slider}','SliderController@enabled');
     //Menu
     //Event
     //Logo
@@ -72,15 +72,26 @@ Route::post('LoginCheck','CheckLoginController@check');
 Route::resource('/DonHang','OrderController');
 //Client
 Route::resource('/','ClientController');
+
 Route::get('/about_us','ClientController@about_us');
-Route::get('/ChiTietBaiViet','ClientController@article_detail');
-Route::get('/article','ClientController@article');
 Route::get('/cart','ClientController@cart');
 Route::get('/checkout','ClientController@check_out');
 Route::get('/contact_us','ClientController@contact_us');
 Route::get('/favorite','ClientController@favorite');
 Route::get('/account','ClientController@my_account');
-Route::get('/brand','ClientController@portfolio');
-Route::get('/ChiTietNCC','ClientController@portfolio_detail');
+
+//Brand
+Route::get('/brand/{brand}','ClientController@portfolio_list');
+Route::get('/brand_detail','ClientController@portfolio_detail');
+
+//Categories
+Route::get('/categories_detail','ClientController@categories_detail');
+Route::get('/product_categories/{product_categories}','ClientController@categories_list');
+
+//Product
 Route::get('/product','ClientController@product');
 Route::get('/product/{product}','ClientController@product_detail');
+
+//Article
+Route::get('/article/{article_detail}','ClientController@article_detail');
+Route::get('/article','ClientController@article');
