@@ -59,7 +59,7 @@
             <tr>
               <th scope="row">{{ $item->id }}</th>
               <td>{{ $item->name}}</td>
-              <td><img class="img-thumbnail" width="100" height="100" src="{{ URL::to('/') }}/server/assets/images/portfolio/{{$item->img}}"></td>
+              <td><img class="img-thumbnail" width="100" height="100" src="{{ URL::to('/') }}/server/assets/image/portfolio/{{$item->img}}"></td>
               <td>
                 @if($item->status==1)
 

@@ -3,7 +3,9 @@
 
 
 <!-- Mirrored from htmldemo.hasthemes.com/learts/learts/{{route('index')}} by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 04:13:06 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -46,7 +48,7 @@
 
 <body>
 
-    
+
     <!-- Header Section Start -->
     <div class="header-section section bg-white d-none d-xl-block">
         <div class="container">
@@ -80,11 +82,19 @@
                 <div class="col">
                     <div class="header-tools justify-content-end">
                         <div class="header-login">
-                        @if(Auth::check())
-                        <a href="{{route('home')}}"><i class="fal fa-search">a</i></a>
-                        @else
+                            @if(Auth::check())
+                            <div class="blog-author" style="margin-bottom: 0px;">
+                                <div class="thumbnail" style="width: 32px;">
+                                    @if(Auth::user()->img!=null)
+                                    <a href="#offcanvas-account" class="offcanvas-toggle"><img src="{{URL::to('/') }}/server/assets/images/user/{{Auth::user()->img }}" alt="" style="height:32px"></a>
+                                    @else
+                                    <a href="#offcanvas-account" class="offcanvas-toggle"><img src="{{asset('client/images/comment/comment-1.jpg')}}" alt="" style="height:32px"></a>
+                                    @endif
+                                </div>
+                            </div>
+                            @else
                             <a href="{{route('login')}}"><i class="fal fa-user"></i></a>
-                        @endif
+                            @endif
                         </div>
                         <div class="header-search">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
@@ -95,8 +105,8 @@
                         <div class="header-cart">
                             <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
                         </div>
-                </div>
                     </div>
+                </div>
                 <!-- Header Tools End -->
             </div>
         </div>
@@ -109,6 +119,8 @@
                         <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
                         <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
                         <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
+                        <li><a href="{{URL::to('/categories_detail')}}"><span class="menu-text">Danh Mục</span></a></li>
+                        <li><a href="{{URL::to('/brand_detail')}}"><span class="menu-text">Nhà Cung Cấp</span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -135,9 +147,10 @@
                 <div class="col d-none d-xl-block">
                     <nav class="site-main-menu justify-content-center">
                         <ul>
-                            <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
                             <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
                             <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
+                            <li><a href="{{URL::to('/categories_detail')}}"><span class="menu-text">Danh Mục</span></a></li>
+                            <li><a href="{{URL::to('/brand_detail')}}"><span class="menu-text">Nhà Cung Cấp</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -267,6 +280,55 @@
         </div>
     </div>
     <!-- Mobile Header Section End -->
+    @if (Auth::check())
+    <!-- OffCanvas account Start -->
+    <div id="offcanvas-account" class="offcanvas offcanvas-account">
+        <div class="inner">
+            <div class="head">
+                <span class="title">Tài Khoản</span>
+                <button class="offcanvas-close">×</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                    <li>
+                        <div class="account-client">
+                            @if(Auth::user()->img!=null)
+                            <img src="{{URL::to('/') }}/server/assets/images/user/{{Auth::user()->img }}" alt="">
+                            @else
+                            <img src="{{asset('client/images/comment/comment-1.jpg')}}" alt="">
+                            @endif
+                            <div class="social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <hr>
+                            <div class="account-content">
+                                <a href="#" class="name">{{ Auth::user()->name }}</a>
+                                <h5><i>({{Auth::user()->username}})</i></h5>
+                            </div>
+                            <hr>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="foot">
+
+                <div class="buttons">
+                    <a href="{{URL::to('/account')}}" class="btn btn-dark btn-hover-primary"><i class="fas fa-user-circle"></i> Tài Khoản</a>
+                    <a href="{{ route('logout') }}" class="btn btn-outline-dark" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><i class="fas fa-door-open" data-feather="log-in"> </i> Đăng Xuất
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Cart End -->
+    @endif
     <!-- OffCanvas Search Start -->
     <div id="offcanvas-search" class="offcanvas offcanvas-search">
         <div class="inner">
@@ -399,11 +461,13 @@
                 </form>
             </div>
             <div class="offcanvas-menu">
-                    <ul>
-                        <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
-                        <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
-                        <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
-                    </ul>
+                <ul>
+                    <li><a href="{{route('index')}}"><span class="menu-text">Trang Chủ</span></a></li>
+                    <li><a href="{{URL::to('/product')}}"><span class="menu-text">Sản Phẩm</span></a></li>
+                    <li><a href="{{URL::to('/article')}}"><span class="menu-text">Bài Viết</span></a></li>
+                    <li><a href="{{URL::to('/categories_detail')}}"><span class="menu-text">Danh Mục</span></a></li>
+                    <li><a href="{{URL::to('/brand_detail')}}"><span class="menu-text">Nhà Cung Cấp</span></a></li>
+                </ul>
             </div>
             <div class="offcanvas-buttons">
                 <div class="header-tools">
@@ -459,7 +523,7 @@
                         <li><a href="#">FAQs</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer1-copyright col">
                     <p class="copyright">&copy; 2021 | <a href="https://caothang.edu.vn/"><strong> Cao đẳng kỹ thuật Cao Thắng.</strong></a></p>
                 </div>
@@ -500,7 +564,7 @@
                         <div class="product-summery customScroll">
                             <div class="product-ratings">
                                 <span class="star-rating">
-                                <span class="rating-active" style="width: 100%;">ratings</span>
+                                    <span class="rating-active" style="width: 100%;">ratings</span>
                                 </span>
                                 <a href="#reviews" class="review-link">(<span class="count">3</span> customer reviews)</a>
                             </div>
@@ -651,4 +715,5 @@
 
 
 <!-- Mirrored from htmldemo.hasthemes.com/learts/learts/{{route('index')}} by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 04:14:01 GMT -->
+
 </html>

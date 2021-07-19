@@ -1,6 +1,6 @@
 @extends('layout_client')
 @section('content')
-@section('title','Chi tiết bài viết')
+@section('title','Bài Viết')
 
     <!-- Page Title/Header Start -->
     <div class="page-title-section section" data-bg-image="assets/images/bg/page-title-1.jpg">
@@ -9,10 +9,10 @@
                 <div class="col">
 
                     <div class="page-title">
-                        <h1 class="title">Blog</h1>
+                        <h1 class="title">Bài Viết</h1>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('index')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Blog</li>
+                            <li class="breadcrumb-item active">Bài Viết</li>
                         </ul>
                     </div>
 
@@ -25,41 +25,31 @@
     <!-- Portfolio Section Start -->
     <div class="section section-padding">
         <div class="container">
+        @foreach ($article_account as $account)
             <div class="row learts-mb-n50">
 
                 <div class="col-xl-9 col-lg-8 col-12 learts-mb-50">
                     <div class="single-blog">
                         <div class="image">
-                            <a href="blog-details-right-sidebar.html"><img src="assets/images/blog/s870/blog-1.jpg" alt="Blog Image"></a>
+                            <a href="blog-details-right-sidebar.html"><img src="{{ URL::to('/') }}/server/assets/images/article/{{$article->img }}" alt="Blog Image"></a>
                         </div>
                         <div class="content">
-                            <ul class="category">
-                                <li><a href="#">Decor</a></li>
-                                <li><a href="#">Kitchen</a></li>
-                            </ul>
-                            <h2 class="title">Start a Kickass Online Blog</h2>
-                            <ul class="meta">
-                                <li><i class="fal fa-user"></i> By <a href="#">Owen Christ</a></li>
-                                <li><i class="far fa-calendar"></i><a href="#">January 22, 2020</a></li>
+                            <h2 class="title">{{$article->name}}</h2>
+                            <ul class="meta">         
+                                <li><i class="fal fa-user"></i> By <a href="#">{{$account->name}}</a></li>
+                                <li><i class="far fa-calendar"></i><a href="#">{{$article->updated_at}}</a></li>
                                 <li><i class="fal fa-comment"></i><a href="#">4 Comments</a></li>
                                 <li><i class="far fa-eye"></i> 201 views</li>
                             </ul>
                             <div class="desc">
-                                <p>It was designer Steven Miller—no slouch in the taste department—who first showed me the work of Jenny Hacker, a San Francisco-based textile artist. It was a blanket—black on black—with two different textiles fused together, one side organic cotton and the other, felted wool.</p>
-                                <blockquote>
-                                    <p>A triumph of&nbsp;texture and form, and&nbsp;dramatic, organic, sophisticated, sensual, it was one of the most beguiling pieces of functional art&nbsp;I’ve seen of late.</p>
-                                </blockquote>
-                                <p>Doing a little background research for the interview was no mean feat. At a time when so many tread the same art-meets-craft sales circuits and tend their Instagram feeds with greater passion than their craft, this woman was mysterious. A minimalist website was all there was. Even better. A trip out to the deliciously un-hip Excelsior District in San Francisco was a good start.</p>
-                                <p>So was poking around the garage-turned-workshop: a vat of something brewing in the corner, a few bottles holding another experiment (homemade dyes from flowers in the yard), tatami mats on the floor, vintage Knoll chairs, a drool-worthy assortment of books on fashion, Japanese anime figurines… Oh, and an old letterpress nestled beneath a work table.</p>
+                                <p>{!!$article->detail!!}</p>    
                             </div>
                         </div>
                         <div class="blog-footer row no-gutters justify-content-between align-items-center">
                             <div class="col-auto">
                                 <ul class="tags">
                                     <i class="icon fas fa-tags"></i>
-                                    <li><a href="#">design</a></li>
-                                    <li><a href="#">fashion</a></li>
-                                    <li><a href="#">learts</a></li>
+                                    <li><a href="#">{{$article->keyword}}</a></li>
                                 </ul>
                             </div>
                             <div class="col-auto">
@@ -79,7 +69,11 @@
                     </div>
                     <div class="blog-author">
                         <div class="thumbnail">
-                            <img src="assets/images/comment/comment-1.jpg" alt="">
+                            @if($account->img!=null)
+                            <img src="{{URL::to('/') }}/server/assets/images/user/{{$account->img }}" alt="">
+                            @else
+                            <img src="{{asset('client/images/comment/comment-1.jpg')}}" alt="">
+                            @endif
                             <div class="social">
                                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -88,8 +82,8 @@
                             </div>
                         </div>
                         <div class="content">
-                            <a href="#" class="name">Owen Christ</a>
-                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboruLorem ipsum dolor sit amet datat non proident</p>
+                            <a href="#" class="name">{{$account->name}}</a>
+                            <p>Hoa nở là hữu tình</p>
                         </div>
                     </div>
                     <div class="related-blog">
@@ -298,6 +292,7 @@
                 </div>
 
             </div>
+            @endforeach
         </div>
 
     </div>
