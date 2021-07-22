@@ -7,6 +7,7 @@ use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
 session_start();
 
 class PortfolioController extends Controller
@@ -18,8 +19,10 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolio =DB::table('portfolios')->get();
-        return view('pages.server.portfoliolist')->with('portfolio', $portfolio);
+        $portfolio = DB::table('tpl_portfolio')
+            ->orderBy('port_id', 'desc')->get();
+        return view('pages.server.portfolio.list')
+            ->with('portfolio', $portfolio);
     }
 
     /**
@@ -29,7 +32,7 @@ class PortfolioController extends Controller
      */
     public function create()
     {
-        return view('pages.server.portfolioadd');
+        return view('pages.server.portfolio.add');
     }
 
     /**
@@ -40,27 +43,29 @@ class PortfolioController extends Controller
      */
     public function store(Request $request)
     {
-        $data = array();
-        $data['id_user'] = Auth::user()->id;
-        $data['name'] = $request->name;
-        $data['detail'] = $request->detail;
-        $files = $request->file('img');
         $request->validate([
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255']
-       ]);
-       // Define upload path
-           $destinationPath = public_path('/server/assets/image/portfolio'); // upload path
+            'name' => ['required', 'max:255']
+        ]);
+        $portfolio = new Portfolio();
+        $portfolio->user_id = Auth::user()->id;
+        $portfolio->port_name = $request->name;
+        $portfolio->port_description = $request->description;
+        $portfolio->port_origin = $request->origin;
+        $portfolio->status = $request->status;
+        $files = $request->file('img');
+
+        // Define upload path
+        $destinationPath = public_path('/server/assets/image/portfolio'); // upload path
         // Upload Orginal Image           
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
- 
-           $insert['img'] = "$profileImage";
+        $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+        $files->move($destinationPath, $profileImage);
+
+        $insert['img'] = "$profileImage";
         // Save In Database
-		$data['img']="$profileImage";
-        $data['status'] = $request->status;
-        DB::table('portfolios')->insert($data);
-        Session::put('message','Thêm Nhà Cung Cấp Thành Công');
+        $portfolio->port_img = "$profileImage";
+        $portfolio->save();
+        Session::put('message', 'Thêm Nhà Cung Cấp Thành Công');
         return redirect()->route('NhaCungCap.index');
     }
 
@@ -72,11 +77,11 @@ class PortfolioController extends Controller
      */
     public function show($id)
     {
-        $portfolio = Portfolio::find($id);
-        $user = Portfolio::find($id)->User->name;
-        return view('pages.server.portfolioshow')
-        ->with('portfolio', $portfolio)
-        ->with('user', $user);
+        $portfolio = DB::table('tpl_portfolio')
+            ->join('users', 'users.id', '=', 'tpl_portfolio.user_id')
+            ->where('port_id', $id)->first();
+        return view('pages.server.portfolio.show')
+            ->with('portfolio', $portfolio);
     }
 
     /**
@@ -87,8 +92,12 @@ class PortfolioController extends Controller
      */
     public function edit($id)
     {
+        $user = DB::table('users')
+            ->orderBy('id', 'desc')->get();
         $portfolio = Portfolio::find($id);
-        return view('pages.server.portfolioedit')->with('portfolio', $portfolio);
+        return view('pages.server.portfolio.edit')
+            ->with('portfolio', $portfolio)
+            ->with('user', $user);
     }
 
     /**
@@ -101,21 +110,22 @@ class PortfolioController extends Controller
     public function update(Request $request, $id)
     {
         $portfolio = Portfolio::find($id);
-        $portfolio->id_user = Auth::user()->id;
-        $portfolio->name = $request->name;
-        $portfolio->detail = $request->detail;
+        $portfolio->user_id = Auth::user()->id;
+        $portfolio->port_name = $request->name;
+        $portfolio->port_description = $request->description;
+        $portfolio->port_origin = $request->origin;
         $files = $request->file('img');
-        if($files!=NULL){
-       // Define upload path
-           $destinationPath = public_path('/server/assets/images/portfolio'); // upload path
-        // Upload Orginal Image           
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
- 
-           $insert['img'] = "$profileImage";
-        // Save In Database
-		$portfolio->img="$profileImage";
-        $portfolio->status = $request->status;
+
+        if ($files != NULL) {
+            // Define upload path
+            $destinationPath = public_path('/server/assets/image/portfolio'); // upload path
+            // Upload Orginal Image           
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
+
+            $insert['img'] = "$profileImage";
+            // Save In Database
+            $portfolio->port_img = "$profileImage";
         }
         $portfolio->save();
         Session::put('message', 'Cập Nhật Nhà Cung Cấp Thành Công');
@@ -132,24 +142,24 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolio::find($id);
         $portfolio->delete();
-        Session::put('destroy','Đã Xóa Nhà Cung Cấp');
+        Session::put('destroy', 'Đã Xóa Nhà Cung Cấp');
         return redirect()->route('NhaCungCap.index');
     }
 
-    public function disabled(Request $request, $id)
+    public function disabled($id)
     {
         $portfolio = Portfolio::find($id);
         $portfolio->status = 0;
         $portfolio->save();
-        Session::put('info','Đã Ẩn Nhà Cung Cấp');
+        Session::put('info', 'Đã Ẩn Nhà Cung Cấp');
         return redirect()->route('NhaCungCap.index');
     }
-    public function enabled(Request $request, $id)
+    public function enabled($id)
     {
         $portfolio = Portfolio::find($id);
-        $portfolio->status = 1 ;
+        $portfolio->status = 1;
         $portfolio->save();
-        Session::put('info','Đã Hiển Thị Nhà Cung Cấp');
+        Session::put('info', 'Đã Hiển Thị Nhà Cung Cấp');
         return redirect()->route('NhaCungCap.index');
     }
 }

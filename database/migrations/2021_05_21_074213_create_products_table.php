@@ -13,19 +13,19 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('id_cate');
-            $table->integer('id_user');
-            $table->integer('id_portfolio');
-            $table->string('name');
-            $table->string('img');
-            $table->string('img_hover');
-            $table->integer('price');
-            $table->integer('color')->nullable();
-            $table->text('detail')->nullable();
-            $table->integer('quantity')->nullable();
-            $table->string('keyword')->nullable();
+        Schema::create('tpl_product', function (Blueprint $table) {
+            $table->Increments('product_id');
+            $table->integer('cate_id');
+            $table->integer('user_id');
+            $table->integer('port_id');
+            $table->string('product_name');
+            $table->string('product_img');
+            $table->string('product_img_hover');
+            $table->integer('product_price');
+            $table->string('product_color')->nullable();
+            $table->text('product_description')->nullable();
+            $table->integer('product_quantity')->nullable();
+            $table->string('product_keyword')->nullable();
             $table->integer('status');
             $table->integer('view')->nullable();
             $table->timestamps();
@@ -39,6 +39,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('tpl_product');
     }
 }

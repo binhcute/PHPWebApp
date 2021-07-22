@@ -13,13 +13,13 @@ class CreatePortfoliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('portfolios', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('id_user');
-            $table->string('name');
-            $table->string('origin')->nullable();
-            $table->string('img');
-            $table->text('detail')->nullable();
+        Schema::create('tpl_portfolio', function (Blueprint $table) {
+            $table->Increments('port_id');
+            $table->integer('user_id');
+            $table->string('port_name');
+            $table->string('port_origin')->nullable();
+            $table->string('port_img');
+            $table->text('port_description')->nullable();
             $table->timestamps();
             $table->integer('status');
         });
@@ -32,6 +32,6 @@ class CreatePortfoliosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('portfolios');
+        Schema::dropIfExists('tpl_portfolio');
     }
 }

@@ -7,30 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-    // protected $table = 'tbl_product';
+    protected $table = 'tpl_product';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'product_id';
 
     protected $connection = 'mysql';
     
-    protected $perPage = 10;
     
     protected $fillable =[
-        'id_cate',
-        'id_user',
-        'id_portfolio',
-        'id_color',
-        'name',
-        'img',
-        'img_hover',
-        'slide_img',
-        'price',
-        'series',
-        'detail',
-        'quantity',
-        'keyword',
-        'properties',
+        'cate_id',
+        'user_id',
+        'port_id',
+        'product_name',
+        'product_img',
+        'product_img_hover',
+        'product_price',
+        'product_color',
+        'product_description',
+        'product_quantity',
+        'product_keyword',
         'status',
+        'created_at',
+        'updated_at',
         'view'
     ];
 

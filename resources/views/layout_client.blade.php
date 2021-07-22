@@ -160,7 +160,19 @@
                 <div class="col-auto">
                     <div class="header-tools justify-content-end">
                         <div class="header-login">
+                            @if(Auth::check())
+                            <div class="blog-author" style="margin-bottom: 0px;">
+                                <div class="thumbnail" style="width: 32px;">
+                                    @if(Auth::user()->avatar!=null)
+                                    <a href="#offcanvas-account" class="offcanvas-toggle"><img src="{{URL::to('/') }}/server/assets/images/user/{{Auth::user()->avatar }}" alt="" style="height:32px"></a>
+                                    @else
+                                    <a href="#offcanvas-account" class="offcanvas-toggle"><img src="{{asset('client/images/comment/comment-1.jpg')}}" alt="" style="height:32px"></a>
+                                    @endif
+                                </div>
+                            </div>
+                            @else
                             <a href="{{route('login')}}"><i class="fal fa-user"></i></a>
+                            @endif
                         </div>
                         <div class="header-search d-none d-sm-block">
                             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
@@ -292,8 +304,8 @@
                 <ul class="minicart-product-list">
                     <li>
                         <div class="account-client">
-                            @if(Auth::user()->img!=null)
-                            <img src="{{URL::to('/') }}/server/assets/images/user/{{Auth::user()->img }}" alt="">
+                            @if(Auth::user()->avatar!=null)
+                            <img src="{{URL::to('/') }}/server/assets/images/user/{{Auth::user()->avatar }}" alt="">
                             @else
                             <img src="{{asset('client/images/comment/comment-1.jpg')}}" alt="">
                             @endif
@@ -305,7 +317,7 @@
                             </div>
                             <hr>
                             <div class="account-content">
-                                <a href="#" class="name">{{ Auth::user()->name }}</a>
+                                <a href="#" class="name">{{ Auth::user()->fullname }}</a>
                                 <h5><i>({{Auth::user()->username}})</i></h5>
                             </div>
                             <hr>
@@ -316,8 +328,11 @@
             <div class="foot">
 
                 <div class="buttons">
+                    @if(Auth::user()->level == 1)
+                    <a href="{{URL::to('/admin')}}" class="btn btn-secondary btn-hover-primary"><i class="fas fa-users-cog"></i> Trang Admin</a>
+                    @endif
                     <a href="{{URL::to('/account')}}" class="btn btn-dark btn-hover-primary"><i class="fas fa-user-circle"></i> Tài Khoản</a>
-                    <a href="{{ route('logout') }}" class="btn btn-outline-dark" onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}" class="btn btn-outline-dark btn-hover-primary" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><i class="fas fa-door-open" data-feather="log-in"> </i> Đăng Xuất
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
@@ -336,23 +351,14 @@
                 <button class="offcanvas-close">×</button>
                 <form action="#">
                     <div class="row mb-n3">
-                        <div class="col-lg-8 col-12 mb-3"><input type="text" placeholder="Search Products..."></div>
+                        <div class="col-lg-8 col-12 mb-3"><input type="text" name="key" placeholder="Search Products..."></div>
                         <div class="col-lg-4 col-12 mb-3">
-                            <select class="search-select select2-basic">
-                                <option value="0">All Categories</option>
-                                <option value="kids-babies">Kids &amp; Babies</option>
-                                <option value="home-decor">Home Decor</option>
-                                <option value="gift-ideas">Gift ideas</option>
-                                <option value="kitchen">Kitchen</option>
-                                <option value="toys">Toys</option>
-                                <option value="kniting-sewing">Kniting &amp; Sewing</option>
-                                <option value="pots">Pots</option>
-                            </select>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
-            <p class="search-description text-body-light mt-2"> <span># Type at least 1 character to search</span> <span># Hit enter to search or ESC to close</span></p>
+            <p class="search-description text-body-light mt-2"> <span>Tìm Kiếm Một Sản Phẩm Nào Đó Theo Ý Thích Của Bạn</span></p>
 
         </div>
     </div>
@@ -410,37 +416,14 @@
                 <button class="offcanvas-close">×</button>
             </div>
             <div class="body customScroll">
-                <ul class="minicart-product-list">
-                    <li>
-                        <a href="product-details.html" class="image"><img src="{{asset('client/images/product/cart-product-1.jpg')}}" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">Walnut Cutting Board</a>
-                            <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-details.html" class="image"><img src="{{asset('client/images/product/cart-product-2.jpg')}}" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">Lucky Wooden Elephant</a>
-                            <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="product-details.html" class="image"><img src="{{asset('client/images/product/cart-product-3.jpg')}}" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="product-details.html" class="title">Fish Cut Out Set</a>
-                            <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
+                <ul class="minicart-product-list number_format" id="mang-index">
+
                 </ul>
             </div>
             <div class="foot">
                 <div class="sub-total">
                     <strong>Tổng Cộng :</strong>
-                    <span class="amount">$144.00</span>
+                    <span class="amount" id="tongtien-layout"></span>
                 </div>
                 <div class="buttons">
                     <a href="{{URL::to('/cart')}}" class="btn btn-dark btn-hover-primary">Xem Giỏ Hàng</a>
@@ -472,7 +455,19 @@
             <div class="offcanvas-buttons">
                 <div class="header-tools">
                     <div class="header-login">
+                        @if(Auth::check())
+                        <div class="blog-author" style="margin-bottom: 0px;">
+                            <div class="thumbnail" style="width: 32px;">
+                                @if(Auth::user()->img!=null)
+                                <a href="#offcanvas-account" class="offcanvas-toggle"><img src="{{URL::to('/') }}/server/assets/images/user/{{Auth::user()->img }}" alt="" style="height:32px"></a>
+                                @else
+                                <a href="#offcanvas-account" class="offcanvas-toggle"><img src="{{asset('client/images/comment/comment-1.jpg')}}" alt="" style="height:32px"></a>
+                                @endif
+                            </div>
+                        </div>
+                        @else
                         <a href="{{route('login')}}"><i class="fal fa-user"></i></a>
+                        @endif
                     </div>
                     <div class="header-wishlist">
                         <a href="wishlist.html"><span>3</span><i class="fal fa-heart"></i></a>
@@ -711,6 +706,78 @@
     <!-- Main Activation JS -->
     <script src="{{asset('client/js/main.js')}}"></script>
     <script src="{{asset('client/js/xulygiohang.js')}}"></script>
+    <script>
+        function handleListCart() {
+            let danhsach = JSON.parse(localStorage.getItem("cat"));
+            if (danhsach && danhsach.length) {
+                let phantu = "";
+                let tongtien = 0
+                let tongsoluong = 0
+                for (let i = 0; i < danhsach.length; i++) {
+                    let sum = +danhsach[i].price * danhsach[i].quantity
+                    // console.log(danhsach[i].id);
+                    phantu += `<tr>
+            <td><img src="${danhsach[i].img}" class="img-thumbnail" width="90" height="100"></td>
+            <td class="name">${danhsach[i].name}</td>
+            <td class="price" >${danhsach[i].price}</td>
+            <td class="quantity">
+            <div class="product-quantity">
+                <span class="qty-btn minus" onclick="minusProduct('${danhsach[i].id}')"><i class="ti-minus"></i></span>
+                <input type="text" class="quantity-input text-center" onchange="changeQuantity('${danhsach[i].id}',this)" value="${danhsach[i].quantity}">
+                <input type="hidden" class="id-product" value="${danhsach[i].id}" />
+                <span class="qty-btn plus" onclick="plusProduct('${danhsach[i].id}')"><i class="ti-plus"></i></span>
+            </div>  
+            </td>
+            <td class="subtotal"><span id ="sum-${danhsach[i].id}">${sum}</span> </td>
+            <td><a class="btn btn-light" onclick="removeProduct('${danhsach[i].id}')"><i class="fas fa-trash-alt"></i></a></td>
+           
+        </tr>`
+
+                    tongsoluong += +danhsach[i].quantity
+                    tongtien += sum
+                }
+                document.getElementById("tongsoluong").innerHTML = tongsoluong;
+                document.getElementById("tongtien").innerHTML = tongtien
+                document.getElementById("mang").innerHTML = phantu
+            }
+        }
+
+        handleListCart();
+    </script>
+    <script>
+        function handleSeenCart() {
+            let danhsach = JSON.parse(localStorage.getItem("cat"));
+            if (danhsach && danhsach.length) {
+                let item = "";
+                let tongtien = 0
+                let tongsoluong = 0
+                console.log(danhsach)
+                for (let i = 0; i < danhsach.length; i++) {
+                    let sum = +danhsach[i].price * danhsach[i].quantity
+                    console.log(danhsach[i].img);
+                    item += `<li>
+<a href="product-details.html" class="image"><img src="${danhsach[i].img}" alt="Cart product Image" width="80" height="90"></a>
+<div class="content">
+    <a href="product-details.html" class="title">${danhsach[i].name}</a>
+    <span class="quantity-price">${danhsach[i].quantity} x <span class="amount">${danhsach[i].price}</span></span>
+    <a href="#" class="remove" onclick="removeProduct('${danhsach[i].id}')">×</a>
+</div>
+
+</li>`
+tongtien +=sum;
+                }
+                document.getElementById("tongtien-layout").innerHTML = tongtien
+                document.getElementById("mang-index").innerHTML = item
+            }
+        }
+        handleSeenCart();
+    </script>
+    <script>
+        var amount = 5000.25;
+        var x = 1000;
+x = x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+console.log(x);
+    </script>
 </body>
 
 

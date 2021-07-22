@@ -13,13 +13,13 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('id_user');
-            $table->string('name');
-            $table->string('img');
-            $table->text('detail');
-            $table->string('keyword')->nullable();
+        Schema::create('tpl_article', function (Blueprint $table) {
+            $table->Increments('article_id');
+            $table->integer('user_id');
+            $table->string('article_name');
+            $table->string('article_img');
+            $table->text('article_description');
+            $table->string('article_keyword')->nullable();
             $table->timestamps();
             $table->integer('status');
             $table->integer('view')->nullable();
@@ -33,6 +33,6 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('tpl_article');
     }
 }

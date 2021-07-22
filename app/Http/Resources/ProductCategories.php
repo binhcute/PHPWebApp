@@ -15,11 +15,11 @@ class ProductCategories extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'id_user' => $this->id_user,
-            'name' => $this->name,
-            'img' => $this->img,
-            'detail' => $this->detail,
+            'cate_id' => $this->cate_id,
+            'user_id' => $this->user_id,
+            'cate_name' => $this->cate_name,
+            'cate_img' => $this->cate_img,
+            'cate_description' => $this->cate_description,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status,

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
-// session_start();
+session_start();
 
 class CheckLoginController extends Controller
 {
@@ -41,8 +41,4 @@ class CheckLoginController extends Controller
         }   
         
     }
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
 }

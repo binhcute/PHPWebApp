@@ -15,12 +15,12 @@ class Portfolio extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'id_user' => $this->id_user,
-            'name' => $this->name,
-            'img' => $this->img,
-            'origin' => $this->origin,
-            'detail' => $this->detail,
+            'port_id' => $this->port_id,
+            'user_id' => $this->user_id,
+            'port_name' => $this->port_name,
+            'port_img' => $this->port_img,
+            'port_origin' => $this->port_origin,
+            'port_description' => $this->port_description,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status

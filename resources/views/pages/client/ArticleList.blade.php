@@ -35,7 +35,7 @@
                                 <div class="row learts-mb-n30">
                                     <div class="col-md-5 col-12 learts-mb-30">
                                         <div class="image mb-0">
-                                            <a href="{{URL::to('article',$item->id)}}"><img src="{{ URL::to('/') }}/server/assets/images/article/{{$item->img}}" alt="Blog Image"></a>
+                                            <a href="{{URL::to('article',$item->article_id)}}"><img src="{{ URL::to('/') }}/server/assets/image/article/{{$item->article_img}}" alt="Blog Image"></a>
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-12 align-self-center learts-mb-30">
@@ -44,11 +44,11 @@
                                                 <li><i class="far fa-calendar"></i><a href="#">{{$item->created_at}}</a></li>
                                                 <li><i class="far fa-eye"></i> {{$item->view}} views</li>
                                             </ul>
-                                            <h5 class="title"><a href="{{URL::to('article',$item->id)}}">{{$item->name}}</a></h5>
+                                            <h5 class="title"><a href="{{URL::to('article',$item->article_id)}}">{{$item->article_name}}</a></h5>
                                             <div class="desc">
-                                                <p>{!!$item->detail!!}</p>
+                                                <p>{!!$item->article_description!!}</p>
                                             </div>
-                                            <a href="{{URL::to('article',$item->id)}}" class="link">Read More</a>
+                                            <a href="{{URL::to('article',$item->article_id)}}" class="link">Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                         <ul class="widget-blogs">
                             <li class="widget-blog">
                                 <div class="thumbnail">
-                                    <a href="blog-details-right-sidebar.html"><img src="assets/images/blog/widget/widget-1.jpg" alt="Widget Blog Post"></a>
+                                    <a href="blog-details-right-sidebar.html"><img src="{{asset('client/images/blog/widget/widget-1.jpg')}}" alt="Widget Blog Post"></a>
                                 </div>
                                 <div class="content">
                                     <h6 class="title"><a href="blog-details-right-sidebar.html">Start a Kickass Online Blog</a></h6>
@@ -102,7 +102,7 @@
                         <h3 class="widget-title product-filter-widget-title">Danh Mục Sản Phẩm</h3>
                         <ul class="widget-list"> 
                             @foreach ($product_cate as $item)
-                                <li><a href="{{URL::to('/product_categories',$item->id)}}">{{ $item->name}}</a></li>
+                                <li><a href="{{URL::to('/product_categories',$item->cate_id)}}">{{ $item->cate_name}}</a></li>
                             @endforeach
                         </ul>
                     </div>

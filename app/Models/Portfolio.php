@@ -6,21 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model
 {
-    protected $table = 'portfolios';
+    protected $table = 'tpl_portfolio';
     
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'port_id';
     
     protected $connection = 'mysql';
     
     protected $perPage = 10;
     
     protected $fillable = [
-        'name',
-        'img',
-        'detail',
-        'keywords',
-        'properties',
-        'status'
+        'user_id',
+        'port_name',
+        'port_img',
+        'port_origin',
+        'port_description',
+        'status',
+        'created_at',
+        'updated_at',
     ];
 
     public function Product(){

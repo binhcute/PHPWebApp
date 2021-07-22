@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
   
 <!-- Mirrored from admin.pixelstrap.com/cuba/theme/{{route('admin.index')}} by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 May 2021 10:56:01 GMT -->
@@ -77,22 +77,7 @@
           </div>
           <div class="left-header col horizontal-wrapper ps-0">
             <ul class="horizontal-menu">
-              <li class="mega-menu outside"><a class="nav-link" href="{{route('index')}}"><i data-feather="layers"></i><span>Client</span></a>
-              </li>
-              <li class="level-menu outside"><a class="nav-link" href="#!"><i data-feather="inbox"></i><span>Level Menu</span></a>
-                <ul class="header-level-menu menu-to-be-close">
-                  <li><a href="file-manager.html" data-original-title="" title="">                               <i data-feather="git-pull-request"></i><span>File manager    </span></a></li>
-                  <li><a href="#!" data-original-title="" title="">                               <i data-feather="users"></i><span>Users</span></a>
-                    <ul class="header-level-sub-menu">
-                      <li><a href="file-manager.html" data-original-title="" title="">                               <i data-feather="user"></i><span>User Profile</span></a></li>
-                      <li><a href="file-manager.html" data-original-title="" title="">                               <i data-feather="user-minus"></i><span>User Edit</span></a></li>
-                      <li><a href="file-manager.html" data-original-title="" title="">                               <i data-feather="user-check"></i><span>Users Cards</span></a></li>
-                    </ul>
-                  </li>
-                  <li><a href="kanban.html" data-original-title="" title="">                               <i data-feather="airplay"></i><span>Kanban Board</span></a></li>
-                  <li><a href="bookmark.html" data-original-title="" title="">                               <i data-feather="heart"></i><span>Bookmark</span></a></li>
-                  <li><a href="social-app.html" data-original-title="" title="">                               <i data-feather="zap"></i><span>Social App                     </span></a></li>
-                </ul>
+              <li class="mega-menu outside"><a class="nav-link" href="{{route('index')}}"><i data-feather="layers"></i><span>Quay Lại Client</span></a>
               </li>
             </ul>
           </div>
@@ -131,7 +116,7 @@
                   <li><a class="btn btn-primary" href="#">Check all notification</a></li>
                 </ul>
               </li>
-              <li class="onhover-dropdown">
+              <!-- <li class="onhover-dropdown">
                 <div class="notification-box"><i data-feather="star"></i></div>
                 <div class="onhover-show-div bookmark-flip">
                   <div class="flip-card">
@@ -165,14 +150,14 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> -->
               <li>
                 <div class="mode"><i class="fa fa-moon-o"></i></div>
               </li>
               <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li class="profile-nav onhover-dropdown p-0 me-0">
                 <div class="media profile-media"><img class="b-r-10" src="{{asset('server/assets/images/dashboard/profile.jpg')}}" alt="">
-                  <div class="media-body"><span>{{ Auth::user()->name }}</span>
+                  <div class="media-body"><span>{{ Auth::user()->fullname }}</span>
                     <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
                   </div>
                 </div>
@@ -221,28 +206,20 @@
                   <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav" href="{{route('admin.index')}}"><i data-feather="home"></i><span>Trang Chủ</span></a>
                   </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="airplay"></i><span>Sản Phẩm</span></a>
-                    <ul class="sidebar-submenu">
-                      <li><a href="{{route('SanPham.index')}}">Danh Sách Sản Phẩm</a></li>
-                      <li><a href="{{route('SanPham.create')}}">Thêm Sản Phẩm</a></li>
-                    </ul>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="{{route('SanPham.index')}}"><i data-feather="airplay"></i><span>Sản Phẩm</span></a>
                   </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Loại Sản Phẩm</span></a>
-                    <ul class="sidebar-submenu">
-                      <li><a href="{{route('LoaiSanPham.index')}}">Danh Sách Loại Sản Phẩm</a></li>
-                      <li><a href="{{route('LoaiSanPham.create')}}">Thêm Loại Sản Phẩm</a></li>
-                    </ul>
+                  <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="{{route('LoaiSanPham.index')}}"><i data-feather="layout"></i><span>Loại Sản Phẩm</span></a>
                   </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Nhà Cung Cấp</span></a>
-                    <ul class="sidebar-submenu">
-                      <li><a href="{{route('NhaCungCap.index')}}">Danh Sách Nhà Cung Cấp</a></li>
-                      <li><a href="{{route('NhaCungCap.create')}}">Thêm Nhà Cung Cấp</a></li>
-                    </ul>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('NhaCungCap.index')}}"><i data-feather="briefcase"></i><span>Nhà Cung Cấp</span></a>
                   </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="layout"></i><span>Bài Viết</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('BaiViet.index')}}"><i data-feather="book-open"></i><span>Bài Viết</span></a>
+                  </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>Chức Năng</span></a>
                     <ul class="sidebar-submenu">
-                      <li><a href="{{route('BaiViet.index')}}">Danh Sách Bài Viết</a></li>
-                      <li><a href="{{route('BaiViet.create')}}">Thêm Bài Viết</a></li>
+                      <li><a href="{{route('TaiKhoan.index')}}">Quản Lý Tài Khoản</a></li>
+                      <li><a href="{{route('HoaDon.index')}}">Quản Lý Hóa Đơn</a></li>
                     </ul>
                   </li>
                 </ul>

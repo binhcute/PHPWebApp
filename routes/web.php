@@ -19,23 +19,23 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::put('/SanPham/disabled/{SanPham}','ProductController@disabled');
     Route::put('/SanPham/enabled/{SanPham}','ProductController@enabled');
     //Cate
-    Route::resource('/LoaiSanPham','ProductCategoriesController');
-    Route::get('/XoaLoaiSanPham/{LoaiSanPham}','ProductCategoriesController@destroy');
-    Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','ProductCategoriesController@disabled');
-    Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','ProductCategoriesController@enabled');
+    Route::resource('/LoaiSanPham','CategoryController');
+    Route::get('/XoaLoaiSanPham/{LoaiSanPham}','CategoryController@destroy');
+    Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','CategoryController@disabled');
+    Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','CategoryController@enabled');
     //Article
     Route::resource('/BaiViet','ArticleController');
     Route::get('/XoaBaiViet/{LoaiBaiViet}','ArticleController@destroy');
     Route::put('/BaiViet/disabled/{BaiViet}','ArticleController@disabled');
     Route::put('/BaiViet/enabled/{BaiViet}','ArticleController@enabled');
     //Order
-    // Route::resource('/DonHang','OrderController');
-    Route::put('/DonHang/disabled/{DonHang}','OrderController@disabled');
-    Route::put('/DonHang/enabled/{DonHang}','OrderController@enabled');
+    Route::resource('/HoaDon','OrderController');
+    Route::put('/HoaDon/disabled/{HoaDon}','OrderController@disabled');
+    Route::put('/HoaDon/enabled/{HoaDon}','OrderController@enabled');
     //OrderDetail
-    Route::resource('/ChiTietDonHang','OrderDetailController');
-    Route::put('/ChiTietDonHang/disabled/{ChiTietDonHang}','OrderDetailController@disabled');
-    Route::put('/ChiTietDonHang/enabled/{ChiTietDonHang}','OrderDetailController@enabled');
+    Route::resource('/ChiTietHoaDon','OrderDetailController');
+    Route::put('/ChiTietHoaDon/disabled/{ChiTietHoaDon}','OrderDetailController@disabled');
+    Route::put('/ChiTietHoaDon/enabled/{ChiTietHoaDon}','OrderDetailController@enabled');
     //Portfolio
     Route::resource('/NhaCungCap','PortfolioController');
     Route::get('/XoaNhaCungCap/{NhaCungCap}','PortfolioController@destroy');
@@ -49,6 +49,10 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::resource('/YeuThich','FavoriteController');
     Route::put('/YeuThich/disabled/{YeuThich}','FavoriteController@disabled');
     Route::put('/YeuThich/enabled/{YeuThich}','FavoriteController@enabled');
+    //Account
+    Route::resource('/TaiKhoan','AccountController');
+    Route::put('/TaiKhoan/disabled/{TaiKhoan}','AccountController@disabled');
+    Route::put('/TaiKhoan/enabled/{TaiKhoan}','AccountController@enabled');
 
     //Slider
     
@@ -95,3 +99,8 @@ Route::get('/product/{product}','ClientController@product_detail');
 //Article
 Route::get('/article/{article_detail}','ClientController@article_detail');
 Route::get('/article','ClientController@article');
+
+
+//Cart
+Route::resource('/cart','CartController');
+Route::get('/delete-cart{rowId}','CartController@destroy');
