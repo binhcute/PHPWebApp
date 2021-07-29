@@ -6,28 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model
 {
-    protected $table = 'portfolios';
+    protected $table = 'tpl_portfolio';
     
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'port_id';
     
     protected $connection = 'mysql';
     
-    protected $perPage = 10;
-    
     protected $fillable = [
-        'name',
-        'img',
-        'detail',
-        'keywords',
-        'properties',
-        'status'
+        'user_id',
+        'port_name',
+        'port_avatar',
+        'port_img',
+        'port_origin',
+        'port_description',
+        'status',
+        'created_at',
+        'updated_at',
     ];
 
     public function Product(){
         
-        return $this->HasMany('App\Models\Product','id','id');
+        return $this->HasMany('App\Models\Product','port_id','port_id');
     }
     public function User(){
-        return $this->belongsTo('App\User', 'id_user','id');
+        return $this->belongsTo('App\User', 'user_id','id');
     }
 }

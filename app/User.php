@@ -16,15 +16,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'img',
+        'firstName',
+        'lastName',
+        'username',
+        'avatar',
         'gender',
-        'tel',
+        'phone',
         'address',
         'email',
         'password',
-        'username',
         'level',
+        'status'
     ];
 
     /**
@@ -44,13 +46,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function Product(){
-        return $this->HasMany('App\Models\Product','id_user','id');
+    public function product(){
+        return $this->HasMany('App\Models\Product','user_id','id');
     }
-    public function Article(){
-        return $this->HasMany('App\Models\Article','id_user','id');
+    public function category(){
+        return $this->HasMany('App\Models\Category','user_id','id');
     }
-    public function Comment(){
-        return $this->HasMany('App\Models\Comment','id_user','id');
+    public function porfolio(){
+        return $this->HasMany('App\Models\Portfolio','user_id','id');
+    }
+    public function article(){
+        return $this->HasMany('App\Models\Article','user_id','id');
+    }
+    public function order(){
+        return $this->HasMany('App\Models\Order','user_id','id');
     }
 }

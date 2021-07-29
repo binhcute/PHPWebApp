@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\ProductCategories;
-use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Session;
-// session_start();
+use Illuminate\Support\Facades\Session;
+
+
 
 class ProductController extends Controller
 {
@@ -20,13 +19,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::paginate(10);
-        $portfolio = Portfolio::all();
-        $product_categories = ProductCategories::all();
-        return view('pages.server.productlist')
-            ->with('product', $product)
-            ->with('product_categories', $product_categories)
-            ->with('portfolio', $portfolio);
+        $product = DB::table('tpl_product')
+            ->join('tpl_category', 'tpl_category.cate_id', '=', 'tpl_product.cate_id')
+            ->join('tpl_portfolio', 'tpl_portfolio.port_id', '=', 'tpl_product.port_id')
+            ->orderBy('product_id', 'desc')->get();
+        return view('pages.server.product.list')
+            ->with('product', $product);
     }
 
     /**
@@ -36,11 +34,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $portfolio = Portfolio::all();
-        $product_categories = ProductCategories::all();
-        return view('pages.server.productadd')
-        ->with('product_categories', $product_categories)
-        ->with('portfolio', $portfolio);
+        $port = DB::table('tpl_portfolio')
+            ->orderBy('port_id', 'desc')->get();
+        $cate = DB::table('tpl_category')
+            ->orderBy('cate_id', 'desc')->get();
+        return view('pages.server.product.add')
+            ->with('cate', $cate)
+            ->with('port', $port);
     }
 
     /**
@@ -51,58 +51,52 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product();
-        $product->id_cate = $request->id_cate;
-        $product->id_portfolio = $request->id_portfolio;
-        $product->id_user = Auth::user()->id;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->color = $request->color;
-        $product->detail = $request->detail;
-        $product->quantity = $request->quantity;
-        $product->keyword = $request->keyword;
-        $product->status = $request->status;
-        $product->view = NULL;
-        $files = $request->file('img');
         $request->validate([
-            'id_cate' => ['required'],
-            'id_portfolio' => ['required'],
+            'cate_id' => ['required'],
+            'port_id' => ['required'],
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required', 'max:255'],
             'price' => ['required']
         ]);
+        $product = new Product();
+        $product->cate_id = $request->cate_id;
+        $product->port_id = $request->port_id;
+        $product->user_id = Auth::user()->id;
+        $product->product_name = $request->name;
+        $product->product_price = $request->price;
+        $product->product_color = $request->color;
+        $product->product_description = $request->description;
+        $product->product_quantity = $request->quantity;
+        $product->product_keyword = $request->keyword;
+        $product->status = $request->status;
+        $product->view = NULL;
+        $files = $request->file('img');
         // Define upload path
-        $destinationPath = public_path('/server/assets/images/product'); // upload path
+        $destinationPath = public_path('/server/assets/image/product'); // upload path
         // Upload Orginal Image           
         $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
         $files->move($destinationPath, $profileImage);
 
         $insert['img'] = "$profileImage";
         // Save In Database
-        $product->img = "$profileImage";
+        $product->product_img = "$profileImage";
 
         //Hover
         $files = $request->file('img_hover');
-        if($files != null) {
-        // Define upload path
-        $destinationPath = public_path('/server/assets/images/product/hover'); // upload path
-        // Upload Orginal Image           
-        $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-        $files->move($destinationPath, $profileImage);
+        if ($files != null) {
+            // Define upload path
+            $destinationPath = public_path('/server/assets/image/product/hover'); // upload path
+            // Upload Orginal Image           
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $profileImage);
 
-        $insert['img_hover'] = "$profileImage";
-        // Save In Database
-        $product->img_hover = "$profileImage";
+            $insert['img_hover'] = "$profileImage";
+            // Save In Database
+            $product->product_img_hover = "$profileImage";
+        }
         $product->save();
         Session::put('message', 'Thêm Sản Phẩm Thành Công');
         return redirect()->route('SanPham.index');
-        }
-        else{            
-        $product->img_hover = NULL;
-        $product->save();
-        Session::put('message', 'Thêm Sản Phẩm Thành Công');
-        return redirect()->route('SanPham.index');
-        }
     }
 
     /**
@@ -113,15 +107,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-        $portfolio = Product::find($id)->portfolio->name;
-        $user = Product::find($id)->User->name;
-        $product_categories = Product::find($id)->categories->name;
-        return view('pages.server.productshow')
-            ->with('product', $product)
-            ->with('product_categories', $product_categories)
-            ->with('portfolio', $portfolio)
-            ->with('user', $user);
+        $product = DB::table('tpl_product')
+            ->join('tpl_category', 'tpl_category.cate_id', '=', 'tpl_product.cate_id')
+            ->join('tpl_portfolio', 'tpl_portfolio.port_id', '=', 'tpl_product.port_id')
+            ->join('users', 'users.id', '=', 'tpl_product.user_id')
+            ->where('product_id', $id)->first();
+        return view('pages.server.product.show')
+            ->with('product', $product);
     }
 
     /**
@@ -132,15 +124,15 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-
         $product = Product::find($id);
-        $product_categories = DB::table('product_categories')->orderBy('id', 'desc')->get();
-        $portfolio = DB::table('portfolios')->orderBy('id', 'desc')->get();
-
-        return view('pages.server.productedit')
+        $cate = DB::table('tpl_category')
+            ->orderBy('cate_id', 'desc')->get();
+        $port = DB::table('tpl_portfolio')
+            ->orderBy('port_id', 'desc')->get();
+        return view('pages.server.product.edit')
             ->with('product', $product)
-            ->with('product_categories', $product_categories)
-            ->with('portfolio', $portfolio);
+            ->with('cate', $cate)
+            ->with('port', $port);
     }
 
     /**
@@ -153,20 +145,20 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
-        $product->id_cate = $request->id_cate;
-        $product->id_portfolio = $request->id_port;
-        $product->id_user = Auth::user()->id;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->detail = $request->detail;
-        $product->color = $request->color;
-        $product->quantity = $request->quantity;
-        $product->keyword = $request->keyword;
+        $product->cate_id = $request->cate_id;
+        $product->port_id = $request->port_id;
+        $product->user_id = Auth::user()->id;
+        $product->product_name = $request->name;
+        $product->product_price = $request->price;
+        $product->product_description = $request->description;
+        $product->product_color = $request->color;
+        $product->product_quantity = $request->quantity;
+        $product->product_keyword = $request->keyword;
         $product->view = NULL;
         $files = $request->file('img');
         if ($files != NULL) {
             // Define upload path
-            $destinationPath = public_path('/server/assets/images/product'); // upload path
+            $destinationPath = public_path('/server/assets/image/product'); // upload path
             // Upload Orginal Image           
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $profileImage);
@@ -174,12 +166,12 @@ class ProductController extends Controller
 
             $insert['img'] = "$profileImage";
             // Save In Database
-            $product->img = "$profileImage";
+            $product->product_img = "$profileImage";
         }
         $files = $request->file('img_hover');
         if ($files != NULL) {
             // Define upload path
-            $destinationPath = public_path('/server/assets/images/product/hover'); // upload path
+            $destinationPath = public_path('/server/assets/image/product/hover'); // upload path
             // Upload Orginal Image           
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $profileImage);
@@ -187,7 +179,7 @@ class ProductController extends Controller
 
             $insert['img'] = "$profileImage";
             // Save In Database
-            $product->img_hover = "$profileImage";
+            $product->product_img_hover = "$profileImage";
         }
         $product->save();
         Session::put('message', 'Cập Nhật Sản Phẩm Thành Công');
@@ -204,11 +196,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        Session::put('detroy', 'Đã Xóa Sản Phẩm');
+        Session::put('destroy', 'Đã Xóa Sản Phẩm');
         return redirect()->route('SanPham.index');
     }
-
-    public function disabled(Request $request, $id)
+    public function disabled($id)
     {
         $product = Product::find($id);
         $product->status = 0;
@@ -216,7 +207,7 @@ class ProductController extends Controller
         Session::put('info', 'Đã Ẩn Sản Phẩm');
         return redirect()->route('SanPham.index');
     }
-    public function enabled(Request $request, $id)
+    public function enabled($id)
     {
         $product = Product::find($id);
         $product->status = 1;

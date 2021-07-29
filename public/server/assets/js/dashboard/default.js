@@ -3,17 +3,13 @@ var today = new Date()
 var curHr = today.getHours()
 
 if (curHr >= 0 && curHr < 4) {
-    document.getElementById("greeting").innerHTML = 'Chào Buổi Tối';
-    document.getElementById("greeting-detail").innerHTML = 'Muộn rồi mà sao còn, nhìn lên trần nhà rồi quay ra lại quay vào!';
+    document.getElementById("greeting").innerHTML = 'Good Night';
 } else if (curHr >= 4 && curHr < 12) {
-    document.getElementById("greeting").innerHTML = 'Chào Buổi Sáng';
-    document.getElementById("greeting-detail").innerHTML = 'Chúc bạn một ngày tốt lành, hãy nhâm nhi một tách cà phê để có một ngày tuyệt với nhé!';
+    document.getElementById("greeting").innerHTML = 'Good Morning';
 } else if (curHr >= 12 && curHr < 16) {
-    document.getElementById("greeting").innerHTML = 'Chào Buổi Trưa';
-    document.getElementById("greeting-detail").innerHTML = 'Tiếp nối một buổi sáng tuyệt vời, hãy bật tivi lên và xem Buổi trưa vui vẻ nhé!';
+    document.getElementById("greeting").innerHTML = 'Good Afternoon';
 } else {
-    document.getElementById("greeting").innerHTML = 'Chào Buổi Chiều';
-    document.getElementById("greeting-detail").innerHTML = 'Buổi chiều ấy gặp được em là định mệnh!';
+    document.getElementById("greeting").innerHTML = 'Good Evening';
 }
 // time 
 function startTime() {

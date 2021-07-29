@@ -30,14 +30,14 @@
                 @foreach ($portfolio as $item)
                 <div class="col learts-mb-30">
                     <div class="portfolio">
-                        <div class="thumbnail"><img src="server/assets/images/portfolio/{{$item->img}}" alt=""></div>
+                        <div class="thumbnail"><img src="server/assets/image/portfolio/{{$item->port_img}}" alt=""></div>
                         <div class="content">
-                            <h4 class="title"><a href="portfolio-details.html">{{ $item->name}}</a></h4>
                             <div class="desc">
-                                <p>{!!$item->detail!!}</p>
+                                <p>{!!$item->port_description!!}</p>
                             </div>
                         </div>
                     </div>
+                            <h5 class="title"><a href="{{URL::to('/brand',$item->port_id)}}">{{ $item->port_name}}</a></h5>
                 </div>
                 @endforeach
 

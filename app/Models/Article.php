@@ -6,27 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    protected $table = 'tpl_article';
     //Khóa chính tự động tăng int
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'article_id';
 
     //Kết nối CSDL
     protected $connection = 'mysql';
     
-    protected $perPage = 10;
-    
     protected $fillable = [
-        'name',
-        'img',
-        'detail',
-        'keywords',
-        'properties',
+        'user_id',
+        'article_name',
+        'article_img',
+        'article_description',
+        'article_keyword',
         'status',
+        'created_at',
+        'updated_at',
         'view'
     ];
+
     public function User(){
-        return $this->belongsTo('App\User','id_user','id');
-    }
-    public function Comment(){
-        return $this->hasMany('App\Models\Comment');
+        return $this->belongsTo('App\User', 'user_id','id');
     }
 }

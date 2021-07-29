@@ -30,7 +30,7 @@
       <div class="row">
         <div class="col">
           <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label pt-0">Người nhập</label>
+            <label class="col-sm-3 col-form-label pt-0">Người Nhập Hiện Tại</label>
             <div class="col-sm-9">
               <div class="form-control-static">Tên admin</div>
             </div>
