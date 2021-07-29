@@ -71,7 +71,7 @@
                         <div class="content">
                             <h3 class="title">
                                 <a href="{{URL::to('/product_categories',$item->cate_id)}}">{{$item->cate_name}}</a>
-                                <span class="number">16</span>
+                                <span class="number">20</span>
                             </h3>
                         </div>
                     </div>

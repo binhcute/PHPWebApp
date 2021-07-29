@@ -165,4 +165,5 @@ class AccountController extends Controller
         Session::put('info', 'Đã Hiển Thị Tài Khoản');
         return redirect()->route('TaiKhoan.index');
     }
+    
 }
