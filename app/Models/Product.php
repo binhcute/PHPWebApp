@@ -6,63 +6,42 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $table = 'tpl_product';
 
-    // protected $table = 'tbl_product';
-
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'product_id';
 
     protected $connection = 'mysql';
     
-    protected $perPage = 10;
     
     protected $fillable =[
-        'id_cate',
-        'id_user',
-        'id_portfolio',
-        'id_color',
-        'name',
-        'img',
-        'img_hover',
-        'slide_img',
-        'price',
-        'series',
-        'detail',
-        'quantity',
-        'keyword',
-        'properties',
+        'cate_id',
+        'user_id',
+        'port_id',
+        'product_name',
+        'product_img',
+        'product_img_hover',
+        'product_price',
+        'product_color',
+        'product_description',
+        'product_quantity',
+        'product_keyword',
         'status',
+        'created_at',
+        'updated_at',
         'view'
     ];
 
     public function categories()
     {
-        return $this->belongsTo(ProductCategories::class, 'id_cate', 'id');
+        return $this->belongsTo('App\Models\Category', 'cate_id', 'cate_id');
     }
-    public function User(){
-        return $this->belongsTo('App\User', 'id_user','id');
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id','id');
     }
     public function portfolio(){
-        return $this->belongsTo(Portfolio::class, 'id_portfolio','id');
+        return $this->belongsTo('App\Models\Portfolio', 'port_id','port_id');
     }
-    public function color(){
-        return $this->belongsTo(Color::class, 'id_color','id');
-    }
-    public function OrderDetail(){
-        return $this->HasMany('App\Models\OrderDetail','foreign_key','local_key');
-    }
-    public function Comment(){
-        return $this->HasMany('App\Models\Comment','foreign_key','local_key');
-    }
-
-    public function getObservableEvents()
-    {
-        return array_merge(
-            [
-                'retrieved', 'creating', 'created', 'updating', 'updated',
-                'saving', 'saved', 'restoring', 'restored',
-                'deleting', 'deleted', 'forceDeleted',
-            ],
-            $this->observables
-        );
+    public function orderDetail(){
+        return $this->HasMany('App\Models\OrderDetail','product_id','product_id');
     }
 }

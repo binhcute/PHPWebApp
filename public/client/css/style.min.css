@@ -10752,37 +10752,8 @@ body.offcanvas-open .sticky-header {
     margin-bottom: 15px;
     padding: 13px 0;
 }
-.product-ratings .star-rating {
-    font-size: 12px;
-    position: relative;
-    display: block;
-    margin-right: 10px;
-}
-.product-ratings .star-rating::before {
-    font-family: "Font Awesome 5 Pro";
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1;
-    content: "    ";
-    color: #ababab;
-}
-.product-ratings .star-rating .rating-active {
-    font-size: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    overflow: hidden;
-    height: 100%;
-}
-.product-ratings .star-rating .rating-active::before {
-    font-family: "Font Awesome 5 Pro";
-    font-size: 12px;
-    font-weight: 900;
-    line-height: 1;
-    content: "    ";
-    white-space: nowrap;
-    color: #f5cc26;
+.product-ratings .ratings .checked {
+    color: #ffc700;
 }
 .product-ratings .review-link {
     font-size: 16px;
@@ -11172,6 +11143,41 @@ body.offcanvas-open .sticky-header {
 .product-info-tab-list li a:hover {
     opacity: 1;
 }
+.rate1 {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate1:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate1:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate1:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate1 > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate1:not(:checked) > label:hover,
+.rate1:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate1 > input:checked + label:hover,
+.rate1 > input:checked + label:hover ~ label,
+.rate1 > input:checked ~ label:hover,
+.rate1 > input:checked ~ label:hover ~ label,
+.rate1 > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px),
     only screen and (min-width: 768px) and (max-width: 991px) {
     .product-info-tab-list {
@@ -11270,19 +11276,8 @@ body.offcanvas-open .sticky-header {
     align-items: center;
     margin-bottom: 15px;
 }
-.product-review .content .ratings .star-rating {
-    font-size: 12px;
-    position: relative;
-    display: block;
-    margin-right: 10px;
-}
-.product-review .content .ratings .star-rating::before {
-    font-family: "Font Awesome 5 Pro";
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1;
-    content: "    ";
-    color: #ababab;
+.product-review .content .ratings .checked {
+    color: #ffc700;
 }
 .product-review .content .ratings .star-rating .rating-active {
     font-size: 0;

@@ -15,12 +15,12 @@ class Article extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'id_user' => $this->id_user,
-            'name' => $this->name,
-            'img' => $this->img,
-            'detail' => $this->detail,
-            'keyword' => $this->keyword,
+            'artice_id' => $this->artice_id,
+            'user_id' => $this->user_id,
+            'artice_name' => $this->name,
+            'artice_img' => $this->artice_img,
+            'article_description' => $this->article_description,
+            'artice_keyword' => $this->artice_keyword,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status,

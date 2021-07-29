@@ -6,20 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderDetail extends Model
 {
-    protected $primaryKey = 'id';
+    protected $table = 'tpl_order_dt';
+
+    protected $primaryKey = 'order_dt_id';
     
     protected $connection = 'mysql';
 
     protected $fillable = [
-        'name',
+        'product_id',
+        'order_id',
         'quantity',
-        'price'
+        'price',
+        'amount',
+        'created_at',
+        'updated_at'
     ];
 
-    public function Order(){
-        return $this->belongsTo('App\Models\Order');
+    public function order(){
+        return $this->belongsTo('App\Models\Order','order_id','order_id');
     }
-    public function Product(){
-        return $this->HasMany('App\Models\Product');
+    public function product(){
+        return $this->belongsTo('App\Models\Product','user_id','id');
     }
 }

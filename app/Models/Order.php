@@ -6,25 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $primaryKey = 'id';
+    protected $table = 'tpl_order';
+
+    protected $primaryKey = 'order_id';
     
     protected $connection = 'mysql';
     
-    protected $perPage = 10;
-    
     protected $fillable = [
-        'name',
-        'email',
-        'fullname',
-        'address',
-        'tel',
-        'gender',
-        'properties',
+        'user_id',
         'status',
-        'note'
+        'note',
+        'created_at',
+        'updated_at'
     ];
 
-    public function OrderDetail(){
-        return $this->belongsTo('App\Models\OrderDetail');
+    public function orderDetail(){
+        return $this->HasMany('App\Models\OrderDetail','order_id','order_id');
     }
 }

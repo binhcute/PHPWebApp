@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
-use Session;
-// session_start();
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
+
 
 class ArticleController extends Controller
 {
@@ -17,8 +19,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $article = Article::paginate(10);
-        return view('pages.server.articlelist')->with('article', $article);
+        $article = Article::all();
+        return view('pages.server.article.list')
+            ->with('article', $article);
     }
 
     /**
@@ -28,7 +31,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('pages.server.articleadd');
+        return view('pages.server.article.add');
     }
 
     /**
@@ -39,26 +42,28 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new article();
-        $article->id_user = Auth::user()->id;
-        $article->name = $request->name;
-        $article->detail = $request->detail;
-        $article->keyword = $request->keyword;
-        $files = $request->file('img');
         $request->validate([
             'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => ['required','max:255'],
-            'detail' =>['required','min:20']
+            'description' =>['required','min:20']
        ]);
+
+        $article = new Article();
+        $article->user_id = Auth::user()->id;
+        $article->article_name = $request->name;
+        $article->article_description = $request->description;
+        $article->article_keyword = $request->keyword;
+        $files = $request->file('img');
+        
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/article'); // upload path
+           $destinationPath = public_path('/server/assets/image/article'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$article->img="$profileImage";
+		$article->article_img="$profileImage";
         $article->status = $request->status;
         $article->save();
         Session::put('message', 'Thêm Bài Viết Thành Công');
@@ -73,12 +78,11 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = article::find($id);
-        $user = Article::find($id)->User->name;
-        return view('pages.server.articleshow')
-        ->with('article', $article)
-        ->with('user', $user);
-
+        $article = DB::table('tpl_article')
+            ->join('users', 'users.id', '=', 'tpl_article.user_id')
+            ->where('article_id', $id)->first();
+        return view('pages.server.article.show')
+            ->with('article', $article);
     }
 
     /**
@@ -90,7 +94,8 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = article::find($id);
-        return view('pages.server.articleedit')->with('article', $article);
+        return view('pages.server.article.edit')
+        ->with('article', $article);
     }
 
     /**
@@ -103,21 +108,21 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $article = Article::find($id);
-        $article->id_user = Auth::user()->id;
-        $article->name = $request->name;
-        $article->detail = $request->detail;
-        $article->keyword = $request->keyword;
+        $article->user_id = Auth::user()->id;
+        $article->article_name = $request->name;
+        $article->article_description = $request->description;
+        $article->article_keyword = $request->keyword;
         $files = $request->file('img');
         if ($files != NULL) {
        // Define upload path
-           $destinationPath = public_path('/server/assets/images/article'); // upload path
+           $destinationPath = public_path('/server/assets/image/article'); // upload path
         // Upload Orginal Image           
            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
            $files->move($destinationPath, $profileImage);
  
            $insert['img'] = "$profileImage";
         // Save In Database
-		$article->img="$profileImage";
+		$article->article_img="$profileImage";
         }
         $article->save();
         Session::put('message', 'Cập Nhật Bài ViếtThành Công');
@@ -134,11 +139,11 @@ class ArticleController extends Controller
     {
         $article = article::find($id);
         $article->delete();
-        Session::put('detroy', 'Đã Xóa Bài Viết');
+        Session::put('destroy', 'Đã Xóa Bài Viết');
         return redirect()->route('BaiViet.index');
     }
 
-    public function disabled(Request $request, $id)
+    public function disabled($id)
     {
         $article = article::find($id);
         $article->status = 0;
@@ -146,7 +151,7 @@ class ArticleController extends Controller
         Session::put('info', 'Đã Ẩn Bài Viết');
         return redirect()->route('BaiViet.index');
     }
-    public function enabled(Request $request, $id)
+    public function enabled($id)
     {
         $article = article::find($id);
         $article->status = 1 ;

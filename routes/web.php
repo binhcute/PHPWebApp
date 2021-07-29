@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group(['middleware' => 'levellogin'],function(){
     //Server
     Route::resource('/admin','ServerController');
@@ -19,36 +20,42 @@ Route::group(['middleware' => 'levellogin'],function(){
     Route::put('/SanPham/disabled/{SanPham}','ProductController@disabled');
     Route::put('/SanPham/enabled/{SanPham}','ProductController@enabled');
     //Cate
-    Route::resource('/LoaiSanPham','ProductCategoriesController');
-    Route::get('/XoaLoaiSanPham/{LoaiSanPham}','ProductCategoriesController@destroy');
-    Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','ProductCategoriesController@disabled');
-    Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','ProductCategoriesController@enabled');
+    Route::resource('/LoaiSanPham','CategoryController');
+    Route::get('/XoaLoaiSanPham/{LoaiSanPham}','CategoryController@destroy');
+    Route::put('/LoaiSanPham/disabled/{LoaiSanPham}','CategoryController@disabled');
+    Route::put('/LoaiSanPham/enabled/{LoaiSanPham}','CategoryController@enabled');
     //Article
     Route::resource('/BaiViet','ArticleController');
     Route::get('/XoaBaiViet/{LoaiBaiViet}','ArticleController@destroy');
     Route::put('/BaiViet/disabled/{BaiViet}','ArticleController@disabled');
     Route::put('/BaiViet/enabled/{BaiViet}','ArticleController@enabled');
     //Order
-    // Route::resource('/DonHang','OrderController');
-    Route::put('/DonHang/disabled/{DonHang}','OrderController@disabled');
-    Route::put('/DonHang/enabled/{DonHang}','OrderController@enabled');
+    Route::resource('/HoaDon','OrderController');
+    Route::put('/HoaDon/danggiao/{HoaDon}','OrderController@update_status_0');
+    Route::put('/HoaDon/xuly/{HoaDon}','OrderController@update_status_1');
+    Route::put('/HoaDon/thanhcong/{HoaDon}','OrderController@update_status_2');
+    Route::put('/HoaDon/huy/{HoaDon}','OrderController@update_status_3');
     //OrderDetail
-    Route::resource('/ChiTietDonHang','OrderDetailController');
-    Route::put('/ChiTietDonHang/disabled/{ChiTietDonHang}','OrderDetailController@disabled');
-    Route::put('/ChiTietDonHang/enabled/{ChiTietDonHang}','OrderDetailController@enabled');
+    Route::resource('/ChiTietHoaDon','OrderDetailController');
+    Route::put('/ChiTietHoaDon/disabled/{ChiTietHoaDon}','OrderDetailController@disabled');
+    Route::put('/ChiTietHoaDon/enabled/{ChiTietHoaDon}','OrderDetailController@enabled');
     //Portfolio
     Route::resource('/NhaCungCap','PortfolioController');
     Route::get('/XoaNhaCungCap/{NhaCungCap}','PortfolioController@destroy');
     Route::put('/NhaCungCap/disabled/{NhaCungCap}','PortfolioController@disabled');
     Route::put('/NhaCungCap/enabled/{NhaCungCap}','PortfolioController@enabled');
     //CMT
-    Route::resource('/BinhLuan','CommentController');
+    Route::resource('/BinhLuan','CommentController')->except('store');
     Route::put('/BinhLuan/disabled/{BinhLuan}','CommentController@disabled');
     Route::put('/BinhLuan/enabled/{BinhLuan}','CommentController@enabled');
-    //Favorite
-    Route::resource('/YeuThich','FavoriteController');
-    Route::put('/YeuThich/disabled/{YeuThich}','FavoriteController@disabled');
-    Route::put('/YeuThich/enabled/{YeuThich}','FavoriteController@enabled');
+    // //Favorite
+    // Route::resource('/YeuThich','FavoriteController');
+    // Route::put('/YeuThich/disabled/{YeuThich}','FavoriteController@disabled');
+    // Route::put('/YeuThich/enabled/{YeuThich}','FavoriteController@enabled');
+    //Account
+    Route::resource('/TaiKhoan','AccountController');
+    Route::put('/TaiKhoan/disabled/{TaiKhoan}','AccountController@disabled');
+    Route::put('/TaiKhoan/enabled/{TaiKhoan}','AccountController@enabled');
 
     //Slider
     
@@ -58,10 +65,13 @@ Route::group(['middleware' => 'levellogin'],function(){
     // Route::put('/Slider/enabled/{Slider}','SliderController@enabled');
     //Menu
     //Event
-    //Logo
-    Route::resource('/Logo','LogoController');
-    Route::put('/Logo/disabled/{Logo}','LogoController@disabled');
-    Route::put('/Logo/enabled/{Logo}','LogoController@enabled');
+    // //Logo
+    // Route::resource('/Logo','LogoController');
+    // Route::put('/Logo/disabled/{Logo}','LogoController@disabled');
+    // Route::put('/Logo/enabled/{Logo}','LogoController@enabled');
+
+    //API
+    Route::get('/QuanLyAPI','ServerController@api');
 });
 
 Auth::routes();
@@ -69,7 +79,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('LoginCheck','CheckLoginController@check');
 
-Route::resource('/DonHang','OrderController');
+Route::resource('/CheckOut','CheckOutController');
+Route::resource('/BinhLuan','CommentController')->only('store');
 //Client
 Route::resource('/','ClientController');
 
@@ -95,3 +106,8 @@ Route::get('/product/{product}','ClientController@product_detail');
 //Article
 Route::get('/article/{article_detail}','ClientController@article_detail');
 Route::get('/article','ClientController@article');
+
+
+//Cart
+Route::resource('/cart','CartController');
+Route::get('/delete-cart{rowId}','CartController@destroy');

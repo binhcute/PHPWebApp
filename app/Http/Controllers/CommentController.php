@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
-use App\Models\Product;
-use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CommentController extends Controller
 {
@@ -17,10 +17,11 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comment = Comment::paginate(10);
-        $product = Product::all();
-        $article = Article::all();
-        return view('pages.server.commentlist')->with('comment', $comment)->with('article', $article)->with('product', $product);
+        $cmt = DB::table('tpl_comment')
+            ->select('tpl_comment.*', 'users.firstName', 'users.lastName')
+            ->join('users', 'users.id', '=', 'tpl_comment.user_id')->get();
+        return view('pages.server.comment.list')
+            ->with('cmt', $cmt);
     }
 
     /**
@@ -30,9 +31,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        $product = Product::all();
-        $article = Article::all();
-        return view('pages.server.commentadd')->with('article', $article)->with('product', $product);
+        //
     }
 
     /**
@@ -44,17 +43,33 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $comment = new Comment();
-        $comment->id_product = $request->id_product;
-        $comment->id_article = $request->id_article;
-        $comment->id_user = $request->id_user;
-        $comment->detail = $request->detail;
+        $comment->user_id =  Auth::user()->id;
+        $comment->product_id = $request->product_id;
+        $comment->article_id = $request->article_id;
+        $comment->rate = $request->rate;
         $comment->role = $request->role;
-        $comment->properties = NULL;
-        $comment->view = NULL;
+        $comment->comment_description = $request->comment_description;
+        $comment->status = 1;
         $comment->save();
-        return redirect()->route('BinhLuan.index');
+        return redirect()->back();
     }
 
+    public function disabled($id)
+    {
+        $comment = Comment::find($id);
+        $comment->status = 0;
+        $comment->save();
+        Session::put('info', 'Đã Ẩn Bình Luận');
+        return redirect()->back();
+    }
+    public function enabled($id)
+    {
+        $comment = Comment::find($id);
+        $comment->status = 1;
+        $comment->save();
+        Session::put('info', 'Đã Hiển Thị Bình Luận');
+        return redirect()->back();
+    }
     /**
      * Display the specified resource.
      *
@@ -63,10 +78,27 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::find($id);
-        $article = article::all();
-        $product = product::all();
-        return view('pages.server.commentshow')->with('comment', $comment)->with('article', $article)->with('product', $product);
+        $comment = DB::table('tpl_comment')
+            ->join('users', 'users.id', 'tpl_comment.user_id')
+            ->leftJoin('tpl_product', 'tpl_product.product_id', 'tpl_comment.product_id')
+            ->orwhere('tpl_comment.role',1)
+            ->where('tpl_comment.comment_id', $id)
+            ->leftJoin('tpl_article', 'tpl_article.article_id', 'tpl_comment.article_id')
+            ->orwhere('tpl_comment.role',0)
+            ->where('tpl_comment.comment_id', $id)
+            ->select(
+                'tpl_comment.*',
+                'users.firstName',
+                'users.lastName',
+                'users.username',
+                'tpl_product.product_id',
+                'tpl_product.product_name',
+                'tpl_article.article_id',
+                'tpl_article.article_name'
+            )
+            ->first();
+        return view('pages.server.comment.show')
+            ->with('comment', $comment);
     }
 
     /**
@@ -77,10 +109,7 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        $article = article::all();
-        $product = product::all();
-        $comment = comment::find($id);
-        return view('pages.server.commentedit')->with('comment', $comment)->with('article', $article)->with('product', $product);
+        //
     }
 
     /**
@@ -92,15 +121,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $comment = comment::find($id);
-        $comment->id_product = $request->id_product;
-        $comment->id_article = $request->id_article;
-        $comment->detail = $request->detail;
-        $comment->role = $request->role;
-        $comment->properties = NULL;
-        $comment->view = NULL;
-        $comment->save();
-        return redirect()->route('BinhLuan.index');
+        //
     }
 
     /**
@@ -111,23 +132,6 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = Comment::find($id);
-        $comment->delete();
-        return redirect()->route('BinhLuan.index');
-    }
-
-    public function disabled(Request $request, $id)
-    {
-        $comment = Comment::find($id);
-        $comment->status = 0;
-        $comment->save();
-        return redirect()->route('BinhLuan.index');
-    }
-    public function enabled(Request $request, $id)
-    {
-        $comment = Comment::find($id);
-        $comment->status = 1 ;
-        $comment->save();
-        return redirect()->route('BinhLuan.index');
+        //
     }
 }

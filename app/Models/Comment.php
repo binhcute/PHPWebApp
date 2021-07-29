@@ -6,24 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $primaryKey = 'id';
-    
-    protected $connection = 'mysql';
-    
-    protected $perPage = 10;
-    
+    protected $table = 'tpl_comment';
+
+    protected $primaryKey = 'comment_id';
+
     protected $fillable = [
-        'detail',
-        'status'
+        'user_id',
+        'product_id',
+        'article_id',
+        'rate',
+        'role',
+        'comment_description',
+        'status',
+        'created_at',
+        'updated_at'
     ];
 
-    public function Product(){
-        return $this->belongsTo('App\Models\Product');
+    public function product(){
+        return $this->belongsTo('App\Models\Product','product_id','product_id');
     }
-    public function User(){
-        return $this->belongsTo('App\User');
+    public function article(){
+        return $this->belongsTo('App\Models\Article','article_id','article_id');
     }
-    public function Article(){
-        return $this->belongsTo('App\Models\Article');
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id','id');
     }
 }
