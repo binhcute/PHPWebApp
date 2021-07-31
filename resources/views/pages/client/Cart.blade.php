@@ -25,10 +25,11 @@
 
     <!-- Shopping Cart Section Start -->
     <div class="section section-padding">
+        @if(count($cart))
+
         <div class="container">
             <form class="cart-form" method="post" name="formType" id="formType">
 
-                @if(count($cart))
                 <table class="cart-wishlist-table table">
                     <thead>
                         <tr>
@@ -49,7 +50,7 @@
                             <td class="price" name="price">{{number_format($item->price).' '.'VND'}}</td>
                             <td class="quantity">
                                 <div class="product-quantity">
-                                    <a class="qty-btn minus" href="{{url('cart?decrease')}}"><i class="ti-plus"></i></a>
+                                    <a class="qty-btn minus" href="{{url('cart?decrease')}}"><i class="ti-minus"></i></a>
                                     <input type="text" class="quantity-input text-center" name="quantity" value="{{$item->qty}}">
                                     <a class="qty-btn plus" href="{{url('cart?increment')}}"><i class="ti-plus"></i></a>
                                 </div>
@@ -58,31 +59,10 @@
                             <td class="subtotal"><span>{{number_format($item->subtotal).' '.'VND'}}</span></td>
                             </td>
                             <td><a class="btn btn-light" onclick="removeProduct('${danhsach[i].id}')"><i class="fas fa-trash-alt"></i></a></td>
-
+                            @endforeach
                         </tr>
-                        @endforeach
-                        @else
-                        <p>You have no items in the shopping cart</p>
-                        @endif
-
                     </tbody>
                 </table>
-                <div class="cart-totals mt-5">
-                    <h2 class="title">Phiếu Hóa Đơn</h2>
-                    <hr>
-                    <table>
-                        <tbody>
-                            <tr class="subtotal">
-                                <th>Tổng Số Lượng: </th>
-                                <td><span>{{Cart::count()}} Sản Phẩm</span></td>
-                            </tr>
-                            <tr class="total">
-                                <th>Thành Tiền:</th>
-                                <td><strong><span class="amount"></span>{{Cart::total()}} VNĐ</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <div class="row justify-content-between mb-n3">
                     <div class="col-auto mb-3">
                     </div>
@@ -90,6 +70,83 @@
                         <a data-toggle="modal" data-target="#myModal" class="btn btn-light btn-hover-dark mr-3 mb-3" href="#">Đặt Hàng Ngay</a>
                     </div>
                 </div>
+                <br>
+                <div class="row learts-mb-n30">
+                    <div class="col-lg-6 order-lg-2 learts-mb-30">
+                        <div class="order-review">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="name">Sản Phẩm</th>
+                                        <th class="total">Thành Tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($cart as $item)   
+                                    <tr>
+                                        <td class="name">{{$item->name}}&nbsp; <strong class="quantity">×&nbsp;{{$item->qty}}</strong></td>
+                                        <td class="total"><span>{{number_format($item->subtotal).' '.'VND'}}</span></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr class="total">
+                                        <th>Tổng Cộng</th>
+                                        <td><strong><span>{{Cart::total()}} VNĐ</span></strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1 learts-mb-30">
+                        <div class="order-payment">
+                            <div class="payment-method">
+                                <div class="accordion" id="paymentMethod">
+                                    <div class="card active">
+                                        <div class="card-header">
+                                            <button data-toggle="collapse" type="button" data-target="#checkPayments">Thanh Toán Khi Nhận Hàng</button>
+                                        </div>
+                                        <div id="checkPayments" class="collapse show" data-parent="#paymentMethod">
+                                            <div class="card-body">
+                                                <p>Shipper sẽ giao tới</p>
+                                                <input type="text" name="address" value="{{ Auth::user()->address }}">
+                                            </div>  
+                                            <div class="card-body">
+                                                <p>Số Điện Thoại Nhận Hàng</p>
+                                                <input type="text" name="phone" value="{{ Auth::user()->phone }}">
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                    <div class="card-header">
+                                        <button data-toggle="collapse" type="button" data-target="#cashkPayments">Chuyển Khoản </button>
+                                    </div>
+                                    <div id="cashkPayments" class="collapse" data-parent="#paymentMethod">
+                                        <div class="card-body">
+                                            <p>Pay with cash upon delivery.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <button data-toggle="collapse" type="button" data-target="#payPalPayments">Thẻ Ghi Nợ <img src="{{asset('client/images/others/pay-2.png')}}" alt=""></button>
+                                    </div>
+                                    <div id="payPalPayments" class="collapse" data-parent="#paymentMethod">
+                                        <div class="card-body">
+                                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <p class="payment-note">Miễn phí vận chuyển</p>
+                                <button class="btn btn-dark btn-outline-hover-dark">place order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </form>
         </div>
@@ -116,7 +173,7 @@
                                 <label for="myName">Họ và tên</label>
                                 <input type="name" class="form-control" name="lastName" placeholder="Tên" required value="{{ Auth::user()->lastName }}">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="myEmail">Email</label>
                                 <input type="email" class="form-control" name="email" placeholder="Email" required value="{{ Auth::user()->email }}">
@@ -182,6 +239,10 @@
         </div>
         <!-- Shopping Cart Section End -->
 
+
+        @else
+        <p>You have no items in the shopping cart</p>
+        @endif
     </div>
 </form>
 <script>

@@ -2,26 +2,6 @@
 @section('content')
 @section('title','Bài Viết')
 
-<!-- Page Title/Header Start -->
-<div class="page-title-section section" data-bg-image="{{asset('client/images/bg/page-title-1.jpg')}}">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-
-                <div class="page-title">
-                    <h1 class="title">Bài Viết</h1>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('index')}}">Trang Chủ</a></li>
-                        <li class="breadcrumb-item active">Bài Viết</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Page Title/Header End -->
-
 <!-- Portfolio Section Start -->
 <div class="section section-padding">
     <div class="container">
@@ -29,9 +9,6 @@
 
             <div class="col-xl-9 col-lg-8 col-12 learts-mb-50">
                 <div class="single-blog">
-                    <div class="image">
-                        <a href="blog-details-right-sidebar.html"><img src="{{ URL::to('/') }}/server/assets/image/article/{{$article->article_img }}" alt="Blog Image"></a>
-                    </div>
                     <div class="content">
                         <h2 class="title">{{$article->article_name}}</h2>
                         <ul class="meta">
@@ -40,8 +17,14 @@
                             <li><i class="fal fa-comment"></i><a href="#">{{count($comment)}} Comments</a></li>
                             <li><i class="far fa-eye"></i> 201 views</li>
                         </ul>
+
                         <div class="desc">
-                            <p>{!!$article->article_description!!}</p>
+                            <h6>{!!$article->article_description!!}</h6>
+                            <br>
+                            <div class="image">
+                        <a href="blog-details-right-sidebar.html"><img src="{{ URL::to('/') }}/server/assets/image/article/{{$article->article_img }}" alt="Blog Image"></a>
+                    </div>
+                            <p>{!!$article->article_detail!!}</p>
                         </div>
                     </div>
                     <div class="blog-footer row no-gutters justify-content-between align-items-center">
@@ -142,7 +125,7 @@
                             <input type="hidden" name="article_id" value="{{ $article->article_id }}">
                             <input type="hidden" name="role" value="0">
                             <div class="col-12 learts-mb-20">
-                                <textarea name="comment_description" placeholder="Message"></textarea>
+                                <textarea id="ckeditor1" name="comment_description" placeholder="Message"></textarea>
                             </div>
                             <div class="col-12 text-center learts-mb-20 learts-mt-20">
                                 <button type="submit" class="btn btn-dark btn-outline-hover-primary">Đăng</button>

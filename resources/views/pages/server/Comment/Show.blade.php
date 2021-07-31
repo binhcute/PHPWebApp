@@ -107,7 +107,7 @@
             <hr>
             <b>Nội dung chi tiết</b>
             <br>
-            <p>{{ $comment->comment_description}}</p>
+            <p>{!! $comment->comment_description !!}</p>
         </div>
     </div>
 </div>

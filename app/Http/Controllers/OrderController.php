@@ -33,7 +33,19 @@ class OrderController extends Controller
             )
             ->join('users', 'users.id', '=', 'tpl_order.user_id')
             ->get();
-        return view('pages.server.order.list')->with('order', $order);
+        $order_detail = DB::table('tpl_order_dt')
+            ->join('tpl_order', 'tpl_order.order_id', '=', 'tpl_order_dt.order_id')
+            ->join('tpl_product', 'tpl_product.product_id', '=', 'tpl_order_dt.product_id')
+            ->select(
+                'tpl_product.product_img',
+                'tpl_product.product_name',
+                'tpl_order.*',
+                'tpl_order_dt.*'
+            )
+            ->get();
+        return view('pages.server.order.list')
+            ->with('order', $order)
+            ->with('order_detail', $order_detail);
     }
 
     /**

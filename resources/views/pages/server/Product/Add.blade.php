@@ -104,7 +104,7 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Chi Tiết</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="description"></textarea>
+              <textarea class="form-control" id="ckeditor1" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="description"></textarea>
             </div>
           </div>
         <div class="mb-3 row">

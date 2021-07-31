@@ -11,6 +11,8 @@ class OrderDetail extends Model
     protected $primaryKey = 'order_dt_id';
     
     protected $connection = 'mysql';
+    
+    public $timestamps = false;
 
     protected $fillable = [
         'product_id',

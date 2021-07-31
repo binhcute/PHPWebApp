@@ -69,9 +69,13 @@
         </table>
       </div>
       <hr>
-      <b>Nội dung chi tiết</b>
+      <b>Mô tả</b>
       <br>
       <p>{{ $article->article_description}}</p>
+      <hr>
+      <b>Nội dung chi tiết</b>
+      <br>
+      <p>{!! $article->article_detail !!}</p>
       <hr>
       <div class="row">
         <div class="col-md-6">

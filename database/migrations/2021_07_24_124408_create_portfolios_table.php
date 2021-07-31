@@ -16,7 +16,7 @@ class CreatePortfoliosTable extends Migration
         Schema::create('tpl_portfolio', function (Blueprint $table) {
             $table->Increments('port_id');
             $table->integer('user_id');
-            $table->string('port_name');
+            $table->string('port_name',100);
             $table->string('port_origin')->nullable();
             $table->string('port_avatar')->nullable();
             $table->string('port_img')->nullable();

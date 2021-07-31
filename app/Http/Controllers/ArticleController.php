@@ -7,6 +7,7 @@ use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\Article\StoreArticleRequest;
 
 
 
@@ -40,18 +41,13 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $request->validate([
-            'img' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => ['required','max:255'],
-            'description' =>['required','min:20']
-       ]);
-
         $article = new Article();
         $article->user_id = Auth::user()->id;
         $article->article_name = $request->name;
         $article->article_description = $request->description;
+        $article->article_detail = $request->detail;
         $article->article_keyword = $request->keyword;
         $files = $request->file('img');
         
@@ -93,6 +89,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        
         $article = article::find($id);
         return view('pages.server.article.edit')
         ->with('article', $article);
@@ -111,6 +108,7 @@ class ArticleController extends Controller
         $article->user_id = Auth::user()->id;
         $article->article_name = $request->name;
         $article->article_description = $request->description;
+        $article->article_detail = $request->detail;
         $article->article_keyword = $request->keyword;
         $files = $request->file('img');
         if ($files != NULL) {

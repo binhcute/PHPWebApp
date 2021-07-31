@@ -345,7 +345,9 @@
                                 </div>
                                 <input type="hidden" name="product_id" value="{{ $product_detail->product_id }}">
                                 <input type="hidden" name="role" value="1">
-                                <div class="col-12 learts-mb-30"><textarea name="comment_description" placeholder="Bình luận của bạn *"></textarea></div>
+                                <div class="col-12 learts-mb-30">
+                                    <textarea name="comment_description" id="ckeditor1" placeholder="Bình luận của bạn *"></textarea>
+                                </div>
                                 <div class="col-12 text-center learts-mb-30"><button class="btn btn-dark btn-outline-hover-dark" type="submit">Gửi</button></div>
                             </div>
                         </form>

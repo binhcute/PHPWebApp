@@ -66,7 +66,7 @@
       <hr>
       <b>Nội dung chi tiết</b>
       <br>
-      <p>{{ $cate->cate_description}}</p>
+      <p>{!! $cate->cate_description !!}</p>
       <hr>
       <div class="row">
         <div class="col-md-6">
