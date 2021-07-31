@@ -702,6 +702,12 @@
 <script src="{{asset('client/js/plugins/scrollax.min.js')}}"></script> -->
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
+    <script src="{{URL::asset('ckeditor/ckeditor.js')}}"></script>
+    <script src="{{URL::asset('ckeditor/ckfinder/ckfinder.js')}}"></script>
+    <script type="text/javascript">
+      CKEDITOR.replace('ckeditor');
+      CKEDITOR.replace('ckeditor1')
+    </script>
     <script src="{{asset('client/js/vendor/vendor.min.js')}}"></script>
     <script src="{{asset('client/js/plugins/plugins.min.js')}}"></script>
 

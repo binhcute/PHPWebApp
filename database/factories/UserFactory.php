@@ -21,7 +21,7 @@ $factory->define(User::class, function (Faker $faker) {
         'firstName' => $faker->firstName,
         'lastName' => $faker->lastName,
         'username' => $faker->username,
-        'phone' => $faker->regexify('09[0-9]{9}'),
+        'phone' => $faker->regexify('0[1-9]{9}'),
         'address' => $faker->address,
         'gender' => 1,
         'avatar' => '20210727174952.jpg',

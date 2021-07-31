@@ -12,6 +12,7 @@ $factory->define(Article::class, function (Faker $faker) {
         'article_keyword' => $faker->word,
         'article_img' => 'blog.jpg',
         'article_description' => $faker->text($maxNbChars = 255),
+        'article_detail' => $faker->text($maxNbChars = 1000),
         'status' => 1,
     ];
 });

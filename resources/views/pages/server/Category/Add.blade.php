@@ -58,7 +58,7 @@
           <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Mô Tả</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung mô tả..." name="description"></textarea>
+              <textarea class="form-control" id="ckeditor1" rows="5" cols="5" placeholder="Nội dung mô tả..." name="description"></textarea>
             </div>
           </div>
 

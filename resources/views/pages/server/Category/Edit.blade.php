@@ -47,7 +47,7 @@
             <div class="mb-3 row">
               <label class="col-sm-3 col-form-label pt-0">Người Nhập Hiện Tại</label>
               <div class="col-sm-9">
-                <div class="form-control-static">{{ Auth::user()->firstName }} {{ Auth::user()->last+Name }}</div>
+                <div class="form-control-static">{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</div>
               </div>
             </div>
             <div class="mb-3 row">
@@ -59,11 +59,7 @@
             <div class="mb-3 row">
               <label class="col-sm-3 col-form-label">Mô Tả</label>
               <div class="col-sm-9">
-                <!-- <textarea id="ckeditor"></textarea>
-              <script>
-                var editor = CKEDITOR.replace('ckeditor');
-              </script> -->
-                <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="description">{{$cate->cate_description}}</textarea>
+                <textarea class="form-control" id="ckeditor1" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="description">{{$cate->cate_description}}</textarea>
               </div>
             </div>
             <div class="mb-3 row">

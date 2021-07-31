@@ -186,6 +186,10 @@
     <script src="{{URL::asset('server/assets/js/jquery-3.5.1.min.js')}}"></script>
     <script src="{{URL::asset('ckeditor/ckeditor.js')}}"></script>
     <script src="{{URL::asset('ckeditor/ckfinder/ckfinder.js')}}"></script>
+    <script type="text/javascript">
+      CKEDITOR.replace('ckeditor');
+      CKEDITOR.replace('ckeditor1')
+    </script>
     <!-- Bootstrap js-->
     <script src="{{URL::asset('server/assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
     <!-- feather icon js-->

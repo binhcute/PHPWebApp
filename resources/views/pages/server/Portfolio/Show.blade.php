@@ -70,7 +70,7 @@
       <hr>
       <b>Nội dung chi tiết</b>
       <br>
-      <p>{{ $port->port_description}}</p>
+      <p>{!! $port->port_description !!}</p>
       <hr>
       <div class="row">
         <div class="col-md-6">

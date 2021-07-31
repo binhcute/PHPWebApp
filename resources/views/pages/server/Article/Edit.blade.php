@@ -47,7 +47,7 @@
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label pt-0">Người Nhập Hiện Tại</label>
             <div class="col-sm-9">
-              <div class="form-control-static">{{ Auth::user()->firstName }} {{ Auth::user()->last+Name }}</div>
+              <div class="form-control-static">{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</div>
             </div>
           </div>
           <div class="mb-3 row">
@@ -57,15 +57,21 @@
             </div>
           </div>
           <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Mô Tả</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" placeholder="Mô tả ngắn 255 từ" name="description" value="{{$article->article_description}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Từ Khóa</label>
             <div class="col-sm-9">
-              <input class="form-control" type="text" placeholder="Tối đa 10 ký tự" maxlength="10" name="keyword" value="{{$article->article_keyword}}">
+              <input class="form-control" type="text" placeholder="Tối đa 50 ký tự" maxlength="50" name="keyword" value="{{$article->article_keyword}}">
             </div>
           </div>
           <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">Chi Tiết</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="description">{{$article->article_description}}</textarea>
+              <textarea class="form-control" id="ckeditor1" rows="5" cols="5" placeholder="Nội dung chi tiết..." name="detail">{{$article->article_detail}}</textarea>
             </div>
           </div>
         <div class="mb-3 row">

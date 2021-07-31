@@ -16,10 +16,11 @@ class CreateArticlesTable extends Migration
         Schema::create('tpl_article', function (Blueprint $table) {
             $table->Increments('article_id');
             $table->integer('user_id');
-            $table->string('article_name');
+            $table->string('article_name',100);
             $table->string('article_img');
-            $table->text('article_description');
-            $table->string('article_keyword')->nullable();
+            $table->string('article_description');
+            $table->text('article_detail');
+            $table->string('article_keyword',50)->nullable();
             $table->timestamps();
             $table->integer('status');
             $table->integer('view')->nullable();

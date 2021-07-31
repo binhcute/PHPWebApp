@@ -67,6 +67,8 @@ class CheckOutController extends Controller
             $order = new Order;
             $order->user_id = Auth::user()->id;
             $order->note = Request::get('note');
+            $order->address = Request::get('address');
+            $order->phone = Request::get('phone');
             $order->status = 1;
             $order->save();
 

@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('tpl_category', function (Blueprint $table) {
             $table->Increments('cate_id');
             $table->integer('user_id');
-            $table->string('cate_name');
+            $table->string('cate_name',100);
             $table->string('cate_img')->nullable();
             $table->text('cate_description')->nullable();
             $table->timestamps();

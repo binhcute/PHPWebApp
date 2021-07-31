@@ -90,7 +90,7 @@
       <hr>
       <b>Nội dung chi tiết</b>
       <br>
-      <p>{{ $product->product_description }}</p>
+      <p>{!! $product->product_description !!}</p>
       <hr>
       <div class="row">
         <div class="col-md-6">

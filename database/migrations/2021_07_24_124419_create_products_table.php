@@ -18,14 +18,14 @@ class CreateProductsTable extends Migration
             $table->integer('cate_id');
             $table->integer('user_id');
             $table->integer('port_id');
-            $table->string('product_name');
+            $table->string('product_name',100);
             $table->string('product_img');
             $table->string('product_img_hover')->nullable();
             $table->integer('product_price');
-            $table->string('product_color')->nullable();
+            $table->string('product_color',100)->nullable();
             $table->text('product_description')->nullable();
             $table->integer('product_quantity')->nullable();
-            $table->string('product_keyword')->nullable();
+            $table->string('product_keyword',50)->nullable();
             $table->integer('status');
             $table->integer('view')->nullable();
             $table->timestamps();
